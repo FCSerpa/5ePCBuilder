@@ -51,11 +51,25 @@ angular.module('5ePcApp')
     	} else return 30;
     }
 
+    $scope.maxHP = function(classs, con, subrace){
+    	var hitDie;
+    	var raceMod;
+    	if (classs === "Fighter"){
+    		hitDie = 10;
+    	}else if (classs === "Wizard"){
+    		hitDie = 6;
+    	} else hitDie = 8;
+    	if (subrace === "Hill Dwarf"){
+    		raceMod = 1;
+    	}else raceMod = 0;
+    	return hitDie + raceMod + con;
+    }
+
 	$scope.character = {
 
 		name: '',
-		characterClass: [{name: String, specialization: String, options: [String]}],
-		race: {race: '', subrace: String, options: [String]},
+		characterClass: [{name: '', specialization: String, options: [String]}],
+		race: {race: '', subrace: '', options: [String]},
 		background: {name: String, trait: String, ideal: String, bond: String, flaw: String},
 		alignment: String,
 		xp: Number,

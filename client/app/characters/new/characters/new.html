@@ -10,8 +10,11 @@
 		<div class="col-md-3 sheetBox smallBox">
 			<div class="row">
 				<div class="col-md-12 sheetBox">
-					<select name="characterClass select" ng-model="character.characterClass">
-						<option value="fighter">Fighter</option>
+					<select name="characterClass select" ng-model="character.characterClass.name">
+						<option value="Cleric">Cleric</option>
+						<option value="Fighter">Fighter</option>
+						<option value="Rogue">Rogue</option>
+						<option value="Wizard">Wizard</option>
 					</select>
 					<select name="level select" ng-model="character.level">
 						<option value="1">1</option>
@@ -179,7 +182,7 @@
 					<p>Speed</p>
 				</div>
 				<div class="col-md-12 sheetBox smallBox">
-					<!-- <h2 ng-if"{{character.characterClass === "fighter"}}">{{10 + Math.floor((character.abilities.con - 10)/2) }}</h2> -->
+					<h2>{{ maxHP(character.characterClass.name, abilityBonus(character.abilities.con), character.race.subrace)}}</h2>
 					<p>Hit Point Maximum</p>
 					<h2>&nbsp;</h2>
 					<p>Current Hit Points</p>
