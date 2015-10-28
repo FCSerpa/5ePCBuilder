@@ -65,16 +65,24 @@ angular.module('5ePcApp')
     	return hitDie + raceMod + con;
     }
 
+    $scope.hitDie = function(classs){
+    	if (classs === "Fighter"){
+    		return "1d10";
+    	} else if (classs === "Wizard"){
+    		return "1d6";
+    	} else return "1d8";
+    }
+
 	$scope.character = {
 
 		name: '',
 		characterClass: [{name: '', specialization: String, options: [String]}],
 		race: {race: '', subrace: '', options: [String]},
-		background: {name: String, trait: String, ideal: String, bond: String, flaw: String},
-		alignment: String,
-		xp: Number,
+		background: {name: '', trait: '', ideal: '', bond: '', flaw: ''},
+		alignment: '',
+		xp: 0,
 		abilities: {str: 8, dex: 8, con: 8, intel: 8, wis: 8, cha: 8},
-		gold: Number,
+		gold: 0,
 		equipment: {armor: [{name: String, bonus: Number, type: Number}], 
 					weapon: [{name: String, damageType: String, damageDie: Number, type: Number, keywords: [String], range: Number}],
 					miscelaneous: [String]},

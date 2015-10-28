@@ -42,7 +42,15 @@
 				</div>
 				<div class="col-md-12 sheetBox">
 					<select name="alignment select" ng-model="character.alignment">
-						<option value="lawfulGood">Lawful Good</option>
+						<option value="Lawful Good">Lawful Good</option>
+						<option value="Neutral Good">Neutral Good</option>
+						<option value="Chaotic Good">Chaotic Good</option>
+						<option value="Lawful Neutral">Lawful Neutral</option>
+						<option value="True Neutral">True Neutral</option>
+						<option value="Chaotic Neutral">Chaotic Neutral</option>
+						<option value="Lawful Evil">Lawful Evil</option>
+						<option value="Neutral Evil">Neutral Evil</option>
+						<option value="Chaotic Evil">Chaotic Evil</option>
 					<select>
 					<p>Alignment</p>
 				</div>
@@ -192,7 +200,7 @@
 					<p>Temporary Hit Points</p>
 				</div>
 				<div class="col-md-6 sheetBox smallBox">
-					<h2>1d10</h2>
+					<h2>{{ hitDie(character.characterClass.name) }}</h2>
 					<p>Hit Dice</p>
 				</div>
 				<div class="col-md-6 sheetBox smallBox">
