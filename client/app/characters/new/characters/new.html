@@ -1,6 +1,277 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 
-<div class="col-md-12">
-This is the characters/new view.
+<div class="container-fluid" id="sheet1" ng-controller='CharactersNewCtrl'>
+	<div class="row">
+		<div class="col-md-3 sheetBox smallBox">
+			<input type="text" name="characterName" ng-model="character.name" class="nameInput"/>
+			<p>Character Name</p>
+		</div>
+		<div class="col-md-3 sheetBox smallBox">
+			<div class="row">
+				<div class="col-md-12 sheetBox">
+					<select name="characterClass select" ng-model="character.characterClass">
+						<option value="fighter">Fighter</option>
+					</select>
+					<select name="level select" ng-model="character.level">
+						<option value="1">1</option>
+					</select>
+					<p>Class &amp; Level</p>
+				</div>
+				<div class="col-md-12 sheetBox">
+					<select name="race select" ng-model="character.race">
+						<option value="mountainDwarf">Mountain Dwarf</option>
+					</select>
+					<p>Race</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3 sheetBox smallBox">
+			<div class="row">
+				<div class="col-md-12 sheetBox">
+					<select name="background select" ng-model="character.background">
+						<option value="soldier">Soldier</option>
+					</select>
+					<p>Background</p>
+				</div>
+				<div class="col-md-12 sheetBox">
+					<select name="alignment select" ng-model="character.alignment">
+						<option value="lawfulGood">Lawful Good</option>
+					<select>
+					<p>Alignment</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3 sheetBox smallBox">
+			<div class="row">
+				<div class="col-md-12 sheetBox">
+					{{ getCurrentUser().name }}
+					<p>Player Name</p>
+				</div>
+				<div class="col-md-12 sheetBox">
+					{{character.xp}}
+					<p>Experience Points</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<div class="row">
+				<div class="col-md-12 sheetBox">
+					<h2>{{if (character.level === 1) +2 }}</h2>
+					<p>Proficiency Bonus:</p>
+				</div>
+				<div class="col-md-12 sheetBox">
+					<p>Inspiration:</p>
+				</div>
+				<div class="col-md-4 sheetBox">
+					<input type="number" name="character str" ng-model="character.str" placeholder="{{character.str}}" class="abilityInput"/>
+					<p>Strength</p>
+					<h3>{{ Math.floor((character.str - 10)/2) }}</h3>
+					<p>Strength Bonus</p>
+				</div>
+				<div class="col-md-8 sheetBox">
+					<p>Saving Throws</p>
+					<p>Athletics</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 sheetBox">
+					<input type="number" name="character dex" ng-model="character.dex" placeholder="{{character.dex}}" class="abilityInput"/>
+					<p>Dexterity</p>
+					<h3>{{ Math.floor((character.dex - 10)/2) }}</h3>
+					<p>Dexterity Bonus</p>
+				</div>
+				<div class="col-md-8 sheetBox">
+					<p>Saving Throws</p>
+					<p>Acrobatics</p>
+					<p>Sleight of Hand</p>
+					<p>Stealth</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 sheetBox">
+					<input type="number" name="character con" ng-model="character.con" placeholder="{{character.con}}" class="abilityInput"/>
+					<p>Constitution</p>
+					<h3>{{ Math.floor((character.con - 10)/2) }}</h3>
+					<p>Constitution Bonus</p>
+				</div>
+				<div class="col-md-8 sheetBox">
+					<p>Saving Throws</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 sheetBox">
+					<input type="number" name="character intel" ng-model="character.intel" placeholder="{{character.intel}}" class="abilityInput"/>
+					<p>Inteligence</p>
+					<h3>{{ Math.floor((character.intel - 10)/2) }}</h3>
+					<p>Inteligence Bonus</p>
+				</div>
+				<div class="col-md-8 sheetBox">
+					<p>Saving Throws</p>
+					<p>Arcana</p>
+					<p>History</p>
+					<p>Investigation</p>
+					<p>Nature</p>
+					<p>Religion</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 sheetBox">
+					<input type="number" name="character wis" ng-model="character.wis" placeholder="{{character.wis}}" class="abilityInput"/>
+					<p>Wisdom</p>
+					<h3>{{ Math.floor((character.wis - 10)/2) }}</h3>
+					<p>Wisdom Bonus</p>
+					</div>
+				<div class="col-md-8 sheetBox">
+					<p>Saving Throws</p>
+					<p>Animal Handling</p>
+					<p>Insight</p>
+					<p>Medicine</p>
+					<p>Perception</p>
+					<p>Survival</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 sheetBox">
+					<input type="number" name="character cha" ng-model="character.cha" placeholder="{{character.cha}}" class="abilityInput"/>
+					<p>Charisma</p>
+					<h3>{{ Math.floor((character.cha - 10)/2) }}</h3>
+					<p>Charisma Bonus</p>
+				</div>
+				<div class="col-md-8 sheetBox">
+					<p>Saving Throws</p>
+					<p>Animal Handling</p>
+					<p>Insight</p>
+					<p>Medicine</p>
+					<p>Perception</p>
+					<p>&nbsp;</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<div class="row">
+				<div class="col-md-4 sheetBox smallBox">
+					<h2>{{ 10 + Math.floor((character.dex - 10)/2) }}</h2>
+					<p>Armor Class</p>
+				</div>
+				<div class="col-md-4 sheetBox smallBox">
+					<h2>{{ + Math.floor((character.dex - 10)/2) }}</h2>
+					<p>Initiative</p>
+				</div>
+				<div class="col-md-4 sheetBox smallBox">
+					<h2>{{character.race === "mountainDwarf" ? 25 : 30}}</h2>
+					<p>Speed</p>
+				</div>
+				<div class="col-md-12 sheetBox smallBox">
+					<!-- <h2 ng-if"{{character.characterClass === "fighter"}}">{{10 + Math.floor((character.con - 10)/2) }}</h2> -->
+					<p>Hit Point Maximum</p>
+					<h2>&nbsp;</h2>
+					<p>Current Hit Points</p>
+				</div>
+				<div class="col-md-12 sheetBox smallBox">
+					<h2>&nbsp;</h2>
+					<p>Temporary Hit Points</p>
+				</div>
+				<div class="col-md-6 sheetBox smallBox">
+					<h2>1d10</h2>
+					<p>Hit Dice</p>
+				</div>
+				<div class="col-md-6 sheetBox smallBox">
+					<p>○ ○ ○ Successes</p>
+					<p>○ ○ ○ Failures</p>
+					<p>Death Saves</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<div class="row">
+				<div class="col-md-12 sheetBox smallBox">
+					<select name="trait select" ng-model="character.trait">
+						<option value="I face problems head-on. A simple, direct solution is the best path to success.">Direct</option>
+					</select>
+					<br>
+					<p>{{character.trait}}</p>
+					<p>Personality Trait</p>
+				</div>
+				<div class="col-md-12 sheetBox smallBox">
+					<select name="ideal select" ng-model="character.ideal">
+						<option value="Greater Good. Our lot is to lay down our lives in defense of others.">Greater Good</option>
+					</select>
+					<br>
+					<p>{{character.ideal}}
+					<p>Ideal</p>
+				</div>
+				<div class="col-md-12 sheetBox smallBox">
+					<select name="bond select" ng-model="character.bond">
+						<option value="I fight for those who cannot fight for themselves.">Defender</option>
+					</select>
+					<br>
+					<p>{{character.bond}}</p>
+					<p>Bond</p>
+				</div>
+				<div class="col-md-12 sheetBox smallBox">
+					<select name="flaw select" ng-model="character.flaw">
+						<option value="I’d rather eat my armor than admit when I’m wrong.">Proud</option>
+					</select>
+					<br>
+					<p>{{character.flaw}}</p>
+					<p>Flaw</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<div class="row">
+				<div class="col-md-4 sheetBox">
+					<p>Name</p>
+				</div>
+				<div class="col-md-4 sheetBox">
+					<p>ATK Bonus</p>
+				</div>
+				<div class="col-md-4 sheetBox">
+					<p>Damage/Type</p>
+				</div>
+				<div class="col-md-4 sheetBox">
+					<p>Name</p>
+				</div>
+				<div class="col-md-4 sheetBox">
+					<p>ATK Bonus</p>
+				</div>
+				<div class="col-md-4 sheetBox">
+					<p>Damage/Type</p>
+				</div>
+				<div class="col-md-4 sheetBox">
+					<p>Name</p>
+				</div>
+				<div class="col-md-4 sheetBox">
+					<p>ATK Bonus</p>
+				</div>
+				<div class="col-md-4 sheetBox">
+					<p>Damage/Type</p>
+				</div>
+				<div class="col-md-12 sheetBox">
+					<p>Attacks &amp; Spellcasting</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<p>Features &amp; Traits</p>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<p>Other Proficiencies &amp; Traits</p>
+		</div>
+		<div class="col-md-8 sheetBox">
+			<p>Equipment &amp; Character Notes</p>
+		</div>
+	</div>
 </div>
