@@ -58,16 +58,18 @@
 			<div class="row">
 				<div class="col-md-12 sheetBox">
 					<h2>{{if (character.level === 1) +2 }}</h2>
-					<p>Proficiency Bonus:</p>
+					<p>Proficiency Bonus</p>
 				</div>
 				<div class="col-md-12 sheetBox">
-					<p>Inspiration:</p>
+					
+					<h3>{{ points(character.abilities.str, character.abilities.dex, character.abilities.con, character.abilities.intel, character.abilities.wis, character.abilities.cha) }}</script></h3>
+					<p>Point Buy</p>
 				</div>
 				<div class="col-md-4 sheetBox">
-					<input type="number" name="character str" ng-model="character.str" placeholder="{{character.str}}" class="abilityInput"/>
+					<input type="number" name="character str" ng-model="character.abilities.str" value="{{character.abilities.str}}" class="abilityInput" min="8" max="15"/>
 					<p>Strength</p>
-					<h3>{{ Math.floor((character.str - 10)/2) }}</h3>
-					<p>Strength Bonus</p>
+					<h3>{{ abilityBonus(character.abilities.str) }}</h3>
+					<p>Strength <br> Bonus</p>
 				</div>
 				<div class="col-md-8 sheetBox">
 					<p>Saving Throws</p>
@@ -80,10 +82,10 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4 sheetBox">
-					<input type="number" name="character dex" ng-model="character.dex" placeholder="{{character.dex}}" class="abilityInput"/>
+					<input type="number" name="character dex" ng-model="character.abilities.dex" value="{{character.abilities.dex}}" class="abilityInput" min="8" max="15"/>
 					<p>Dexterity</p>
-					<h3>{{ Math.floor((character.dex - 10)/2) }}</h3>
-					<p>Dexterity Bonus</p>
+					<h3>{{ abilityBonus(character.abilities.dex) }}</h3>
+					<p>Dexterity <br> Bonus</p>
 				</div>
 				<div class="col-md-8 sheetBox">
 					<p>Saving Throws</p>
@@ -96,10 +98,10 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4 sheetBox">
-					<input type="number" name="character con" ng-model="character.con" placeholder="{{character.con}}" class="abilityInput"/>
+					<input type="number" name="character con" ng-model="character.abilities.con" value="{{character.abilities.con}}" class="abilityInput" min="8" max="15"/>
 					<p>Constitution</p>
-					<h3>{{ Math.floor((character.con - 10)/2) }}</h3>
-					<p>Constitution Bonus</p>
+					<h3>{{ abilityBonus(character.abilities.con) }}</h3>
+					<p>Constitution <br> Bonus</p>
 				</div>
 				<div class="col-md-8 sheetBox">
 					<p>Saving Throws</p>
@@ -112,10 +114,10 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4 sheetBox">
-					<input type="number" name="character intel" ng-model="character.intel" placeholder="{{character.intel}}" class="abilityInput"/>
+					<input type="number" name="character intel" ng-model="character.abilities.intel" value="{{character.abilities.intel}}" class="abilityInput" min="8" max="15"/>
 					<p>Inteligence</p>
-					<h3>{{ Math.floor((character.intel - 10)/2) }}</h3>
-					<p>Inteligence Bonus</p>
+					<h3>{{ abilityBonus(character.abilities.intel) }}</h3>
+					<p>Inteligence <br> Bonus</p>
 				</div>
 				<div class="col-md-8 sheetBox">
 					<p>Saving Throws</p>
@@ -128,10 +130,10 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4 sheetBox">
-					<input type="number" name="character wis" ng-model="character.wis" placeholder="{{character.wis}}" class="abilityInput"/>
+					<input type="number" name="character wis" ng-model="character.abilities.wis" value="{{character.abilities.wis}}" class="abilityInput" min="8" max="15"/>
 					<p>Wisdom</p>
-					<h3>{{ Math.floor((character.wis - 10)/2) }}</h3>
-					<p>Wisdom Bonus</p>
+					<h3>{{ abilityBonus(character.abilities.wis) }}</h3>
+					<p>Wisdom <br> Bonus</p>
 					</div>
 				<div class="col-md-8 sheetBox">
 					<p>Saving Throws</p>
@@ -144,10 +146,10 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4 sheetBox">
-					<input type="number" name="character cha" ng-model="character.cha" placeholder="{{character.cha}}" class="abilityInput"/>
+					<input type="number" name="character cha" ng-model="character.abilities.cha" value="{{character.abilities.cha}}" class="abilityInput" min="8" max="15"/>
 					<p>Charisma</p>
-					<h3>{{ Math.floor((character.cha - 10)/2) }}</h3>
-					<p>Charisma Bonus</p>
+					<h3>{{ abilityBonus(character.abilities.cha) }}</h3>
+					<p>Charisma <br> Bonus</p>
 				</div>
 				<div class="col-md-8 sheetBox">
 					<p>Saving Throws</p>
@@ -162,11 +164,11 @@
 		<div class="col-md-4 sheetBox">
 			<div class="row">
 				<div class="col-md-4 sheetBox smallBox">
-					<h2>{{ 10 + Math.floor((character.dex - 10)/2) }}</h2>
+					<h2>{{ 10 + Math.floor((character.abilities.dex - 10)/2) }}</h2>
 					<p>Armor Class</p>
 				</div>
 				<div class="col-md-4 sheetBox smallBox">
-					<h2>{{ + Math.floor((character.dex - 10)/2) }}</h2>
+					<h2>{{ + abilityBonus(character.abilities.dex) }}</h2>
 					<p>Initiative</p>
 				</div>
 				<div class="col-md-4 sheetBox smallBox">
@@ -174,7 +176,7 @@
 					<p>Speed</p>
 				</div>
 				<div class="col-md-12 sheetBox smallBox">
-					<!-- <h2 ng-if"{{character.characterClass === "fighter"}}">{{10 + Math.floor((character.con - 10)/2) }}</h2> -->
+					<!-- <h2 ng-if"{{character.characterClass === "fighter"}}">{{10 + Math.floor((character.abilities.con - 10)/2) }}</h2> -->
 					<p>Hit Point Maximum</p>
 					<h2>&nbsp;</h2>
 					<p>Current Hit Points</p>
