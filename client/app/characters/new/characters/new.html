@@ -19,8 +19,11 @@
 					<p>Class &amp; Level</p>
 				</div>
 				<div class="col-md-12 sheetBox">
-					<select name="race select" ng-model="character.race">
-						<option value="mountainDwarf">Mountain Dwarf</option>
+					<select name="race select" ng-model="character.race.race">
+						<option value="Elf">Elf</option>
+						<option value="Dwarf">Dwarf</option>
+						<option value="Halfling">Halfling</option>
+						<option value="Human">Human</option>
 					</select>
 					<p>Race</p>
 				</div>
@@ -172,7 +175,7 @@
 					<p>Initiative</p>
 				</div>
 				<div class="col-md-4 sheetBox smallBox">
-					<h2>{{character.race === "mountainDwarf" ? 25 : 30}}</h2>
+					<h2>{{ speed(character.race.race) }}</h2>
 					<p>Speed</p>
 				</div>
 				<div class="col-md-12 sheetBox smallBox">

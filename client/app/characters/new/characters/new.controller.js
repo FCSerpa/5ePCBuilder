@@ -45,11 +45,17 @@ angular.module('5ePcApp')
     	return Math.floor((ability - 10)/2);
     }
 
+    $scope.speed = function(race){
+    	if (race === "Dwarf" || race === "Halfling"){
+    		return 25;
+    	} else return 30;
+    }
+
 	$scope.character = {
 
 		name: '',
 		characterClass: [{name: String, specialization: String, options: [String]}],
-		race: {race: String, subrace: String, options: [String]},
+		race: {race: '', subrace: String, options: [String]},
 		background: {name: String, trait: String, ideal: String, bond: String, flaw: String},
 		alignment: String,
 		xp: Number,
