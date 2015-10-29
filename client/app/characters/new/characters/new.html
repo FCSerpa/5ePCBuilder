@@ -35,7 +35,7 @@
 		<div class="col-md-3 sheetBox smallBox">
 			<div class="row">
 				<div class="col-md-12 sheetBox">
-					<select name="background select" ng-model="character.background">
+					<select name="background select" ng-model="character.background.name" ng-change="skilled(character.background.name)">
 						<option value="Acolyte">Acolyte</option>
 						<option value="Criminal">Criminal</option>
 						<option value="Folk Hero">Folk Hero</option>
@@ -91,7 +91,7 @@
 				</div>
 				<div class="col-md-8 sheetBox">
 					<div><input class="skillSave" type="checkbox"><p class="skillSave">Saving Throws: {{}}</p></div>
-					<div><input class="skillSave" type="checkbox"><p class="skillSave">Athletics: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-model="character.skills.athletics"><p class="skillSave" >Athletics: {{ character.skills.athletics }}</p></div>
 					<p>&nbsp;</p>
 					<p>&nbsp;</p>
 					<p>&nbsp;</p>
@@ -107,9 +107,9 @@
 				</div>
 				<div class="col-md-8 sheetBox">
 					<div><input class="skillSave" type="checkbox"><p class="skillSave">Saving Throws: {{}}</p></div>
-					<div><input class="skillSave" type="checkbox"><p class="skillSave">Acrobatics: {{}}</p></div>
-					<div><input class="skillSave" type="checkbox"><p class="skillSave">Sleight of Hand: {{}}</p></div>
-					<div><input class="skillSave" type="checkbox"><p class="skillSave">Stealth: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-model="character.skills.acrobatics"><p class="skillSave">Acrobatics: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-model="character.skills.sleightOfHand"><p class="skillSave" >Sleight of Hand: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-model="character.skills.stealth"><p class="skillSave">Stealth: {{}}</p></div>
 					<p>&nbsp;</p>
 					<p>&nbsp;</p>
 				</div>
@@ -139,11 +139,11 @@
 				</div>
 				<div class="col-md-8 sheetBox">
 					<div><input class="skillSave" type="checkbox"><p class="skillSave">Saving Throws: {{}}</p></div>
-					<div><input class="skillSave" type="checkbox"><p class="skillSave">Arcana: {{}}</p></div>
-					<div><input class="skillSave" type="checkbox"><p class="skillSave">History: {{}}</p></div>
-					<div><input class="skillSave" type="checkbox"><p class="skillSave">Investigation: {{}}</p></div>
-					<div><input class="skillSave" type="checkbox"><p class="skillSave">Nature: {{}}</p></div>
-					<div><input class="skillSave" type="checkbox"><p class="skillSave">Religion: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-model="character.skills.arcana"><p class="skillSave" >Arcana: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-model="character.skills.history"><p class="skillSave">History: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-model="character.skills.investigation"><p class="skillSave">Investigation: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-model="character.skills.nature"><p class="skillSave">Nature: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-model="character.skills.religion"><p class="skillSave">Religion: {{}}</p></div>
 				</div>
 			</div>
 			<div class="row">
@@ -155,11 +155,11 @@
 					</div>
 				<div class="col-md-8 sheetBox">
 					<div><input class="skillSave" type="checkbox"><p class="skillSave">Saving Throws: {{}}</p></div>
-					<div><input class="skillSave" type="checkbox"><p class="skillSave">Animal Handling: {{}}</p></div>
-					<div><input class="skillSave" type="checkbox"><p class="skillSave">Insight: {{}}</p></div>
-					<div><input class="skillSave" type="checkbox"><p class="skillSave">Medicine: {{}}</p></div>
-					<div><input class="skillSave" type="checkbox"><p class="skillSave">Perception: {{}}</p></div>
-					<div><input class="skillSave" type="checkbox"><p class="skillSave">Survival: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox"ng-model="character.skills.animalHandling"><p class="skillSave" >Animal Handling: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-model="character.skills.insight"><p class="skillSave">Insight: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-model="character.skills.medicine"><p class="skillSave">Medicine: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-model="character.skills.perception"><p class="skillSave">Perception: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-model="character.skills.survival"><p class="skillSave">Survival: {{}}</p></div>
 				</div>
 			</div>
 			<div class="row">
@@ -171,10 +171,10 @@
 				</div>
 				<div class="col-md-8 sheetBox">
 					<div><input class="skillSave" type="checkbox"><p class="skillSave">Saving Throws: {{}}</p></div>
-					<div><input class="skillSave" type="checkbox"><p class="skillSave">Animal Handling: {{}}</p></div>
-					<div><input class="skillSave" type="checkbox"><p class="skillSave">Insight: {{}}</p></div>
-					<div><input class="skillSave" type="checkbox"><p class="skillSave">Medicine: {{}}</p></div>
-					<div><input class="skillSave" type="checkbox"><p class="skillSave">Perception: {{}}</p></div>
+					<div><input class="skillSave"type="checkbox" ng-model="character.skills.deception"><p class="skillSave">Deception: {{}}</p></div>
+					<div><input class="skillSave"type="checkbox" ng-model="character.skills.intimidation"><p class="skillSave">Intimidation: {{}}</p></div>
+					<div><input class="skillSave"type="checkbox" ng-model="character.skills.performance"><p class="skillSave">Performance: {{}}</p></div>
+					<div><input class="skillSave"type="checkbox" ng-model="character.skills.persuasion"><p class="skillSave">Persuasion: {{}}</p></div>
 					<p>&nbsp;</p>
 				</div>
 			</div>

@@ -15,7 +15,7 @@ var CharacterSchema = new Schema({
 	equipment: {armor: [{name: String, bonus: Number, type: Number}], 
 				weapon: [{name: String, damageType: String, damageDie: Number, type: Number, keywords: [String], range: Number}],
 				miscelaneous: [String]},
-	skills: {acrobatics: Boolean, sleightOfHand: Boolean, stealth: Boolean, arcana: Boolean, history: Boolean, investigation: Boolean, nature: Boolean, religion: Boolean, animalHanlding: Boolean, insight: Boolean, medicine: Boolean, perception: Boolean, survival: Boolean, deception: Boolean, intimidation: Boolean, performance: Boolean, persuasion: Boolean},
+	skills: {athletics: Boolean, acrobatics: Boolean, sleightOfHand: Boolean, stealth: Boolean, arcana: Boolean, history: Boolean, investigation: Boolean, nature: Boolean, religion: Boolean, animalHanlding: Boolean, insight: Boolean, medicine: Boolean, perception: Boolean, survival: Boolean, deception: Boolean, intimidation: Boolean, performance: Boolean, persuasion: Boolean},
 	proficiencies: {armorType: Number, armorName: [String], weaponType: Number, weaponName: [String], tools: [String], instruments: [String], languages: [String]},
 	spells: [[String], [String], [String], [String], [String], [String], [String], [String], [String], [String]],
 	appearance: {eyes: String, hair: String, age: Number, height: String, Weight: String, Skin: String},

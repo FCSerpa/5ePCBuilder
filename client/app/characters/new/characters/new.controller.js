@@ -45,6 +45,69 @@ angular.module('5ePcApp')
     	return Math.floor((ability - 10)/2);
     }
 
+    $scope.skilled = function(background){
+    	if (background === "Acolyte"){
+    		$scope.character.skills.religion = true;
+    		$scope.character.skills.insight = true;
+    		$scope.character.skills.stealth = false;
+    		$scope.character.skills.deception = false;
+    		$scope.character.skills.animalHanlding = false;
+    		$scope.character.skills.survival = false;
+    		$scope.character.skills.arcana = false;
+    		$scope.character.skills.history = false;
+    		$scope.character.skills.intimidation = false;
+    		$scope.character.skills.athletics = false;
+    	} else if (background === "Criminal"){
+    		$scope.character.skills.deception = true;
+    		$scope.character.skills.stealth = true;
+    		$scope.character.skills.insight = false;
+    		$scope.character.skills.religion = false;
+    		$scope.character.skills.animalHanlding = false;
+    		$scope.character.skills.survival = false;
+    		$scope.character.skills.arcana = false;
+    		$scope.character.skills.history = false;
+    		$scope.character.skills.intimidation = false;
+    		$scope.character.skills.athletics = false;
+    	} else if (background === "Folk Hero"){
+    		$scope.character.skills.animalHanlding = true;
+    		$scope.character.skills.survival = true;
+    		$scope.character.skills.insight = false;
+    		$scope.character.skills.religion = false;
+    		$scope.character.skills.deception = false;
+    		$scope.character.skills.stealth = false;
+    		$scope.character.skills.arcana = false;
+    		$scope.character.skills.history = false;
+    		$scope.character.skills.intimidation = false;
+    		$scope.character.skills.athletics = false;
+    	} else if (background === "Sage"){
+    		$scope.character.skills.arcana = true;
+    		$scope.character.skills.history = true;
+    		$scope.character.skills.insight = false;
+    		$scope.character.skills.religion = false;
+    		$scope.character.skills.deception = false;
+    		$scope.character.skills.stealth = false;
+    		$scope.character.skills.animalHanlding = false;
+    		$scope.character.skills.survival = false;
+    		$scope.character.skills.intimidation = false;
+    		$scope.character.skills.athletics = false;
+    	} else if (background === "Soldier"){
+    		$scope.character.skills.intimidation = true;
+    		$scope.character.skills.athletics = true;
+    		$scope.character.skills.insight = false;
+    		$scope.character.skills.religion = false;
+    		$scope.character.skills.deception = false;
+    		$scope.character.skills.stealth = false;
+    		$scope.character.skills.animalHanlding = false;
+    		$scope.character.skills.survival = false;
+    		$scope.character.skills.arcana = false;
+    		$scope.character.skills.history = false;
+    	}
+    }
+
+    $scope.checkout = function(bool){
+    	console.log(bool);
+    }
+
     $scope.speed = function(race, subrace){
     	if (race === "Dwarf" || race === "Halfling"){
     		return 25;
@@ -88,7 +151,7 @@ angular.module('5ePcApp')
 		equipment: {armor: [{name: String, bonus: Number, type: Number}], 
 					weapon: [{name: String, damageType: String, damageDie: Number, type: Number, keywords: [String], range: Number}],
 					miscelaneous: [String]},
-		skills: {acrobatics: Boolean, sleightOfHand: Boolean, stealth: Boolean, arcana: Boolean, history: Boolean, investigation: Boolean, nature: Boolean, religion: Boolean, animalHanlding: Boolean, insight: Boolean, medicine: Boolean, perception: Boolean, survival: Boolean, deception: Boolean, intimidation: Boolean, performance: Boolean, persuasion: Boolean},
+		skills: {athletics: false, acrobatics: false, sleightOfHand: false, stealth: false, arcana: false, history: false, investigation: false, nature: false, religion: false, animalHanlding: false, insight: false, medicine: false, perception: false, survival: false, deception: false, intimidation: false, performance: false, persuasion: false},
 		proficiencies: {armorType: Number, armorName: [String], weaponType: Number, weaponName: [String], tools: [String], instruments: [String], languages: [String]},
 		spells: [[String], [String], [String], [String], [String], [String], [String], [String], [String], [String]],
 		appearance: {eyes: String, hair: String, age: Number, height: String, Weight: String, Skin: String},
