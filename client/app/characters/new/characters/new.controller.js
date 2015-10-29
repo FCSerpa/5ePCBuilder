@@ -70,7 +70,7 @@ angular.module('5ePcApp')
     		$scope.character.skills.intimidation = false;
     		$scope.character.skills.athletics = false;
     	} else if (background === "Folk Hero"){
-    		$scope.character.skills.animalHanlding = true;
+    		$scope.character.skills.animalHandling = true;
     		$scope.character.skills.survival = true;
     		$scope.character.skills.insight = false;
     		$scope.character.skills.religion = false;
@@ -102,6 +102,64 @@ angular.module('5ePcApp')
     		$scope.character.skills.survival = false;
     		$scope.character.skills.arcana = false;
     		$scope.character.skills.history = false;
+    	}
+    }
+
+    $scope.classSkill = function(skill){
+    	if ((skill === "Athletics") && (($scope.character.characterClass.name === "Fighter") || ($scope.character.characterClass.name === "Rogue"))){
+    		return false;
+    	} else if ((skill === "Acrobatics") && (($scope.character.characterClass.name === "Fighter") || ($scope.character.characterClass.name === "Rogue"))){
+    		return false;
+    	} else if ((skill === "Sleight of Hand") && ($scope.character.characterClass.name === "Rogue")){
+    		return false;
+    	} else if ((skill === "Stealth") && ($scope.character.characterClass.name === "Rogue")){
+    		return false;
+    	} else if ((skill === "Arcana") && ($scope.character.characterClass.name === "Wizard")){
+    		return false;
+    	} else if ((skill === "History") && (($scope.character.characterClass.name === "Wizard") || ($scope.character.characterClass.name === "Cleric") || ($scope.character.characterClass.name === "Fighter"))){
+    		return false;
+    	} else if ((skill === "Investigation") && (($scope.character.characterClass.name === "Wizard") || ($scope.character.characterClass.name === "Rogue"))){
+    		return false;
+    	} else if ((skill === "Nature") && ( null )){
+    		return false;
+    	} else if ((skill === "Religion") && (($scope.character.characterClass.name === "Wizard") || ($scope.character.characterClass.name === "Cleric") || ($scope.character.characterClass.name === "Rogue"))){
+    		return false;
+    	} else if ((skill === "Animal Handling") && ($scope.character.characterClass.name === "Fighter")){
+    		return false;
+    	} else if ((skill === "Insight") && (($scope.character.characterClass.name === "Wizard") || ($scope.character.characterClass.name === "Cleric") || ($scope.character.characterClass.name === "Fighter") || ($scope.character.characterClass.name === "Rogue"))){
+    		return false;
+    	} else if ((skill === "Medicine") && (($scope.character.characterClass.name === "Wizard") || ($scope.character.characterClass.name === "Wizard") || ($scope.character.characterClass.name === "Cleric") || ($scope.character.characterClass.name === "Rogue"))){
+    		return false;
+    	} else if ((skill === "Perception") && (($scope.character.characterClass.name === "Fighter") || ($scope.character.characterClass.name === "Rogue"))){
+    		return false;
+    	} else if ((skill === "Survival") && (($scope.character.characterClass.name === "Fighter") || ($scope.character.characterClass.name === "Rogue"))){
+    		return false;
+    	} else if ((skill === "Deception") && ($scope.character.characterClass.name === "Rogue")){
+    		return false;
+    	} else if ((skill === "Intimidation") && (($scope.character.characterClass.name === "Fighter") || ($scope.character.characterClass.name === "Rogue"))){
+    		return false;
+    	} else if ((skill === "Performance") && ($scope.character.characterClass.name === "Rogue")){
+    		return false;
+    	} else if ((skill === "Persuasion") && (($scope.character.characterClass.name === "Cleric") || ($scope.character.characterClass.name === "Rogue"))){
+    		return false;
+    	} else return true;
+    }
+
+    $scope.elfSight = function(){
+    	if ($scope.character.race.race === "Elf"){
+    		$scope.character.skills.perception = true;
+    	}
+    }
+
+    $scope.skillNumber = function(){
+    	if ($scope.character.characterClass.name === "Cleric"){
+    		return 2;
+    	}else if ($scope.character.characterClass.name === "Fighter"){
+    		return 2;
+    	}else if ($scope.character.characterClass.name === "Rogue"){
+    		return 4;
+    	}else if ($scope.character.characterClass.name === "Wizard"){
+    		return 2;
     	}
     }
 

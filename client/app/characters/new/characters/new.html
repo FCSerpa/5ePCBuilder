@@ -22,7 +22,7 @@
 					<p>Class &amp; Level</p>
 				</div>
 				<div class="col-md-12 sheetBox">
-					<select name="race select" ng-model="character.race.race">
+					<select name="race select" ng-model="character.race.race" ng-change="elfSight()">
 						<option value="Elf">Elf</option>
 						<option value="Dwarf">Dwarf</option>
 						<option value="Halfling">Halfling</option>
@@ -68,7 +68,7 @@
 					<input type="text" style="display: none;" ng-model="character.user" value="{{getCurrentUser()._id}}"/>
 				</div>
 				<div class="col-md-12 sheetBox">
-					{{character.xp}}
+					<p>{{character.xp}}</p>
 					<p>Experience Points</p>
 				</div>
 			</div>
@@ -76,13 +76,18 @@
 		<div class="col-md-4 sheetBox">
 			<div class="row">
 				<div class="col-md-12 sheetBox">
-					<h2>{{if (character.level === 1) +2 }}</h2>
+					<h3> +2 </h3>
 					<p>Proficiency Bonus</p>
 				</div>
 				<div class="col-md-12 sheetBox">
-					
-					<h3>{{ points(character.abilities.str, character.abilities.dex, character.abilities.con, character.abilities.intel, character.abilities.wis, character.abilities.cha) }}</script></h3>
-					<p>Point Buy</p>
+					<div class="col-md-4 sheetBox">
+						<h3>{{ points(character.abilities.str, character.abilities.dex, character.abilities.con, character.abilities.intel, character.abilities.wis, character.abilities.cha) }}</h3>
+						<p>Point Buy</p>
+					</div>
+					<div class="col-md-8 sheetBox">
+						<h3> {{ skillNumber() }} </h3>
+						<p>Number of Class Skills</p>
+					</div>
 				</div>
 				<div class="col-md-4 sheetBox">
 					<input type="number" name="character str" ng-model="character.abilities.str" value="{{character.abilities.str}}" class="abilityInput" min="8" max="15"/>
@@ -92,7 +97,7 @@
 				</div>
 				<div class="col-md-8 sheetBox">
 					<div><input class="skillSave" disabled="disabled" type="checkbox" ng-model="character.savingThrows.str" ><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.str, character.abilities.str) }}</p></div>
-					<div><input class="skillSave" type="checkbox" ng-model="character.skills.athletics"><p class="skillSave" >Athletics: {{ skillBonus(character.skills.athletics, character.abilities.str) }}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Athletics')" ng-model="character.skills.athletics"><p class="skillSave" >Athletics: {{ skillBonus(character.skills.athletics, character.abilities.str) }}</p></div>
 					<p>&nbsp;</p>
 					<p>&nbsp;</p>
 					<p>&nbsp;</p>
@@ -108,9 +113,9 @@
 				</div>
 				<div class="col-md-8 sheetBox">
 					<div><input class="skillSave" disabled="disabled" type="checkbox" ng-model="character.savingThrows.dex"><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.dex, character.abilities.dex) }}</p></div>
-					<div><input class="skillSave" type="checkbox" ng-model="character.skills.acrobatics"><p class="skillSave">Acrobatics: {{skillBonus(character.skills.acrobatics, character.abilities.dex)}}</p></div>
-					<div><input class="skillSave" type="checkbox" ng-model="character.skills.sleightOfHand"><p class="skillSave" >Sleight of Hand: {{skillBonus(character.skills.sleightOfHand, character.abilities.dex)}}</p></div>
-					<div><input class="skillSave" type="checkbox" ng-model="character.skills.stealth"><p class="skillSave">Stealth: {{skillBonus(character.skills.stealth, character.abilities.dex)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Acrobatics')" ng-model="character.skills.acrobatics"><p class="skillSave">Acrobatics: {{skillBonus(character.skills.acrobatics, character.abilities.dex)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Sleight of Hand')" ng-model="character.skills.sleightOfHand"><p class="skillSave" >Sleight of Hand: {{skillBonus(character.skills.sleightOfHand, character.abilities.dex)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Stealth')" ng-model="character.skills.stealth"><p class="skillSave">Stealth: {{skillBonus(character.skills.stealth, character.abilities.dex)}}</p></div>
 					<p>&nbsp;</p>
 					<p>&nbsp;</p>
 				</div>
@@ -140,11 +145,11 @@
 				</div>
 				<div class="col-md-8 sheetBox">
 					<div><input class="skillSave" disabled="disabled" type="checkbox" ng-model="character.savingThrows.intel"><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.intel, character.abilities.intel) }}</p></div>
-					<div><input class="skillSave" type="checkbox" ng-model="character.skills.arcana"><p class="skillSave" >Arcana: {{skillBonus(character.skills.arcana, character.abilities.intel)}}</p></div>
-					<div><input class="skillSave" type="checkbox" ng-model="character.skills.history"><p class="skillSave">History: {{skillBonus(character.skills.history, character.abilities.intel)}}</p></div>
-					<div><input class="skillSave" type="checkbox" ng-model="character.skills.investigation"><p class="skillSave">Investigation: {{skillBonus(character.skills.investigation, character.abilities.intel)}}</p></div>
-					<div><input class="skillSave" type="checkbox" ng-model="character.skills.nature"><p class="skillSave">Nature: {{skillBonus(character.skills.nature, character.abilities.intel)}}</p></div>
-					<div><input class="skillSave" type="checkbox" ng-model="character.skills.religion"><p class="skillSave">Religion: {{skillBonus(character.skills.religion, character.abilities.intel)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Arcana')" ng-model="character.skills.arcana"><p class="skillSave" >Arcana: {{skillBonus(character.skills.arcana, character.abilities.intel)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('History')" ng-model="character.skills.history"><p class="skillSave">History: {{skillBonus(character.skills.history, character.abilities.intel)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Investigation')" ng-model="character.skills.investigation"><p class="skillSave">Investigation: {{skillBonus(character.skills.investigation, character.abilities.intel)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Nature')" ng-model="character.skills.nature"><p class="skillSave">Nature: {{skillBonus(character.skills.nature, character.abilities.intel)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Religion')" ng-model="character.skills.religion"><p class="skillSave">Religion: {{skillBonus(character.skills.religion, character.abilities.intel)}}</p></div>
 				</div>
 			</div>
 			<div class="row">
@@ -156,11 +161,11 @@
 					</div>
 				<div class="col-md-8 sheetBox">
 					<div><input class="skillSave" disabled="disabled" type="checkbox"  ng-model="character.savingThrows.wis"><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.wis, character.abilities.wis) }}</p></div>
-					<div><input class="skillSave" type="checkbox"ng-model="character.skills.animalHandling"><p class="skillSave" >Animal Handling: {{skillBonus(character.skills.animalHandling, character.abilities.wis)}}</p></div>
-					<div><input class="skillSave" type="checkbox" ng-model="character.skills.insight"><p class="skillSave">Insight: {{skillBonus(character.skills.insight, character.abilities.wis)}}</p></div>
-					<div><input class="skillSave" type="checkbox" ng-model="character.skills.medicine"><p class="skillSave">Medicine: {{skillBonus(character.skills.medicine, character.abilities.wis)}}</p></div>
-					<div><input class="skillSave" type="checkbox" ng-model="character.skills.perception"><p class="skillSave">Perception: {{skillBonus(character.skills.perception, character.abilities.wis)}}</p></div>
-					<div><input class="skillSave" type="checkbox" ng-model="character.skills.survival"><p class="skillSave">Survival: {{skillBonus(character.skills.survival, character.abilities.wis)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Animal Handling')" ng-model="character.skills.animalHandling"><p class="skillSave" >Animal Handling: {{skillBonus(character.skills.animalHandling, character.abilities.wis)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Insight')" ng-model="character.skills.insight"><p class="skillSave">Insight: {{skillBonus(character.skills.insight, character.abilities.wis)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Medicine')" ng-model="character.skills.medicine"><p class="skillSave">Medicine: {{skillBonus(character.skills.medicine, character.abilities.wis)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Perception')" ng-model="character.skills.perception"><p class="skillSave">Perception: {{skillBonus(character.skills.perception, character.abilities.wis)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Survival')" ng-model="character.skills.survival"><p class="skillSave">Survival: {{skillBonus(character.skills.survival, character.abilities.wis)}}</p></div>
 				</div>
 			</div>
 			<div class="row">
@@ -172,10 +177,10 @@
 				</div>
 				<div class="col-md-8 sheetBox">
 					<div><input class="skillSave" disabled="disabled" type="checkbox" ng-model="character.savingThrows.cha"><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.cha, character.abilities.cha) }}</p></div>
-					<div><input class="skillSave"type="checkbox" ng-model="character.skills.deception"><p class="skillSave">Deception: {{skillBonus(character.skills.deception, character.abilities.cha)}}</p></div>
-					<div><input class="skillSave"type="checkbox" ng-model="character.skills.intimidation"><p class="skillSave">Intimidation: {{skillBonus(character.skills.intimidation, character.abilities.cha)}}</p></div>
-					<div><input class="skillSave"type="checkbox" ng-model="character.skills.performance"><p class="skillSave">Performance: {{skillBonus(character.skills.performance, character.abilities.cha)}}</p></div>
-					<div><input class="skillSave"type="checkbox" ng-model="character.skills.persuasion"><p class="skillSave">Persuasion: {{skillBonus(character.skills.persuasion, character.abilities.cha)}}</p></div>
+					<div><input class="skillSave"type="checkbox" ng-disabled="classSkill('Deception')" ng-model="character.skills.deception"><p class="skillSave">Deception: {{skillBonus(character.skills.deception, character.abilities.cha)}}</p></div>
+					<div><input class="skillSave"type="checkbox" ng-disabled="classSkill('Intimidation')" ng-model="character.skills.intimidation"><p class="skillSave">Intimidation: {{skillBonus(character.skills.intimidation, character.abilities.cha)}}</p></div>
+					<div><input class="skillSave"type="checkbox" ng-disabled="classSkill('Performance')" ng-model="character.skills.performance"><p class="skillSave">Performance: {{skillBonus(character.skills.performance, character.abilities.cha)}}</p></div>
+					<div><input class="skillSave"type="checkbox" ng-disabled="classSkill('Persuasion')" ng-model="character.skills.persuasion"><p class="skillSave">Persuasion: {{skillBonus(character.skills.persuasion, character.abilities.cha)}}</p></div>
 					<p>&nbsp;</p>
 				</div>
 			</div>
@@ -183,21 +188,21 @@
 		<div class="col-md-4 sheetBox">
 			<div class="row">
 				<div class="col-md-4 sheetBox smallBox">
-					<h2>{{ 10 + Math.floor((character.abilities.dex - 10)/2) }}</h2>
+					<h3>{{ 10 + Math.floor((character.abilities.dex - 10)/2) }}</h3>
 					<p>Armor Class</p>
 				</div>
 				<div class="col-md-4 sheetBox smallBox">
-					<h2>{{ + abilityBonus(character.abilities.dex) }}</h2>
+					<h3>{{ + abilityBonus(character.abilities.dex) }}</h3>
 					<p>Initiative</p>
 				</div>
 				<div class="col-md-4 sheetBox smallBox">
-					<h2>{{ speed(character.race.race, character.race.subrace) }}</h2>
+					<h3>{{ speed(character.race.race, character.race.subrace) }}</h3>
 					<p>Speed</p>
 				</div>
 				<div class="col-md-12 sheetBox smallBox">
-					<h2>{{ maxHP(character.characterClass.name, abilityBonus(character.abilities.con), character.race.subrace)}}</h2>
+					<h3>{{ maxHP(character.characterClass.name, abilityBonus(character.abilities.con), character.race.subrace)}}</h3>
 					<p>Hit Point Maximum</p>
-					<h2>&nbsp;</h2>
+					<h3>&nbsp;</h3>
 					<p>Current Hit Points</p>
 				</div>
 				<div class="col-md-12 sheetBox smallBox">
@@ -205,7 +210,7 @@
 					<p>Temporary Hit Points</p>
 				</div>
 				<div class="col-md-6 sheetBox smallBox">
-					<h2>{{ hitDie(character.characterClass.name) }}</h2>
+					<h3>{{ hitDie(character.characterClass.name) }}</h3>
 					<p>Hit Dice</p>
 				</div>
 				<div class="col-md-6 sheetBox smallBox">
