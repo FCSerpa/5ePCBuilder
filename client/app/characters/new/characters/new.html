@@ -36,7 +36,11 @@
 			<div class="row">
 				<div class="col-md-12 sheetBox">
 					<select name="background select" ng-model="character.background">
-						<option value="soldier">Soldier</option>
+						<option value="Acolyte">Acolyte</option>
+						<option value="Criminal">Criminal</option>
+						<option value="Folk Hero">Folk Hero</option>
+						<option value="Sage">Sage</option>
+						<option value="Soldier">Soldier</option>
 					</select>
 					<p>Background</p>
 				</div>
@@ -86,8 +90,8 @@
 					<p>Strength <br> Bonus</p>
 				</div>
 				<div class="col-md-8 sheetBox">
-					<p>Saving Throws</p>
-					<p>Athletics</p>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Saving Throws: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Athletics: {{}}</p></div>
 					<p>&nbsp;</p>
 					<p>&nbsp;</p>
 					<p>&nbsp;</p>
@@ -102,10 +106,10 @@
 					<p>Dexterity <br> Bonus</p>
 				</div>
 				<div class="col-md-8 sheetBox">
-					<p>Saving Throws</p>
-					<p>Acrobatics</p>
-					<p>Sleight of Hand</p>
-					<p>Stealth</p>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Saving Throws: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Acrobatics: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Sleight of Hand: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Stealth: {{}}</p></div>
 					<p>&nbsp;</p>
 					<p>&nbsp;</p>
 				</div>
@@ -118,7 +122,7 @@
 					<p>Constitution <br> Bonus</p>
 				</div>
 				<div class="col-md-8 sheetBox">
-					<p>Saving Throws</p>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Saving Throws: {{}}</p></div>
 					<p>&nbsp;</p>
 					<p>&nbsp;</p>
 					<p>&nbsp;</p>
@@ -134,12 +138,12 @@
 					<p>Inteligence <br> Bonus</p>
 				</div>
 				<div class="col-md-8 sheetBox">
-					<p>Saving Throws</p>
-					<p>Arcana</p>
-					<p>History</p>
-					<p>Investigation</p>
-					<p>Nature</p>
-					<p>Religion</p>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Saving Throws: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Arcana: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">History: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Investigation: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Nature: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Religion: {{}}</p></div>
 				</div>
 			</div>
 			<div class="row">
@@ -150,12 +154,12 @@
 					<p>Wisdom <br> Bonus</p>
 					</div>
 				<div class="col-md-8 sheetBox">
-					<p>Saving Throws</p>
-					<p>Animal Handling</p>
-					<p>Insight</p>
-					<p>Medicine</p>
-					<p>Perception</p>
-					<p>Survival</p>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Saving Throws: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Animal Handling: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Insight: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Medicine: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Perception: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Survival: {{}}</p></div>
 				</div>
 			</div>
 			<div class="row">
@@ -166,11 +170,11 @@
 					<p>Charisma <br> Bonus</p>
 				</div>
 				<div class="col-md-8 sheetBox">
-					<p>Saving Throws</p>
-					<p>Animal Handling</p>
-					<p>Insight</p>
-					<p>Medicine</p>
-					<p>Perception</p>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Saving Throws: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Animal Handling: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Insight: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Medicine: {{}}</p></div>
+					<div><input class="skillSave" type="checkbox"><p class="skillSave">Perception: {{}}</p></div>
 					<p>&nbsp;</p>
 				</div>
 			</div>
@@ -186,7 +190,7 @@
 					<p>Initiative</p>
 				</div>
 				<div class="col-md-4 sheetBox smallBox">
-					<h2>{{ speed(character.race.race) }}</h2>
+					<h2>{{ speed(character.race.race, character.race.subrace) }}</h2>
 					<p>Speed</p>
 				</div>
 				<div class="col-md-12 sheetBox smallBox">
