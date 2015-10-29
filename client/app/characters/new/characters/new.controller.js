@@ -5,6 +5,7 @@ angular.module('5ePcApp')
     $scope.message = 'Hello';
     $scope.getCurrentUser = Auth.getCurrentUser;
     $scope.Math = window.Math;
+    $scope.proficiencyBonus = 2;
 
     $scope.points = function(str, dex, con, intel, wis, cha){
     	var pointValue = 27;
@@ -104,8 +105,13 @@ angular.module('5ePcApp')
     	}
     }
 
-    $scope.checkout = function(bool){
-    	console.log(bool);
+    $scope.skillBonus = function(skill, ability) {
+    	var proficiency;
+    	if (skill){
+    		proficiency = 2;
+    	} else proficiency = 0;
+   
+    	return $scope.abilityBonus(ability) + proficiency;
     }
 
     $scope.speed = function(race, subrace){
