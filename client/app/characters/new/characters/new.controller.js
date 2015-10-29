@@ -105,12 +105,54 @@ angular.module('5ePcApp')
     	}
     }
 
+    $scope.saved = function(classs){
+    	if (classs === "Cleric"){
+    		$scope.character.savingThrows.wis = true;
+    		$scope.character.savingThrows.cha = true;
+    		$scope.character.savingThrows.str = false;
+    		$scope.character.savingThrows.con = false;
+    		$scope.character.savingThrows.dex = false;
+    		$scope.character.savingThrows.intel = false;
+    	} else if (classs === "Fighter"){
+    		$scope.character.savingThrows.str = true;
+    		$scope.character.savingThrows.con = true;
+    		$scope.character.savingThrows.wis = false;
+    		$scope.character.savingThrows.cha = false;
+    		$scope.character.savingThrows.dex = false;
+    		$scope.character.savingThrows.intel = false;
+    	} else if (classs === "Rogue"){
+    		$scope.character.savingThrows.dex = true;
+    		$scope.character.savingThrows.intel = true;
+    		$scope.character.savingThrows.wis = false;
+    		$scope.character.savingThrows.cha = false;
+    		$scope.character.savingThrows.str = false;
+    		$scope.character.savingThrows.con = false;
+
+    	} else if (classs === "Wizard"){
+    		$scope.character.savingThrows.intel = true;
+    		$scope.character.savingThrows.wis = true;
+    		$scope.character.savingThrows.cha = false;
+    		$scope.character.savingThrows.str = false;
+    		$scope.character.savingThrows.con = false;
+    		$scope.character.savingThrows.dex = false;
+    	}
+    }
+
     $scope.skillBonus = function(skill, ability) {
     	var proficiency;
     	if (skill){
     		proficiency = 2;
     	} else proficiency = 0;
    
+    	return $scope.abilityBonus(ability) + proficiency;
+    }
+
+    $scope.saveBonus = function(save, ability) {
+    	var proficiency;
+    	if(save){
+    		proficiency = 2;
+    	} else proficiency = 0;
+
     	return $scope.abilityBonus(ability) + proficiency;
     }
 
@@ -158,10 +200,12 @@ angular.module('5ePcApp')
 					weapon: [{name: String, damageType: String, damageDie: Number, type: Number, keywords: [String], range: Number}],
 					miscelaneous: [String]},
 		skills: {athletics: false, acrobatics: false, sleightOfHand: false, stealth: false, arcana: false, history: false, investigation: false, nature: false, religion: false, animalHanlding: false, insight: false, medicine: false, perception: false, survival: false, deception: false, intimidation: false, performance: false, persuasion: false},
+		savingThrows: {str: false, dex: false, con: false, intel: false, wis: false, cha: false},
 		proficiencies: {armorType: Number, armorName: [String], weaponType: Number, weaponName: [String], tools: [String], instruments: [String], languages: [String]},
 		spells: [[String], [String], [String], [String], [String], [String], [String], [String], [String], [String]],
 		appearance: {eyes: String, hair: String, age: Number, height: String, Weight: String, Skin: String},
-		image: String
+		image: String,
+		user: '',
 
 		// name: '',
 		// characterClass: '',
