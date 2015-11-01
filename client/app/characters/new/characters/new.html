@@ -28,7 +28,11 @@
 						<option value="Halfling">Halfling</option>
 						<option value="Human">Human</option>
 					</select>
-					<p>Race</p>
+					<select name="subrace select" ng-model="character.race.subrace">
+						<option value="{{selectSubrace(1)}}">{{selectSubrace(1)}}</option>
+						<option value="{{selectSubrace(2)}}">{{selectSubrace(2)}}</option>
+					</select>
+					<p>Race &amp; Subrace</p>
 				</div>
 			</div>
 		</div>

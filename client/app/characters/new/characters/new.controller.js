@@ -42,6 +42,21 @@ angular.module('5ePcApp')
     	return pointValue;
     };
 
+    $scope.selectSubrace = function(line) {
+        if (line === 1 && $scope.character.race.race === "Elf") {
+            return "High Elf";
+        } else if (line === 2 && $scope.character.race.race === "Elf") {
+            return "Wood Elf";
+        } else if (line === 1 && $scope.character.race.race === "Dwarf") {
+            return "Hill Dwarf";
+        } else if (line === 2 && $scope.character.race.race === "Dwarf") {
+            return "Mountain Dwarf";
+        } else if (line === 1 && $scope.character.race.race === "Halfling") {
+            return "Lightfoot Halfling";
+        } else if (line === 2 && $scope.character.race.race === "Halfling") {
+            return "Stout Halfling";
+        } 
+    }
 /*
     $scope.racialBonusStr = 0;
     $scope.racialBonusDex = 0;
