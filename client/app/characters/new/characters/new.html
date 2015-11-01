@@ -22,13 +22,13 @@
 					<p>Class &amp; Level</p>
 				</div>
 				<div class="col-md-12 sheetBox">
-					<select name="race select" ng-model="character.race.race" ng-change="elfSight()">
+					<select name="race select" ng-model="character.race.race" ng-change="getRacialBonus(character.race.race, character.race.subrace)">
 						<option value="Elf">Elf</option>
 						<option value="Dwarf">Dwarf</option>
 						<option value="Halfling">Halfling</option>
 						<option value="Human">Human</option>
 					</select>
-					<select name="subrace select" ng-model="character.race.subrace">
+					<select name="subrace select" ng-model="character.race.subrace" ng-change="getRacialBonus(character.race.race, character.race.subrace)">
 						<option value="{{selectSubrace(1)}}">{{selectSubrace(1)}}</option>
 						<option value="{{selectSubrace(2)}}">{{selectSubrace(2)}}</option>
 					</select>
@@ -102,7 +102,7 @@
 							<p>Base <br> Strength</p>
 						</div>
 						<div class="col-md-6">
-							<h3> +0 </h3>
+							<h3> {{racialBonusStr}} </h3>
 							<p>Racial <br> Bonus</p>
 						</div>
 						<div class="col-md-12">
@@ -128,7 +128,7 @@
 							<p>Base <br> Dexterity</p>
 						</div>
 						<div class="col-md-6">
-							<h3> +0 </h3>
+							<h3> {{racialBonusDex}} </h3>
 							<p>Racial <br> Bonus</p>
 						</div>
 						<div class="col-md-12">
@@ -154,7 +154,7 @@
 							<p>Base <br> Constitution</p>
 						</div>
 						<div class="col-md-6">
-							<h3> +0 </h3>
+							<h3> {{racialBonusCon}} </h3>
 							<p>Racial <br> Bonus</p>
 						</div>
 						<div class="col-md-12">
@@ -180,7 +180,7 @@
 							<p>Base <br> Inteligence</p>
 						</div>
 						<div class="col-md-6">
-							<h3> +0 </h3>
+							<h3> {{racialBonusIntel}} </h3>
 							<p>Racial <br> Bonus</p>
 						</div>
 						<div class="col-md-12">
@@ -206,7 +206,7 @@
 							<p>Base <br> Wisdom</p>
 						</div>
 						<div class="col-md-6">
-							<h3> +0 </h3>
+							<h3> {{racialBonusWis}} </h3>
 							<p>Racial <br> Bonus</p>
 						</div>
 						<div class="col-md-12">
@@ -232,7 +232,7 @@
 							<p>Base Charisma</p>
 						</div>
 						<div class="col-md-6">
-							<h3> +0 </h3>
+							<h3> {{racialBonusCha}} </h3>
 							<p>Racial <br> Bonus</p>
 						</div>
 						<div class="col-md-12">

@@ -57,7 +57,7 @@ angular.module('5ePcApp')
             return 'Stout Halfling';
         } 
     }
-/*
+
     $scope.racialBonusStr = 0;
     $scope.racialBonusDex = 0;
     $scope.racialBonusCon = 0;
@@ -66,11 +66,62 @@ angular.module('5ePcApp')
     $scope.racialBonusCha = 0;
 
     $scope.getRacialBonus = function(race, subrace){
-        if (race === "Elf") {
+        console.log("Im a" + race + subrace)
+        if (race === 'Elf') {
+            $scope.character.skills.perception = true;
             $scope.racialBonusDex = 2;
+            $scope.racialBonusStr = 0;
+            $scope.racialBonusCon = 0;
+            $scope.racialBonusIntel = 0;
+            $scope.racialBonusWis = 0;
+            $scope.racialBonusCha = 0;
+        }else if (race === 'Dwarf') {
+            $scope.character.skills.perception = false;
+            $scope.racialBonusCon = 2;
+            $scope.racialBonusStr = 0;
+            $scope.racialBonusDex = 0;
+            $scope.racialBonusIntel = 0;
+            $scope.racialBonusWis = 0;
+            $scope.racialBonusCha = 0;
+        }else if (race === 'Halfling') {
+            $scope.character.skills.perception = false;
+            $scope.racialBonusDex = 2;
+            $scope.racialBonusStr = 0;
+            $scope.racialBonusCon = 0;
+            $scope.racialBonusIntel = 0;
+            $scope.racialBonusWis = 0;
+            $scope.racialBonusCha = 0;
+        }else if (race === 'Human') {
+            $scope.character.skills.perception = false;
+            $scope.racialBonusStr = 1;
+            $scope.racialBonusDex = 1;
+            $scope.racialBonusCon = 1;
+            $scope.racialBonusIntel = 1;
+            $scope.racialBonusWis = 1;
+            $scope.racialBonusCha = 1;
         }
-    } etc.
-*/
+        if (subrace === 'High Elf') {
+            $scope.racialBonusIntel = 1;
+            $scope.racialBonusWis = 0;
+        } else if (subrace === 'Wood Elf') {
+            $scope.racialBonusWis = 1;
+            $scope.racialBonusIntel = 0;
+        } else if (subrace === 'Hill Dwarf') {
+            $scope.racialBonusWis = 1;
+            $scope.racialBonusStr = 0;
+        } else if (subrace === 'Mountain Dwarf') {
+            console.log("I'm a dwarf")
+            $scope.racialBonusStr = 2;
+            $scope.racialBonusWis = 0;
+        } else if (subrace === 'Lightfoot Halfling') {
+            $scope.racialBonusCha = 1;
+            $scope.racialBonusCon = 0;
+        } else if (subrace === 'Stout Halfling') {
+            $scope.racialBonusCon = 1;
+            $scope.racialBonusCha = 0;
+        }
+    };
+
     $scope.abilityBonus = function(ability){
     	return Math.floor((ability - 10)/2);
     };
