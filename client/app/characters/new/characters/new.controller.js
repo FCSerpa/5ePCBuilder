@@ -43,18 +43,18 @@ angular.module('5ePcApp')
     };
 
     $scope.selectSubrace = function(line) {
-        if (line === 1 && $scope.character.race.race === "Elf") {
-            return "High Elf";
-        } else if (line === 2 && $scope.character.race.race === "Elf") {
-            return "Wood Elf";
-        } else if (line === 1 && $scope.character.race.race === "Dwarf") {
-            return "Hill Dwarf";
-        } else if (line === 2 && $scope.character.race.race === "Dwarf") {
-            return "Mountain Dwarf";
-        } else if (line === 1 && $scope.character.race.race === "Halfling") {
-            return "Lightfoot Halfling";
-        } else if (line === 2 && $scope.character.race.race === "Halfling") {
-            return "Stout Halfling";
+        if (line === 1 && $scope.character.race.race === 'Elf') {
+            return 'High Elf';
+        } else if (line === 2 && $scope.character.race.race === 'Elf') {
+            return 'Wood Elf';
+        } else if (line === 1 && $scope.character.race.race === 'Dwarf') {
+            return 'Hill Dwarf';
+        } else if (line === 2 && $scope.character.race.race === 'Dwarf') {
+            return 'Mountain Dwarf';
+        } else if (line === 1 && $scope.character.race.race === 'Halfling') {
+            return 'Lightfoot Halfling';
+        } else if (line === 2 && $scope.character.race.race === 'Halfling') {
+            return 'Stout Halfling';
         } 
     }
 /*
@@ -179,7 +179,9 @@ angular.module('5ePcApp')
     $scope.elfSight = function(){
     	if ($scope.character.race.race === 'Elf'){
     		$scope.character.skills.perception = true;
-    	}
+    	} else if ($scope.character.race.race !== 'Elf'){
+            $scope.character.skills.perception = false;
+        }
     };
 
     $scope.skillNumber = function(){
