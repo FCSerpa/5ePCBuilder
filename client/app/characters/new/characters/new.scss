@@ -8,7 +8,8 @@ div.sheetBox {
  }
 
  .abilityInput {
- 	width: 100px;
+ 	margin-top: 6px;
+ 	width: 70px;
  	height: 50px;
  	font-size: 35px;
  }
@@ -23,6 +24,9 @@ div.sheetBox {
  	display: inline;
  }
 
+.abilityBonus {
+	margin-top: 6px !important;
+}
  input.skillSave {
  	margin-right: 5px;
  }

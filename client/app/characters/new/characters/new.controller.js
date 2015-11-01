@@ -42,6 +42,20 @@ angular.module('5ePcApp')
     	return pointValue;
     };
 
+/*
+    $scope.racialBonusStr = 0;
+    $scope.racialBonusDex = 0;
+    $scope.racialBonusCon = 0;
+    $scope.racialBonusIntel = 0;
+    $scope.racialBonusWis = 0;
+    $scope.racialBonusCha = 0;
+
+    $scope.getRacialBonus = function(race, subrace){
+        if (race === "Elf") {
+            $scope.racialBonusDex = 2;
+        }
+    } etc.
+*/
     $scope.abilityBonus = function(ability){
     	return Math.floor((ability - 10)/2);
     };
