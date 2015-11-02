@@ -98,7 +98,7 @@
 				<div class="col-md-6 sheetBox">
 					<div class="row">
 						<div class="col-md-6">
-							<input type="number" name="character str" ng-model="character.abilities.str" value="{{character.abilities.str}}" class="abilityInput" min="8" max="15"/>
+							<input type="number" name="character str" ng-model="baseStr" value="{{baseStr}}" class="abilityInput" min="8" max="15" ng-change="totalStr(baseStr, racialBonusStr)"/>
 							<p>Base <br> Strength</p>
 						</div>
 						<div class="col-md-6">
@@ -124,7 +124,7 @@
 				<div class="col-md-6 sheetBox">
 					<div class="row">
 						<div class="col-md-6">
-							<input type="number" name="character dex" ng-model="character.abilities.dex" value="{{character.abilities.dex}}" class="abilityInput" min="8" max="15"/>
+							<input type="number" name="character dex" ng-model="baseDex" value="{{baseDex}}" class="abilityInput" min="8" max="15" ng-change="totalDex(baseDex, racialBonusDex)"/>
 							<p>Base <br> Dexterity</p>
 						</div>
 						<div class="col-md-6">
@@ -150,7 +150,7 @@
 				<div class="col-md-6 sheetBox">
 					<div class="row">
 						<div class="col-md-6">
-							<input type="number" name="character con" ng-model="character.abilities.con" value="{{character.abilities.con}}" class="abilityInput" min="8" max="15"/>
+							<input type="number" name="character con" ng-model="baseCon" value="{{baseCon}}" class="abilityInput" min="8" max="15" ng-change="totalCon(baseCon, racialBonusCon)"/>
 							<p>Base <br> Constitution</p>
 						</div>
 						<div class="col-md-6">
@@ -176,7 +176,7 @@
 				<div class="col-md-6 sheetBox">
 					<div class="row">
 						<div class="col-md-6">
-							<input type="number" name="character intel" ng-model="character.abilities.intel" value="{{character.abilities.intel}}" class="abilityInput" min="8" max="15"/>
+							<input type="number" name="character intel" ng-model="baseIntel" value="{{baseIntel}}" class="abilityInput" min="8" max="15" ng-change="totalIntel(baseIntel, racialBonusIntel)"/>
 							<p>Base <br> Inteligence</p>
 						</div>
 						<div class="col-md-6">
@@ -202,7 +202,7 @@
 				<div class="col-md-6 sheetBox">
 					<div class="row">
 						<div class="col-md-6">
-							<input type="number" name="character wis" ng-model="character.abilities.wis" value="{{character.abilities.wis}}" class="abilityInput" min="8" max="15"/>
+							<input type="number" name="character wis" ng-model="baseWis" value="{{baseWis}}" class="abilityInput" min="8" max="15" ng-change="totalWis(baseWis, racialBonusWis)"/>
 							<p>Base <br> Wisdom</p>
 						</div>
 						<div class="col-md-6">
@@ -228,7 +228,7 @@
 				<div class="col-md-6 sheetBox">
 					<div class="row">
 						<div class="col-md-6">
-							<input type="number" name="character cha" ng-model="character.abilities.cha" value="{{character.abilities.cha}}" class="abilityInput" min="8" max="15"/>
+							<input type="number" name="character cha" ng-model="baseCha" value="{{baseCha}}" class="abilityInput" min="8" max="15" ng-change="totalCha(baseCha, racialBonusCha)"/>
 							<p>Base Charisma</p>
 						</div>
 						<div class="col-md-6">

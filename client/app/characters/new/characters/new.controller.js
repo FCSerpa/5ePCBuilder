@@ -7,6 +7,38 @@ angular.module('5ePcApp')
     $scope.Math = window.Math;
     $scope.proficiencyBonus = 2;
 
+    $scope.baseStr = 8;
+    $scope.baseDex = 8;
+    $scope.baseCon = 8;
+    $scope.baseIntel = 8;
+    $scope.baseWis = 8;
+    $scope.baseCha = 8;
+
+    $scope.totalStr = function(base, racial){
+        $scope.character.abilities.str = base + racial;
+    };
+
+     $scope.totalDex = function(base, racial){
+        $scope.character.abilities.dex = base + racial;
+    };
+
+     $scope.totalCon = function(base, racial){
+        $scope.character.abilities.con = base + racial;
+    };
+
+     $scope.totalIntel = function(base, racial){
+        $scope.character.abilities.intel = base + racial;
+    };
+
+     $scope.totalWis = function(base, racial){
+        $scope.character.abilities.wis = base + racial;
+    };
+
+     $scope.totalCha = function(base, racial){
+        $scope.character.abilities.cha = base + racial;
+    };
+
+
     $scope.points = function(str, dex, con, intel, wis, cha){
     	var pointValue = 27;
     	if (str < 14){
@@ -66,9 +98,8 @@ angular.module('5ePcApp')
     $scope.racialBonusCha = 0;
 
     $scope.getRacialBonus = function(race, subrace){
-        console.log("Im a" + race + subrace)
+        $scope.elfSight();
         if (race === 'Elf') {
-            $scope.character.skills.perception = true;
             $scope.racialBonusDex = 2;
             $scope.racialBonusStr = 0;
             $scope.racialBonusCon = 0;
@@ -76,7 +107,6 @@ angular.module('5ePcApp')
             $scope.racialBonusWis = 0;
             $scope.racialBonusCha = 0;
         }else if (race === 'Dwarf') {
-            $scope.character.skills.perception = false;
             $scope.racialBonusCon = 2;
             $scope.racialBonusStr = 0;
             $scope.racialBonusDex = 0;
@@ -84,7 +114,6 @@ angular.module('5ePcApp')
             $scope.racialBonusWis = 0;
             $scope.racialBonusCha = 0;
         }else if (race === 'Halfling') {
-            $scope.character.skills.perception = false;
             $scope.racialBonusDex = 2;
             $scope.racialBonusStr = 0;
             $scope.racialBonusCon = 0;
@@ -92,7 +121,6 @@ angular.module('5ePcApp')
             $scope.racialBonusWis = 0;
             $scope.racialBonusCha = 0;
         }else if (race === 'Human') {
-            $scope.character.skills.perception = false;
             $scope.racialBonusStr = 1;
             $scope.racialBonusDex = 1;
             $scope.racialBonusCon = 1;
@@ -110,7 +138,6 @@ angular.module('5ePcApp')
             $scope.racialBonusWis = 1;
             $scope.racialBonusStr = 0;
         } else if (subrace === 'Mountain Dwarf') {
-            console.log("I'm a dwarf")
             $scope.racialBonusStr = 2;
             $scope.racialBonusWis = 0;
         } else if (subrace === 'Lightfoot Halfling') {
@@ -120,6 +147,12 @@ angular.module('5ePcApp')
             $scope.racialBonusCon = 1;
             $scope.racialBonusCha = 0;
         }
+        $scope.totalStr($scope.baseStr, $scope.racialBonusStr);
+        $scope.totalDex($scope.baseDex, $scope.racialBonusDex);
+        $scope.totalCon($scope.baseCon, $scope.racialBonusCon);
+        $scope.totalIntel($scope.baseIntel, $scope.racialBonusIntel);
+        $scope.totalWis($scope.baseWis, $scope.racialBonusWis);
+        $scope.totalCha($scope.baseCha, $scope.racialBonusCha);
     };
 
     $scope.abilityBonus = function(ability){
