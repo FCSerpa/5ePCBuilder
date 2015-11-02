@@ -97,7 +97,8 @@ angular.module('5ePcApp')
     $scope.racialBonusWis = 0;
     $scope.racialBonusCha = 0;
 
-    $scope.getRacialBonus = function(race, subrace){
+    $scope.getRacialBonus = function(race){
+        $scope.character.race.subrace = '';
         $scope.elfSight();
         if (race === 'Elf') {
             $scope.racialBonusDex = 2;
@@ -128,6 +129,15 @@ angular.module('5ePcApp')
             $scope.racialBonusWis = 1;
             $scope.racialBonusCha = 1;
         }
+        $scope.totalStr($scope.baseStr, $scope.racialBonusStr);
+        $scope.totalDex($scope.baseDex, $scope.racialBonusDex);
+        $scope.totalCon($scope.baseCon, $scope.racialBonusCon);
+        $scope.totalIntel($scope.baseIntel, $scope.racialBonusIntel);
+        $scope.totalWis($scope.baseWis, $scope.racialBonusWis);
+        $scope.totalCha($scope.baseCha, $scope.racialBonusCha);
+    };
+
+    $scope.getSubracialBonus = function(subrace){
         if (subrace === 'High Elf') {
             $scope.racialBonusIntel = 1;
             $scope.racialBonusWis = 0;

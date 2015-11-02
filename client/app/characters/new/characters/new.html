@@ -22,13 +22,13 @@
 					<p>Class &amp; Level</p>
 				</div>
 				<div class="col-md-12 sheetBox">
-					<select name="race select" ng-model="character.race.race" ng-change="getRacialBonus(character.race.race, character.race.subrace)">
+					<select name="race select" ng-model="character.race.race" ng-change="getRacialBonus(character.race.race)">
 						<option value="Elf">Elf</option>
 						<option value="Dwarf">Dwarf</option>
 						<option value="Halfling">Halfling</option>
 						<option value="Human">Human</option>
 					</select>
-					<select name="subrace select" ng-model="character.race.subrace" ng-change="getRacialBonus(character.race.race, character.race.subrace)">
+					<select name="subrace select" ng-model="character.race.subrace" ng-change="getSubracialBonus(character.race.subrace)">
 						<option value="{{selectSubrace(1)}}">{{selectSubrace(1)}}</option>
 						<option value="{{selectSubrace(2)}}">{{selectSubrace(2)}}</option>
 					</select>
@@ -86,7 +86,7 @@
 				<div class="col-md-12 sheetBox">
 					<div class="row">
 						<div class="col-md-4">
-							<h3>{{ points(character.abilities.str, character.abilities.dex, character.abilities.con, character.abilities.intel, character.abilities.wis, character.abilities.cha) }}</h3>
+							<h3>{{ points(baseStr, baseDex, baseCon, baseIntel, baseWis, baseCha) }}</h3>
 							<p>Point Buy</p>
 						</div>
 						<div class="col-md-8">
