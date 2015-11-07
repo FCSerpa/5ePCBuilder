@@ -18,13 +18,19 @@ module.exports = function (grunt) {
     protractor: 'grunt-protractor-runner',
     buildcontrol: 'grunt-build-control'
   });
-
+  grunt.loadNpmTasks('grunt-cssimage');
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
   // Define the configuration for all the tasks
   grunt.initConfig({
-
+    cssimage: {
+      options: {},
+      files: {
+        'dest/test.css': ['src/test.css'],
+      },
+    },
+    
     // Project settings
     pkg: grunt.file.readJSON('package.json'),
     yeoman: {
@@ -235,7 +241,7 @@ module.exports = function (grunt) {
           src: [
             '<%= yeoman.dist %>/public/{,*/}*.js',
             '<%= yeoman.dist %>/public/{,*/}*.css',
-            // '<%= yeoman.dist %>/public/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+            '<%= yeoman.dist %>/public/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
             '<%= yeoman.dist %>/public/assets/fonts/*'
           ]
         }
@@ -260,39 +266,39 @@ module.exports = function (grunt) {
       options: {
         assetsDirs: [
           '<%= yeoman.dist %>/public',
-          // '<%= yeoman.dist %>/public/assets/images'
+          '<%= yeoman.dist %>/public/assets/images'
         ],
         // This is so we update image references in our ng-templates
         patterns: {
           js: [
-            // [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
+            [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
           ]
         }
       }
     },
 
     // The following *-min tasks produce minified files in the dist folder
-    // imagemin: {
-    //   dist: {
-    //     files: [{
-    //       expand: true,
-    //       cwd: '<%= yeoman.client %>/assets/images',
-    //       src: '{,*/}*.{png,jpg,jpeg,gif}',
-    //       dest: '<%= yeoman.dist %>/public/assets/images'
-    //     }]
-    //   }
-    // },
+    imagemin: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.client %>/assets/images',
+          src: '{,*/}*.{png,jpg,jpeg,gif}',
+          dest: '<%= yeoman.dist %>/public/assets/images'
+        }]
+      }
+    },
 
-    // svgmin: {
-    //   dist: {
-    //     files: [{
-    //       expand: true,
-    //       cwd: '<%= yeoman.client %>/assets/images',
-    //       src: '{,*/}*.svg',
-    //       dest: '<%= yeoman.dist %>/public/assets/images'
-    //     }]
-    //   }
-    // },
+    svgmin: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.client %>/assets/images',
+          src: '{,*/}*.svg',
+          dest: '<%= yeoman.dist %>/public/assets/images'
+        }]
+      }
+    },
 
     // Allow the use of non-minsafe AngularJS files. Automatically makes it
     // minsafe compatible so Uglify does not destroy the ng references

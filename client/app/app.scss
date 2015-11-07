@@ -20,7 +20,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
 
 body {
-	background: url(ToDKeyArt3.jpg) no-repeat center center fixed; 
+	background: url(../assets/images/ToDKeyArt3.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -28,7 +28,7 @@ body {
 }
 
 body, html {
-    cursor: url(Pointer_sword_on_32x32.png), default;
+    cursor: url(../assets/images/Pointer_sword_on_32x32.png), default;
     /*cursor: url(./../images/Pointer_sword_on_32x32.png), pointer;*/
 }
 
@@ -57,7 +57,7 @@ h1, h3, h4, p, input, label {
 a:link, a:hover, a:active, button:hover, button:link, button:active {
 	text-decoration: none;
 	color: inherit;
-	cursor: url(Pointer_sword_on_32x32.png), default;
+	cursor: url(../assets/images/Pointer_sword_on_32x32.png), default;
 }
 
 .btn {
