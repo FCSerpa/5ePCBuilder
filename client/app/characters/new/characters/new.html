@@ -289,35 +289,57 @@
 		<div class="col-md-4 sheetBox">
 			<div class="row">
 				<div class="col-md-12 sheetBox smallBox">
-					<select name="trait select" ng-model="character.trait">
-						<option value="I face problems head-on. A simple, direct solution is the best path to success.">Direct</option>
+					<select name="trait select" ng-model="character.background.trait">
+						<option value="{{ selectTrait(1) }}"> {{ selectTrait(1)}} </option>
+						<option value="{{ selectTrait(2) }}"> {{ selectTrait(2)}} </option>
+						<option value="{{ selectTrait(3) }}"> {{ selectTrait(3)}} </option>
+						<option value="{{ selectTrait(4) }}"> {{ selectTrait(4)}} </option>
+						<option value="{{ selectTrait(5) }}"> {{ selectTrait(5)}} </option>
+						<option value="{{ selectTrait(6) }}"> {{ selectTrait(6)}} </option>
+						<option value="{{ selectTrait(7) }}"> {{ selectTrait(7)}} </option>
+						<option value="{{ selectTrait(8) }}"> {{ selectTrait(8)}} </option>
 					</select>
 					<br>
-					<p>{{character.trait}}</p>
+					<p>{{ character.background.trait }}</p>
 					<p>Personality Trait</p>
 				</div>
 				<div class="col-md-12 sheetBox smallBox">
-					<select name="ideal select" ng-model="character.ideal">
-						<option value="Greater Good. Our lot is to lay down our lives in defense of others.">Greater Good</option>
+					<select name="ideal select" ng-model="character.background.ideal">
+						<option value="{{ selectIdeal(1) }}"> {{ selectIdeal(1)}} </option>
+						<option value="{{ selectIdeal(2) }}"> {{ selectIdeal(2)}} </option>
+						<option value="{{ selectIdeal(3) }}"> {{ selectIdeal(3)}} </option>
+						<option value="{{ selectIdeal(4) }}"> {{ selectIdeal(4)}} </option>
+						<option value="{{ selectIdeal(5) }}"> {{ selectIdeal(5)}} </option>
+						<option value="{{ selectIdeal(6) }}"> {{ selectIdeal(6)}} </option>
 					</select>
 					<br>
-					<p>{{character.ideal}}
+					<p>{{ character.background.ideal }}</p>
 					<p>Ideal</p>
 				</div>
 				<div class="col-md-12 sheetBox smallBox">
-					<select name="bond select" ng-model="character.bond">
-						<option value="I fight for those who cannot fight for themselves.">Defender</option>
+					<select name="bond select" ng-model="character.background.bond">
+						<option value="{{ selectBond(1) }}"> {{ selectBond(1)}} </option>
+						<option value="{{ selectBond(2) }}"> {{ selectBond(2)}} </option>
+						<option value="{{ selectBond(3) }}"> {{ selectBond(3)}} </option>
+						<option value="{{ selectBond(4) }}"> {{ selectBond(4)}} </option>
+						<option value="{{ selectBond(5) }}"> {{ selectBond(5)}} </option>
+						<option value="{{ selectBond(6) }}"> {{ selectBond(6)}} </option>
 					</select>
 					<br>
-					<p>{{character.bond}}</p>
+					<p>{{character.background.bond}}</p>
 					<p>Bond</p>
 				</div>
 				<div class="col-md-12 sheetBox smallBox">
-					<select name="flaw select" ng-model="character.flaw">
-						<option value="I’d rather eat my armor than admit when I’m wrong.">Proud</option>
+					<select name="flaw select" ng-model="character.background.flaw">
+						<option value="{{ selectFlaw(1) }}"> {{ selectFlaw(1)}} </option>
+						<option value="{{ selectFlaw(2) }}"> {{ selectFlaw(2)}} </option>
+						<option value="{{ selectFlaw(3) }}"> {{ selectFlaw(3)}} </option>
+						<option value="{{ selectFlaw(4) }}"> {{ selectFlaw(4)}} </option>
+						<option value="{{ selectFlaw(5) }}"> {{ selectFlaw(5)}} </option>
+						<option value="{{ selectFlaw(6) }}"> {{ selectFlaw(6)}} </option>
 					</select>
 					<br>
-					<p>{{character.flaw}}</p>
+					<p>{{character.background.flaw}}</p>
 					<p>Flaw</p>
 				</div>
 			</div>
