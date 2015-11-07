@@ -88,7 +88,7 @@ angular.module('5ePcApp')
         } else if (line === 2 && $scope.character.race.race === 'Halfling') {
             return 'Stout Halfling';
         } 
-    }
+    };
 
     $scope.racialBonusStr = 0;
     $scope.racialBonusDex = 0;
