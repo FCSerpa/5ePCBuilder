@@ -90,6 +90,105 @@ angular.module('5ePcApp')
         } 
     };
 
+    $scope.racialBonusStr = 0;
+    $scope.racialBonusDex = 0;
+    $scope.racialBonusCon = 0;
+    $scope.racialBonusIntel = 0;
+    $scope.racialBonusWis = 0;
+    $scope.racialBonusCha = 0;
+
+    $scope.getRacialBonus = function(race){
+        $scope.character.race.subrace = '';
+        $scope.elfSight();
+        if (race === 'Elf') {
+            $scope.racialBonusDex = 2;
+            $scope.racialBonusStr = 0;
+            $scope.racialBonusCon = 0;
+            $scope.racialBonusIntel = 0;
+            $scope.racialBonusWis = 0;
+            $scope.racialBonusCha = 0;
+        }else if (race === 'Dwarf') {
+            $scope.racialBonusCon = 2;
+            $scope.racialBonusStr = 0;
+            $scope.racialBonusDex = 0;
+            $scope.racialBonusIntel = 0;
+            $scope.racialBonusWis = 0;
+            $scope.racialBonusCha = 0;
+        }else if (race === 'Halfling') {
+            $scope.racialBonusDex = 2;
+            $scope.racialBonusStr = 0;
+            $scope.racialBonusCon = 0;
+            $scope.racialBonusIntel = 0;
+            $scope.racialBonusWis = 0;
+            $scope.racialBonusCha = 0;
+        }else if (race === 'Human') {
+            $scope.racialBonusStr = 1;
+            $scope.racialBonusDex = 1;
+            $scope.racialBonusCon = 1;
+            $scope.racialBonusIntel = 1;
+            $scope.racialBonusWis = 1;
+            $scope.racialBonusCha = 1;
+        }
+        $scope.totalStr($scope.baseStr, $scope.racialBonusStr);
+        $scope.totalDex($scope.baseDex, $scope.racialBonusDex);
+        $scope.totalCon($scope.baseCon, $scope.racialBonusCon);
+        $scope.totalIntel($scope.baseIntel, $scope.racialBonusIntel);
+        $scope.totalWis($scope.baseWis, $scope.racialBonusWis);
+        $scope.totalCha($scope.baseCha, $scope.racialBonusCha);
+    };
+
+    $scope.getSubracialBonus = function(subrace){
+        if (subrace === 'High Elf') {
+            $scope.racialBonusIntel = 1;
+            $scope.racialBonusWis = 0;
+        } else if (subrace === 'Wood Elf') {
+            $scope.racialBonusWis = 1;
+            $scope.racialBonusIntel = 0;
+        } else if (subrace === 'Hill Dwarf') {
+            $scope.racialBonusWis = 1;
+            $scope.racialBonusStr = 0;
+        } else if (subrace === 'Mountain Dwarf') {
+            $scope.racialBonusStr = 2;
+            $scope.racialBonusWis = 0;
+        } else if (subrace === 'Lightfoot Halfling') {
+            $scope.racialBonusCha = 1;
+            $scope.racialBonusCon = 0;
+        } else if (subrace === 'Stout Halfling') {
+            $scope.racialBonusCon = 1;
+            $scope.racialBonusCha = 0;
+        }
+        $scope.totalStr($scope.baseStr, $scope.racialBonusStr);
+        $scope.totalDex($scope.baseDex, $scope.racialBonusDex);
+        $scope.totalCon($scope.baseCon, $scope.racialBonusCon);
+        $scope.totalIntel($scope.baseIntel, $scope.racialBonusIntel);
+        $scope.totalWis($scope.baseWis, $scope.racialBonusWis);
+        $scope.totalCha($scope.baseCha, $scope.racialBonusCha);
+    };
+
+    $scope.abilityBonus = function(ability){
+    	return Math.floor((ability - 10)/2);
+    };
+
+    $scope.skilled = function(background){
+        resetBackground();
+    	if (background === 'Acolyte'){
+    		$scope.character.skills.religion = true;
+    		$scope.character.skills.insight = true;
+    	} else if (background === 'Criminal'){
+    		$scope.character.skills.deception = true;
+    		$scope.character.skills.stealth = true;
+    	} else if (background === 'Folk Hero'){
+    		$scope.character.skills.animalHandling = true;
+    		$scope.character.skills.survival = true;
+    	} else if (background === 'Sage'){
+    		$scope.character.skills.arcana = true;
+    		$scope.character.skills.history = true;
+    	} else if (background === 'Soldier'){
+    		$scope.character.skills.intimidation = true;
+    		$scope.character.skills.athletics = true;
+    	} getBackgroundEquipment();
+    };
+
     $scope.selectTrait = function(line) {
         if (line === 1 && $scope.character.background.name === 'Soldier') {
             return 'I’m always polite and respectful.';
@@ -366,142 +465,73 @@ angular.module('5ePcApp')
         }
     };
 
-    $scope.racialBonusStr = 0;
-    $scope.racialBonusDex = 0;
-    $scope.racialBonusCon = 0;
-    $scope.racialBonusIntel = 0;
-    $scope.racialBonusWis = 0;
-    $scope.racialBonusCha = 0;
+    function resetBackground() {
+        $scope.character.skills.intimidation = false;
+        $scope.character.skills.athletics = false;
+        $scope.character.skills.insight = false;
+        $scope.character.skills.religion = false;
+        $scope.character.skills.deception = false;
+        $scope.character.skills.stealth = false;
+        $scope.character.skills.animalHandling = false;
+        $scope.character.skills.survival = false;
+        $scope.character.skills.arcana = false;
+        $scope.character.skills.history = false;
+        $scope.character.background.trait = '';
+        $scope.character.background.bond = '';
+        $scope.character.background.ideal = '';
+        $scope.character.background.flaw = '';
+        $scope.character.backgroundEquipment = [];
+    };
 
-    $scope.getRacialBonus = function(race){
-        $scope.character.race.subrace = '';
-        $scope.elfSight();
-        if (race === 'Elf') {
-            $scope.racialBonusDex = 2;
-            $scope.racialBonusStr = 0;
-            $scope.racialBonusCon = 0;
-            $scope.racialBonusIntel = 0;
-            $scope.racialBonusWis = 0;
-            $scope.racialBonusCha = 0;
-        }else if (race === 'Dwarf') {
-            $scope.racialBonusCon = 2;
-            $scope.racialBonusStr = 0;
-            $scope.racialBonusDex = 0;
-            $scope.racialBonusIntel = 0;
-            $scope.racialBonusWis = 0;
-            $scope.racialBonusCha = 0;
-        }else if (race === 'Halfling') {
-            $scope.racialBonusDex = 2;
-            $scope.racialBonusStr = 0;
-            $scope.racialBonusCon = 0;
-            $scope.racialBonusIntel = 0;
-            $scope.racialBonusWis = 0;
-            $scope.racialBonusCha = 0;
-        }else if (race === 'Human') {
-            $scope.racialBonusStr = 1;
-            $scope.racialBonusDex = 1;
-            $scope.racialBonusCon = 1;
-            $scope.racialBonusIntel = 1;
-            $scope.racialBonusWis = 1;
-            $scope.racialBonusCha = 1;
+    function getBackgroundEquipment() {
+        if ($scope.character.background.name === 'Acolyte') {
+            $scope.character.backgroundEquipment.push('holy symbol', 'a prayer book or prayer wheel', '5 sticks of incense', 'vestments', 'a set of common clothes', 'a belt pouch containing 15 gp');
+        } else if ($scope.character.background.name === 'Criminal') {
+            $scope.character.backgroundEquipment.push('a crowbar', 'a set of dark common clothes', 'including a hood', 'a belt pouch containing 15 gp');
+        } else if ($scope.character.background.name === 'Folk Hero') {
+            $scope.character.backgroundEquipment.push('a set of artisan’s tools (one of your choice)', 'a shovel', 'an iron pot', 'a set of common clothes', 'a belt pouch containing 10 gp');
+        } else if ($scope.character.background.name === 'Sage') {
+            $scope.character.backgroundEquipment.push('a bottle of black ink', 'a quill', 'a small knife', 'a letter from a dead colleague posing a question you have not yet been able to answer', 'a set of common clothes', 'a belt pouch containing 10 gp');
+        } else if ($scope.character.background.name === 'Soldier') {
+            $scope.character.backgroundEquipment.push('an insignia of rank', 'a trophy taken from a fallen enemy (a dagger, broken blade, or piece of a banner)', 'a set of bone dice or deck of cards', 'a set of common clothes', 'a belt pouch containing 10 gp');
         }
-        $scope.totalStr($scope.baseStr, $scope.racialBonusStr);
-        $scope.totalDex($scope.baseDex, $scope.racialBonusDex);
-        $scope.totalCon($scope.baseCon, $scope.racialBonusCon);
-        $scope.totalIntel($scope.baseIntel, $scope.racialBonusIntel);
-        $scope.totalWis($scope.baseWis, $scope.racialBonusWis);
-        $scope.totalCha($scope.baseCha, $scope.racialBonusCha);
     };
 
-    $scope.getSubracialBonus = function(subrace){
-        if (subrace === 'High Elf') {
-            $scope.racialBonusIntel = 1;
-            $scope.racialBonusWis = 0;
-        } else if (subrace === 'Wood Elf') {
-            $scope.racialBonusWis = 1;
-            $scope.racialBonusIntel = 0;
-        } else if (subrace === 'Hill Dwarf') {
-            $scope.racialBonusWis = 1;
-            $scope.racialBonusStr = 0;
-        } else if (subrace === 'Mountain Dwarf') {
-            $scope.racialBonusStr = 2;
-            $scope.racialBonusWis = 0;
-        } else if (subrace === 'Lightfoot Halfling') {
-            $scope.racialBonusCha = 1;
-            $scope.racialBonusCon = 0;
-        } else if (subrace === 'Stout Halfling') {
-            $scope.racialBonusCon = 1;
-            $scope.racialBonusCha = 0;
+    function getClassEquipment() {
+        if ($scope.character.characterClass.name === 'Cleric') {
+            //$scope.character.classEquipment.armor.push();
+            //$scope.character.classEquipment.weapon.push();
+        } else if ($scope.character.characterClass.name === 'Fighter') {
+            //$scope.character.classEquipment.armor.push();
+            //$scope.character.classEquipment.weapon.push();
+            //$scope.character.classEquipment.miscelaneous.push();
+        } else if ($scope.character.characterClass.name === 'Rogue') {
+            $scope.character.classEquipment.armor.push('leather armor');
+            $scope.character.classEquipment.weapon.push('dagger', 'dagger');
+            $scope.character.classEquipment.miscelaneous.push('thieves\' tools');
+        } else if ($scope.character.characterClass.name === 'Wizard') {
+            //$scope.character.classEquipment.armor.push();
+            //$scope.character.classEquipment.weapon.push();
+            $scope.character.classEquipment.miscelaneous.push('a spellbook');
         }
-        $scope.totalStr($scope.baseStr, $scope.racialBonusStr);
-        $scope.totalDex($scope.baseDex, $scope.racialBonusDex);
-        $scope.totalCon($scope.baseCon, $scope.racialBonusCon);
-        $scope.totalIntel($scope.baseIntel, $scope.racialBonusIntel);
-        $scope.totalWis($scope.baseWis, $scope.racialBonusWis);
-        $scope.totalCha($scope.baseCha, $scope.racialBonusCha);
-    };
+    }
 
-    $scope.abilityBonus = function(ability){
-    	return Math.floor((ability - 10)/2);
-    };
-
-    $scope.skilled = function(background){
-    	if (background === 'Acolyte'){
-    		$scope.character.skills.religion = true;
-    		$scope.character.skills.insight = true;
-    		$scope.character.skills.stealth = false;
-    		$scope.character.skills.deception = false;
-    		$scope.character.skills.animalHanlding = false;
-    		$scope.character.skills.survival = false;
-    		$scope.character.skills.arcana = false;
-    		$scope.character.skills.history = false;
-    		$scope.character.skills.intimidation = false;
-    		$scope.character.skills.athletics = false;
-    	} else if (background === 'Criminal'){
-    		$scope.character.skills.deception = true;
-    		$scope.character.skills.stealth = true;
-    		$scope.character.skills.insight = false;
-    		$scope.character.skills.religion = false;
-    		$scope.character.skills.animalHanlding = false;
-    		$scope.character.skills.survival = false;
-    		$scope.character.skills.arcana = false;
-    		$scope.character.skills.history = false;
-    		$scope.character.skills.intimidation = false;
-    		$scope.character.skills.athletics = false;
-    	} else if (background === 'Folk Hero'){
-    		$scope.character.skills.animalHandling = true;
-    		$scope.character.skills.survival = true;
-    		$scope.character.skills.insight = false;
-    		$scope.character.skills.religion = false;
-    		$scope.character.skills.deception = false;
-    		$scope.character.skills.stealth = false;
-    		$scope.character.skills.arcana = false;
-    		$scope.character.skills.history = false;
-    		$scope.character.skills.intimidation = false;
-    		$scope.character.skills.athletics = false;
-    	} else if (background === 'Sage'){
-    		$scope.character.skills.arcana = true;
-    		$scope.character.skills.history = true;
-    		$scope.character.skills.insight = false;
-    		$scope.character.skills.religion = false;
-    		$scope.character.skills.deception = false;
-    		$scope.character.skills.stealth = false;
-    		$scope.character.skills.animalHanlding = false;
-    		$scope.character.skills.survival = false;
-    		$scope.character.skills.intimidation = false;
-    		$scope.character.skills.athletics = false;
-    	} else if (background === 'Soldier'){
-    		$scope.character.skills.intimidation = true;
-    		$scope.character.skills.athletics = true;
-    		$scope.character.skills.insight = false;
-    		$scope.character.skills.religion = false;
-    		$scope.character.skills.deception = false;
-    		$scope.character.skills.stealth = false;
-    		$scope.character.skills.animalHanlding = false;
-    		$scope.character.skills.survival = false;
-    		$scope.character.skills.arcana = false;
-    		$scope.character.skills.history = false;
-    	}
+    $scope.printEquipment = function() {
+        var gear = [];
+        $scope.character.classEquipment.weapon.forEach(function(stuff) {
+            gear.push(stuff);
+        });    
+        $scope.character.classEquipment.armor.forEach(function(stuff) {
+            gear.push(stuff);
+        });
+        $scope.character.classEquipment.miscelaneous.forEach(function(stuff) {
+            gear.push(stuff);
+        });
+        $scope.character.backgroundEquipment.forEach(function(stuff) {
+            gear.push(stuff);
+        });
+        //console.log(gear);
+        return gear.join(', ');
     };
 
     $scope.classSkill = function(skill){
@@ -596,7 +626,8 @@ angular.module('5ePcApp')
     		$scope.character.savingThrows.str = false;
     		$scope.character.savingThrows.con = false;
     		$scope.character.savingThrows.dex = false;
-    	}
+    	} 
+        getClassEquipment();
     };
 
     $scope.skillBonus = function(skill, ability) {
@@ -669,9 +700,10 @@ angular.module('5ePcApp')
 		xp: 0,
 		abilities: {str: 8, dex: 8, con: 8, intel: 8, wis: 8, cha: 8},
 		gold: 0,
-		equipment: {armor: [{name: String, bonus: Number, type: Number}], 
-					weapon: [{name: String, damageType: String, damageDie: Number, type: Number, keywords: [String], range: Number}],
-					miscelaneous: [String]},
+		classEquipment: {armor: [], 
+					weapon: [],
+					miscelaneous: []},
+        backgroundEquipment: [],
 		skills: {athletics: false, acrobatics: false, sleightOfHand: false, stealth: false, arcana: false, history: false, investigation: false, nature: false, religion: false, animalHanlding: false, insight: false, medicine: false, perception: false, survival: false, deception: false, intimidation: false, performance: false, persuasion: false},
 		savingThrows: {str: false, dex: false, con: false, intel: false, wis: false, cha: false},
 		proficiencies: {armorType: Number, armorName: [String], weaponType: Number, weaponName: [String], tools: [String], instruments: [String], languages: [String]},
@@ -693,9 +725,10 @@ angular.module('5ePcApp')
 		xp: 0,
 		abilities: {str: 8, dex: 8, con: 8, intel: 8, wis: 8, cha: 8},
 		gold: 0,
-		equipment: {armor: [{name: String, bonus: Number, type: Number}], 
-					weapon: [{name: String, damageType: String, damageDie: Number, type: Number, keywords: [String], range: Number}],
-					miscelaneous: [String]},
+	    classEquipment: {armor: [], 
+					weapon: [],
+					miscelaneous: []},
+        backgroundEquipment: [],
 		skills: {athletics: false, acrobatics: false, sleightOfHand: false, stealth: false, arcana: false, history: false, investigation: false, nature: false, religion: false, animalHanlding: false, insight: false, medicine: false, perception: false, survival: false, deception: false, intimidation: false, performance: false, persuasion: false},
 		savingThrows: {str: false, dex: false, con: false, intel: false, wis: false, cha: false},
 		proficiencies: {armorType: Number, armorName: [String], weaponType: Number, weaponName: [String], tools: [String], instruments: [String], languages: [String]},
