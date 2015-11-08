@@ -485,57 +485,82 @@ angular.module('5ePcApp')
 
     function getBackgroundEquipment() {
         if ($scope.character.background.name === 'Acolyte') {
-            $scope.character.backgroundEquipment.push('holy symbol', 'a prayer book or prayer wheel', '5 sticks of incense', 'vestments', 'a set of common clothes', 'a belt pouch containing 15 gp');
+            $scope.character.backgroundEquipment.push('holy symbol', 'prayer book or prayer wheel', '5 sticks of incense', 'vestments', 'set of common clothes', 'belt pouch containing 15 gp');
         } else if ($scope.character.background.name === 'Criminal') {
-            $scope.character.backgroundEquipment.push('a crowbar', 'a set of dark common clothes', 'including a hood', 'a belt pouch containing 15 gp');
+            $scope.character.backgroundEquipment.push('crowbar', 'set of dark common clothes', 'including a hood', 'belt pouch containing 15 gp');
         } else if ($scope.character.background.name === 'Folk Hero') {
-            $scope.character.backgroundEquipment.push('a set of artisan’s tools (one of your choice)', 'a shovel', 'an iron pot', 'a set of common clothes', 'a belt pouch containing 10 gp');
+            $scope.character.backgroundEquipment.push('set of artisan’s tools (one of your choice)', 'shovel', 'iron pot', 'set of common clothes', 'belt pouch containing 10 gp');
         } else if ($scope.character.background.name === 'Sage') {
-            $scope.character.backgroundEquipment.push('a bottle of black ink', 'a quill', 'a small knife', 'a letter from a dead colleague posing a question you have not yet been able to answer', 'a set of common clothes', 'a belt pouch containing 10 gp');
+            $scope.character.backgroundEquipment.push('bottle of black ink', 'quill', 'small knife', 'letter from a dead colleague posing a question you have not yet been able to answer', 'set of common clothes', 'belt pouch containing 10 gp');
         } else if ($scope.character.background.name === 'Soldier') {
-            $scope.character.backgroundEquipment.push('an insignia of rank', 'a trophy taken from a fallen enemy (a dagger, broken blade, or piece of a banner)', 'a set of bone dice or deck of cards', 'a set of common clothes', 'a belt pouch containing 10 gp');
+            $scope.character.backgroundEquipment.push('insignia of rank', 'trophy taken from a fallen enemy (dagger, broken blade, or piece of a banner)', 'set of bone dice or deck of cards', 'set of common clothes', 'belt pouch containing 10 gp');
         }
     };
 
     function getClassEquipment() {
         if ($scope.character.characterClass.name === 'Cleric') {
-            //$scope.character.classEquipment.armor.push();
+            $scope.character.classEquipment.armor[1] = 'shield';
             //$scope.character.classEquipment.weapon.push();
+            $scope.character.classEquipment.miscelaneous.push('holy symbol');
         } else if ($scope.character.characterClass.name === 'Fighter') {
             //$scope.character.classEquipment.armor.push();
             //$scope.character.classEquipment.weapon.push();
             //$scope.character.classEquipment.miscelaneous.push();
         } else if ($scope.character.characterClass.name === 'Rogue') {
-            $scope.character.classEquipment.armor.push('leather armor');
-            $scope.character.classEquipment.weapon.push('dagger', 'dagger');
+            $scope.character.classEquipment.armor[0] = 'leather armor';
+            $scope.character.classEquipment.weapon[2] = 'dagger';
+            $scope.character.classEquipment.weapon[3] = 'dagger';
             $scope.character.classEquipment.miscelaneous.push('thieves\' tools');
         } else if ($scope.character.characterClass.name === 'Wizard') {
             //$scope.character.classEquipment.armor.push();
             //$scope.character.classEquipment.weapon.push();
-            $scope.character.classEquipment.miscelaneous.push('a spellbook');
+            $scope.character.classEquipment.miscelaneous.push('spellbook');
         }
-    }
+    };
+
+    $scope.clericChoice = '';
+    $scope.ifAnySimpleWeapon = false;
+    $scope.clericChoiceFunc = function() {
+        if ($scope.clericChoice === 'light crossbow') {
+            $scope.ifAnySimpleWeapon = false;
+            $scope.character.classEquipment.weapon[1] = 'light crossbow';
+        } else if ($scope.clericChoice === 'any simple weapon') {
+            $scope.ifAnySimpleWeapon = true;
+        } console.log($scope.clericChoice);
+    };
 
     function resetClassEquipment() {
-        $scope.character.classEquipment.armor = [];
-        $scope.character.classEquipment.weapon = [];
+        $scope.character.classEquipment.armor = ['', ''];
+        $scope.character.classEquipment.weapon = ['', '', '', '', ''];
         $scope.character.classEquipment.miscelaneous = [];
-    }
+        $scope.character.classEquipment.pack = '';
+    };
 
     $scope.printEquipment = function() {
         var gear = [];
         $scope.character.classEquipment.weapon.forEach(function(stuff) {
+            if (stuff) {
             gear.push(stuff);
-        });    
+            }
+        })    
         $scope.character.classEquipment.armor.forEach(function(stuff) {
+            if (stuff) {
             gear.push(stuff);
-        });
+            }
+        })
         $scope.character.classEquipment.miscelaneous.forEach(function(stuff) {
+            if (stuff) {
             gear.push(stuff);
-        });
+            }
+        })
+        if ($scope.character.classEquipment.pack) {
+            gear.push($scope.character.classEquipment.pack);
+        }
         $scope.character.backgroundEquipment.forEach(function(stuff) {
+            if (stuff) {
             gear.push(stuff);
-        });
+            }
+        })
         //console.log(gear);
         return gear.join(', ');
     };
@@ -739,9 +764,10 @@ angular.module('5ePcApp')
 		xp: 0,
 		abilities: {str: 8, dex: 8, con: 8, intel: 8, wis: 8, cha: 8},
 		gold: 0,
-		classEquipment: {armor: [], 
-					weapon: [],
-					miscelaneous: []},
+		classEquipment: {armor: ['', ''], 
+					weapon: ['', '', '', '', ''],
+					miscelaneous: [],
+                    pack: ''},
         backgroundEquipment: [],
 		skills: {athletics: false, acrobatics: false, sleightOfHand: false, stealth: false, arcana: false, history: false, investigation: false, nature: false, religion: false, animalHanlding: false, insight: false, medicine: false, perception: false, survival: false, deception: false, intimidation: false, performance: false, persuasion: false},
 		savingThrows: {str: false, dex: false, con: false, intel: false, wis: false, cha: false},
@@ -764,9 +790,10 @@ angular.module('5ePcApp')
 		xp: 0,
 		abilities: {str: 8, dex: 8, con: 8, intel: 8, wis: 8, cha: 8},
 		gold: 0,
-	    classEquipment: {armor: [], 
-					weapon: [],
-					miscelaneous: []},
+	    classEquipment: {armor: ['', ''], 
+					weapon: ['', '', '', '', ''],
+					miscelaneous: [],
+                    pack: ''},
         backgroundEquipment: [],
 		skills: {athletics: false, acrobatics: false, sleightOfHand: false, stealth: false, arcana: false, history: false, investigation: false, nature: false, religion: false, animalHanlding: false, insight: false, medicine: false, perception: false, survival: false, deception: false, intimidation: false, performance: false, persuasion: false},
 		savingThrows: {str: false, dex: false, con: false, intel: false, wis: false, cha: false},
