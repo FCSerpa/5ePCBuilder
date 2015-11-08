@@ -516,6 +516,12 @@ angular.module('5ePcApp')
         }
     }
 
+    function resetClassEquipment() {
+        $scope.character.classEquipment.armor = [];
+        $scope.character.classEquipment.weapon = [];
+        $scope.character.classEquipment.miscelaneous = [];
+    }
+
     $scope.printEquipment = function() {
         var gear = [];
         $scope.character.classEquipment.weapon.forEach(function(stuff) {
@@ -532,6 +538,38 @@ angular.module('5ePcApp')
         });
         //console.log(gear);
         return gear.join(', ');
+    };
+
+    $scope.isCleric = function() {
+        if ($scope.character.characterClass.name === 'Cleric') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isFighter = function() {
+        if ($scope.character.characterClass.name === 'Fighter') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isRogue = function() {
+        if ($scope.character.characterClass.name === 'Rogue') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isWizard = function() {
+        if ($scope.character.characterClass.name === 'Wizard') {
+            return true;
+        } else {
+            return false;
+        }
     };
 
     $scope.classSkill = function(skill){
@@ -597,6 +635,7 @@ angular.module('5ePcApp')
     };
 
     $scope.saved = function(classs){
+        resetClassEquipment();
     	if (classs === 'Cleric'){
     		$scope.character.savingThrows.wis = true;
     		$scope.character.savingThrows.cha = true;

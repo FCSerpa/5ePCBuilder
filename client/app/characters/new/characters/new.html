@@ -385,6 +385,18 @@
 			<p>Other Proficiencies &amp; Traits</p>
 		</div>
 		<div class="col-md-8 sheetBox">
+			<div ng-show="isCleric()">
+				<p>Cleric!</p>
+			</div>
+			<div ng-show="isFighter()">
+				<p>Fighter!</p>
+			</div>
+			<div ng-show="isRogue()">
+				<p>Rogue!</p>
+			</div>
+			<div ng-show="isWizard()">
+				<p>Wizard!</p>
+			</div>
 			<p> {{ printEquipment() }} </p>
 			<p>Equipment</p>
 		</div>
