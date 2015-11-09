@@ -400,29 +400,36 @@
 					<option value="any simple weapon">any simple weapon</option>
 				</select>
 				<select ng-show="ifAnySimpleWeapon" ng-model="character.classEquipment.weapon[1]">
-					<option value="club">club</option>
-					<option value="dagger">dagger</option>
-					<option value="greatclub">greatclub</option>
-					<option value="handaxe">handaxe</option>
-					<option value="javelin">javelin</option>
-					<option value="light hammer">light hammer</option>
-					<option value="mace">mace</option>
-					<option value="quarterstaff">quarterstaff</option>
-					<option value="sickle">sickle</option>
-					<option value="spear">spear</option>
-					<option value="light crossbow">light crossbow</option>
-					<option value="dart">dart</option>
-					<option value="shortbow">shortbow</option>
-					<option value="sling">sling</option>
+					<option value="{{ weapon.name }}" ng-repeat="weapon in weapons.simple">{{ weapon.name }}</option>
 				</select>
 				<select name="clericPackSelect" ng-model="character.classEquipment.pack">
 					<option value="priest's pack">priest's pack</option>
 					<option value="explorer's pack">explorer's pack</option>
 				</select>
-				<p>Cleric!</p>
 			</div>
 			<div ng-show="isFighter()">
-				<p>Fighter!</p>
+				<select name="fighterWeaponSelect1" ng-model="fighterChoice1" ng-change="fighterChoice1Func()">
+					<option value="chain mail">chain mail</option>
+					<option value="leather, longbow, and 20 arrows">leather armor, longbow, and 20 arrows</option>
+				</select>
+				<select name="fighterWeaponSelect2" ng-model="fighterChoice2" ng-change="fighterChoice2Func()">
+					<option value="shield">a martial weapon and a shield</option>
+					<option value="2 weapons">two martial weapons</option>
+				</select>
+				<select ng-show="isOneWeapon" ng-model="character.classEquipment.weapon[1]">
+					<option value="{{weapon.name}}" ng-repeat="weapon in weapons.martial">{{ weapon.name }}</option>
+				</select>
+				<select ng-show="isTwoWeapons" ng-model="character.classEquipment.weapon[2]">
+					<option value="{{weapon.name}}" ng-repeat="weapon in weapons.martial">{{ weapon.name }}</option>
+				</select>
+				<select name="fighterWeaponSelect3" ng-model="fighterChoice3" ng-change="fighterChoice3Func()">
+					<option value="crossbow">a light crossbow and 20 bolts</option>
+					<option value="handaxes">two handaxes</option>
+				</select>
+				<select name="fighterPackSelect" ng-model="character.classEquipment.pack">
+					<option value="dungeoneer's pack">dungeoneer's pack</option>
+					<option value="explorer's pack">explorer's pack</option>
+				</select>
 			</div>
 			<div ng-show="isRogue()">
 				<p>Rogue!</p>
