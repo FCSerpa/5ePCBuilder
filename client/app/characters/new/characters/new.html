@@ -445,10 +445,24 @@
 					<option value="dungeoneer's pack">dungeoneer's pack</option>
 					<option value="explorer's pack">explorer's pack</option>
 				</select>
-				<p>Rogue!</p>
 			</div>
 			<div ng-show="isWizard()">
-				<p>Wizard!</p>
+				<select name="wizardWeaponSelect1" ng-model="character.classEquipment.weapon[0]">
+					<option value="quarterstaff">quarterstaff</option>
+					<option value="dagger">dagger</option>
+				</select>
+				<select name="wizardWeaponSelect2" ng-model="character.classEquipment.weapon[5]">
+					<option value="component pouch">component pouch</option>
+					<option value="crystal">crystal</option>
+					<option value="orb">orb</option>
+					<option value="rod">rod</option>
+					<option value="staff">staff</option>
+					<option value="wand">wand</option>
+				</select>
+				<select name="wizardPackSelect" ng-model="character.classEquipment.pack">
+					<option value="scholar's pack">scholar's pack</option>
+					<option value="explorer's pack">explorer's pack</option>
+				</select>
 			</div>
 			<p> {{ printEquipment() }} </p>
 			<p>Equipment</p>
