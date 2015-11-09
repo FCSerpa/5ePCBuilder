@@ -397,6 +397,14 @@
 			<p ng-show="isCleric()">Spellcasting.</p>
 			<p ng-show="isLifeDomain()">Disciple of Life. Your healing spells are more effective. Whenever you use a spell of 1st level or higher to restore hit points to a creature, the creature regains additional hit points equal to 2 + the spell’s level.</p>
 			<p ng-show="isFighter()">Second Wind. You have a limited well of stamina that you can draw on to protect yourself from harm. On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level. Once you use this feature, you must finish a short or long rest before you can use it again.</p>
+			<select name="fighting style" ng-show="isFighter()" ng-model="character.characterClass.choices">
+				<option value="Archery Fighting Style">Archery Fighting Style</option>
+				<option value="Defense Fighting Style">Defense Fighting Style</option>
+				<option value="Dueling Fighting Style">Dueling Fighting Style</option>
+				<option value="Great Weapon Fighting Style">Great Weapon Fighting Style</option>
+				<option value="Protection Fighting Style">Protection Fighting Style</option>
+				<option value="Two-Weapon Fighting Style">Two-Weapon Fighting Style</option>
+			</select>
 			<p ng-show="isDuelingStyle()">Dueling. When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon.</p>
 			<p ng-show="isGreatWeaponStyle()">Great Weapon Fighting. When you roll a 1 or 2 on a damage die for an attack you make with a melee weapon that you are wielding with two hands, you can reroll the die and must use the new roll, even if the new roll is a 1 or a 2. The weapon must have the two-handed or versatile property for you to gain this benefit.</p>
 			<p ng-show="isProtectionStyle()">Protection. When a creature you can see attacks a target other than you that is within 5 feet of you, you can use your reaction to impose disadvantage on the attack roll. You must be wielding a shield.</p>
