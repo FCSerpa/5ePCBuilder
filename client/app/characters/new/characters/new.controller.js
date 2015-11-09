@@ -189,6 +189,25 @@ angular.module('5ePcApp')
     	} getBackgroundEquipment();
     };
 
+    $scope.getAC = function() {
+        var ac = 10;
+        if (!$scope.character.classEquipment.armor[0]) {
+            ac = ac + $scope.abilityBonus($scope.character.abilities.dex);
+        } else if ($scope.character.classEquipment.armor[0] === 'leather armor') {
+            ac = ac + 1 + $scope.abilityBonus($scope.character.abilities.dex);
+        } else if (($scope.character.classEquipment.armor[0] === 'scale mail') && ($scope.abilityBonus($scope.character.abilities.dex) <= 2)) {
+            ac = ac + 4 + $scope.abilityBonus($scope.character.abilities.dex);
+        } else if (($scope.character.classEquipment.armor[0] === 'scale mail') && ($scope.abilityBonus($scope.character.abilities.dex) > 2)) {
+            ac = ac + 4 + 2;
+        } else if ($scope.character.classEquipment.armor[0] === 'chain mail') {
+            ac = ac + 6;
+        }
+        if ($scope.character.classEquipment.armor[1]) {
+            ac = ac + 2;
+        }
+        return ac;
+    };
+
     $scope.selectTrait = function(line) {
         if (line === 1 && $scope.character.background.name === 'Soldier') {
             return 'I’m always polite and respectful.';
