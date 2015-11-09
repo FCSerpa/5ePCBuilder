@@ -90,12 +90,256 @@ angular.module('5ePcApp')
         } 
     };
 
+    $scope.selectSpecialization = function(line) {
+        if (line === 1 && $scope.isCleric()) {
+            return 'Life Domain';
+        } else if (line === 1 && $scope.isFighter()) {
+            return 'Champion';
+        } else if (line === 1 && $scope.isRogue()) {
+            return 'Thief';
+        } else if (line === 1 && $scope.isWizard) {
+            return 'Evocation';
+        } 
+    };
+
     $scope.racialBonusStr = 0;
     $scope.racialBonusDex = 0;
     $scope.racialBonusCon = 0;
     $scope.racialBonusIntel = 0;
     $scope.racialBonusWis = 0;
     $scope.racialBonusCha = 0;
+
+    $scope.isDwarf = function() {
+        if ($scope.character.race.race === 'Dwarf'){
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isMountainDwarf = function() {
+        if ($scope.character.race.subrace === 'Mountain Dwarf'){
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isHillDwarf = function() {
+        if ($scope.character.race.subrace === 'Hill Dwarf'){
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isElf = function() {
+        if ($scope.character.race.race === 'Elf'){
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isHighElf = function() {
+        if ($scope.character.race.subrace === 'High Elf'){
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isWoodElf = function() {
+        if ($scope.character.race.subrace === 'Wood Elf'){
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isHalfling = function() {
+        if ($scope.character.race.race === 'Halfling'){
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isStoutHalfling = function() {
+        if ($scope.character.race.subrace === 'Stout Halfling'){
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isLightfootHalfling = function() {
+        if ($scope.character.race.subrace === 'Lightfoot Halfling'){
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isHuman = function() {
+        if ($scope.character.race.race === 'Human'){
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isCleric = function() {
+        if ($scope.character.characterClass.name === 'Cleric') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isLifeDomain = function() {
+        if ($scope.character.characterClass.specialization === 'Life Domain') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isFighter = function() {
+        if ($scope.character.characterClass.name === 'Fighter') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isChampion = function() {
+        if ($scope.character.characterClass.specialization === 'Champion') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isArcheryStyle = function() {
+        if ($scope.character.characterClass.choices === 'Archery Fighting Style') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isDefenseStyle = function() {
+        if ($scope.character.characterClass.choices === 'Defense Fighting Style') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isDuelingStyle = function() {
+        if ($scope.character.characterClass.choices === 'Dueling Fighting Style') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isGreatWeaponStyle = function() {
+        if ($scope.character.characterClass.choices === 'Great Weapon Fighting Style') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isProtectionStyle = function() {
+        if ($scope.character.characterClass.choices === 'Protection Fighting Style') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isTwoWeaponStyle = function() {
+        if ($scope.character.characterClass.choices === 'Two-Weapon Fighting Style') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isRogue = function() {
+        if ($scope.character.characterClass.name === 'Rogue') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isThief = function() {
+        if ($scope.character.characterClass.specialization === 'Thief') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isWizard = function() {
+        if ($scope.character.characterClass.name === 'Wizard') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isEvoker = function() {
+        if ($scope.character.characterClass.specialization === 'Evocation') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isAcolyte = function() {
+        if ($scope.character.background.name === 'Acolyte') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isFolkHero = function() {
+        if ($scope.character.background.name === 'Folk Hero') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isCriminal = function() {
+        if ($scope.character.characterClass.name === 'Criminal') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isSage = function() {
+        if ($scope.character.characterClass.name === 'Sage') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.isSoldier = function() {
+        if ($scope.character.characterClass.name === 'Soldier') {
+            return true;
+        } else {
+            return false;
+        }
+    };
 
     $scope.getRacialBonus = function(race){
         $scope.character.race.subrace = '';
@@ -204,6 +448,9 @@ angular.module('5ePcApp')
         }
         if ($scope.character.classEquipment.armor[1]) {
             ac = ac + 2;
+        }
+        if ($scope.character.classEquipment.armor[0] && isDefenseStyle()) {
+            ac = ac + 1;
         }
         return ac;
     };
@@ -637,38 +884,6 @@ angular.module('5ePcApp')
         return gear.join(', ');
     };
 
-    $scope.isCleric = function() {
-        if ($scope.character.characterClass.name === 'Cleric') {
-            return true;
-        } else {
-            return false;
-        }
-    };
-
-    $scope.isFighter = function() {
-        if ($scope.character.characterClass.name === 'Fighter') {
-            return true;
-        } else {
-            return false;
-        }
-    };
-
-    $scope.isRogue = function() {
-        if ($scope.character.characterClass.name === 'Rogue') {
-            return true;
-        } else {
-            return false;
-        }
-    };
-
-    $scope.isWizard = function() {
-        if ($scope.character.characterClass.name === 'Wizard') {
-            return true;
-        } else {
-            return false;
-        }
-    };
-
     $scope.classSkill = function(skill){
     	if ((skill === 'Athletics') && (($scope.character.characterClass.name === 'Fighter') || ($scope.character.characterClass.name === 'Rogue'))){
     		return false;
@@ -825,7 +1040,11 @@ angular.module('5ePcApp')
     };
 
     function resetSpells() {
-        $scope.character.spells[0] = [];
+        $scope.character.spells[0][0] = '';
+        $scope.character.spells[0][1] = '';
+        $scope.character.spells[0][2] = '';
+        $scope.character.spells[0][3] = '';
+        $scope.character.spells[0][4] = '';
         $scope.character.spells[1] = [];
     }
 
@@ -834,7 +1053,7 @@ angular.module('5ePcApp')
       $scope.character = {
 
 		name: '',
-		characterClass: [{name: '', specialization: String, options: [String]}],
+		characterClass: [{name: '', specialization: '', choices: ['']}],
 		race: {race: '', subrace: '', options: [String]},
 		background: {name: '', trait: '', ideal: '', bond: '', flaw: ''},
 		alignment: '',
@@ -849,7 +1068,7 @@ angular.module('5ePcApp')
 		skills: {athletics: false, acrobatics: false, sleightOfHand: false, stealth: false, arcana: false, history: false, investigation: false, nature: false, religion: false, animalHanlding: false, insight: false, medicine: false, perception: false, survival: false, deception: false, intimidation: false, performance: false, persuasion: false},
 		savingThrows: {str: false, dex: false, con: false, intel: false, wis: false, cha: false},
 		proficiencies: {armorType: Number, armorName: [String], weaponType: Number, weaponName: [String], tools: [String], instruments: [String], languages: [String]},
-		spells: [[], [], [], [], [], [], [], [], [], []],
+		spells: [['', '', '', '', '', ''], [], [], [], [], [], [], [], [], []],
 		appearance: {eyes: String, hair: String, age: Number, height: String, Weight: String, Skin: String},
 		image: String,
 		user: '',
@@ -860,8 +1079,8 @@ angular.module('5ePcApp')
 	$scope.character = {
 
 		name: '',
-		characterClass: [{name: '', specialization: String, options: [String]}],
-		race: {race: '', subrace: '', options: [String]},
+		characterClass: [{name: '', specialization: '', choices: ['']}],
+		race: {race: '', subrace: '', options: ['']},
 		background: {name: '', trait: '', ideal: '', bond: '', flaw: ''},
 		alignment: '',
 		xp: 0,
@@ -875,7 +1094,7 @@ angular.module('5ePcApp')
 		skills: {athletics: false, acrobatics: false, sleightOfHand: false, stealth: false, arcana: false, history: false, investigation: false, nature: false, religion: false, animalHanlding: false, insight: false, medicine: false, perception: false, survival: false, deception: false, intimidation: false, performance: false, persuasion: false},
 		savingThrows: {str: false, dex: false, con: false, intel: false, wis: false, cha: false},
 		proficiencies: {armorType: Number, armorName: [String], weaponType: Number, weaponName: [String], tools: [String], instruments: [String], languages: [String]},
-		spells: [[], [], [], [], [], [], [], [], [], []],
+		spells: [['', '', '', '', '', ''], [], [], [], [], [], [], [], [], []],
 		appearance: {eyes: String, hair: String, age: Number, height: String, Weight: String, Skin: String},
 		image: String,
 		user: '',
