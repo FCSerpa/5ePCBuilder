@@ -754,7 +754,6 @@ angular.module('5ePcApp')
     		$scope.character.savingThrows.cha = false;
     		$scope.character.savingThrows.str = false;
     		$scope.character.savingThrows.con = false;
-
     	} else if (classs === 'Wizard'){
     		$scope.character.savingThrows.intel = true;
     		$scope.character.savingThrows.wis = true;
@@ -764,6 +763,7 @@ angular.module('5ePcApp')
     		$scope.character.savingThrows.dex = false;
     	} 
         getClassEquipment();
+        resetSpells();
     };
 
     $scope.skillBonus = function(skill, ability) {
@@ -824,6 +824,11 @@ angular.module('5ePcApp')
     	}
     };
 
+    function resetSpells() {
+        $scope.character.spells[0] = [];
+        $scope.character.spells[1] = [];
+    }
+
     $scope.addCharacter = function() {
       $http.post('/api/characters', { name: $scope.character });
       $scope.character = {
@@ -844,7 +849,7 @@ angular.module('5ePcApp')
 		skills: {athletics: false, acrobatics: false, sleightOfHand: false, stealth: false, arcana: false, history: false, investigation: false, nature: false, religion: false, animalHanlding: false, insight: false, medicine: false, perception: false, survival: false, deception: false, intimidation: false, performance: false, persuasion: false},
 		savingThrows: {str: false, dex: false, con: false, intel: false, wis: false, cha: false},
 		proficiencies: {armorType: Number, armorName: [String], weaponType: Number, weaponName: [String], tools: [String], instruments: [String], languages: [String]},
-		spells: [[String], [String], [String], [String], [String], [String], [String], [String], [String], [String]],
+		spells: [[], [], [], [], [], [], [], [], [], []],
 		appearance: {eyes: String, hair: String, age: Number, height: String, Weight: String, Skin: String},
 		image: String,
 		user: '',
@@ -870,7 +875,7 @@ angular.module('5ePcApp')
 		skills: {athletics: false, acrobatics: false, sleightOfHand: false, stealth: false, arcana: false, history: false, investigation: false, nature: false, religion: false, animalHanlding: false, insight: false, medicine: false, perception: false, survival: false, deception: false, intimidation: false, performance: false, persuasion: false},
 		savingThrows: {str: false, dex: false, con: false, intel: false, wis: false, cha: false},
 		proficiencies: {armorType: Number, armorName: [String], weaponType: Number, weaponName: [String], tools: [String], instruments: [String], languages: [String]},
-		spells: [[String], [String], [String], [String], [String], [String], [String], [String], [String], [String]],
+		spells: [[], [], [], [], [], [], [], [], [], []],
 		appearance: {eyes: String, hair: String, age: Number, height: String, Weight: String, Skin: String},
 		image: String,
 		user: '',
@@ -918,4 +923,12 @@ angular.module('5ePcApp')
                 net: {name: 'net', damage: '-', damageType: '-', properties: ['', '', '', '', '', 'range 5/15', '', 'special', 'thrown', '', '']}}
     }
 
+    $scope.spells = {
+        cleric: [['Guidance', 'Light', 'Resistance', 'Sacred Flame', 'Spare the Dying', 'Thaumaturgy'],
+                ['Bless', 'Command', 'Cure Wounds', 'Detect Magic', 'Guiding Bolt', 'Healing Word', 'Inflict Wounds', 'Sanctuary', 'Shield of Faith']],
+        wizard: [['Dancing Lights', 'Fire Bolt', 'Light', 'Mage Hand', 'Minor Illusion', 'Prestidigitation', 'Ray of Frost', 'Shocking Grasp'],
+                ['Burning Hands', 'Charm Person', 'Comprehend Languages', 'Detect Magic', 'Identify', 'Mage Armor', 'Magic Missile', 'Shield', 'Silent Image', 'Sleep', 'Thunderwave']]
+    }
+
   });
+
