@@ -559,7 +559,7 @@ angular.module('5ePcApp')
         } 
     };
 
-$scope.fighterChoice3 = '';
+    $scope.fighterChoice3 = '';
     $scope.fighterChoice3Func = function() {
         if ($scope.fighterChoice3 === 'crossbow') {
             $scope.character.classEquipment.weapon[3] = 'light crossbow';
@@ -568,6 +568,17 @@ $scope.fighterChoice3 = '';
             $scope.character.classEquipment.weapon[3] = 'handaxe';
             $scope.character.classEquipment.weapon[4] = 'handaxe';
             $scope.character.classEquipment.weapon[6] = '';
+        }
+    };
+
+    $scope.rogueChoice1 = '';
+    $scope.rogueChoice1Func = function() {
+        if ($scope.rogueChoice1 === 'shortbow') {
+            $scope.character.classEquipment.weapon[1] = 'shortbow';
+            $scope.character.classEquipment.weapon[5] = '20 arrows';
+        } else if ($scope.rogueChoice1 === 'shortsword') {
+            $scope.character.classEquipment.weapon[1] = 'shortsword';
+            $scope.character.classEquipment.weapon[5] = '';
         }
     };
 

@@ -432,6 +432,19 @@
 				</select>
 			</div>
 			<div ng-show="isRogue()">
+				<select name="rogueWeaponSelect1" ng-model="character.classEquipment.weapon[0]">
+					<option value="rapier">rapier</option>
+					<option value="shortsword">shortsword</option>
+				</select>
+				<select name="rogueWeaponSelect2" ng-model="rogueChoice1" ng-change="rogueChoice1Func()">
+					<option value="shortbow">a shortbow and quiver of 20 arrows</option>
+					<option value="shortsword">shortsword</option>
+				</select>
+				<select name="roguePackSelect" ng-model="character.classEquipment.pack">
+					<option value="burglar's pack">burglar's pack</option>
+					<option value="dungeoneer's pack">dungeoneer's pack</option>
+					<option value="explorer's pack">explorer's pack</option>
+				</select>
 				<p>Rogue!</p>
 			</div>
 			<div ng-show="isWizard()">
