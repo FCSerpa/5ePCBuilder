@@ -1,9 +1,16 @@
 div.sheetBox {
-	border: 1px darkgray solid;
+	border: 1px #c77d11 solid;
 	border-radius: 5px;
-	background: rgba(255, 255, 255, 0.4);
+	background: rgba(251, 236, 214, 0.6);
 }
- div.smallBox {
+
+div.innerBox {
+	border: 1px #c77d11 solid;
+	border-radius: 5px;
+	background: clear;
+}
+
+div.smallBox {
  	min-height: 108px;
  }
 

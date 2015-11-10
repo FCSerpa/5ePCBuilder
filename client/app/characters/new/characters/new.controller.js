@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('5ePcApp')
-  .controller('CharactersNewCtrl', function ($scope, Auth, Character, $http) {
+  .controller('CharactersNewCtrl', function ($scope, Auth, Character) {
     $scope.message = 'Hello';
     $scope.getCurrentUser = Auth.getCurrentUser;
     $scope.Math = window.Math;
@@ -747,7 +747,7 @@ angular.module('5ePcApp')
         $scope.character.data.background.ideal = '';
         $scope.character.data.background.flaw = '';
         $scope.character.data.backgroundEquipment = [];
-    };
+    }
 
     function getBackgroundEquipment() {
         if ($scope.isAcolyte()) {
@@ -761,7 +761,7 @@ angular.module('5ePcApp')
         } else if ($scope.isSoldier()) {
             $scope.character.data.backgroundEquipment.push('insignia of rank', 'trophy taken from a fallen enemy (dagger, broken blade, or piece of a banner)', 'set of bone dice or deck of cards', 'set of common clothes', 'belt pouch containing 10 gp');
         }
-    };
+    }
 
     function getClassEquipment() {
         if ($scope.isCleric()) {
@@ -782,7 +782,7 @@ angular.module('5ePcApp')
             //$scope.character.data.classEquipment.weapon.push();
             $scope.character.data.classEquipment.miscelaneous.push('spellbook');
         }
-    };
+    }
 
     $scope.clericChoice = '';
     $scope.ifAnySimpleWeapon = false;
@@ -853,7 +853,7 @@ angular.module('5ePcApp')
         $scope.character.data.classEquipment.weapon = ['', '', '', '', '', '', ''];
         $scope.character.data.classEquipment.miscelaneous = [];
         $scope.character.data.classEquipment.pack = '';
-    };
+    }
 
     $scope.printEquipment = function() {
         var gear = [];
@@ -861,17 +861,17 @@ angular.module('5ePcApp')
             if (stuff) {
             gear.push(stuff);
             }
-        })    
+        });    
         $scope.character.data.classEquipment.armor.forEach(function(stuff) {
             if (stuff) {
             gear.push(stuff);
             }
-        })
+        });
         $scope.character.data.classEquipment.miscelaneous.forEach(function(stuff) {
             if (stuff) {
             gear.push(stuff);
             }
-        })
+        });
         if ($scope.character.data.classEquipment.pack) {
             gear.push($scope.character.data.classEquipment.pack);
         }
@@ -879,7 +879,7 @@ angular.module('5ePcApp')
             if (stuff) {
             gear.push(stuff);
             }
-        })
+        });
         //console.log(gear);
         return gear.join(', ');
     };
@@ -1029,7 +1029,7 @@ angular.module('5ePcApp')
     	return hitDie + raceMod + con;
     };
 
-    $scope.hitDie = function(classs){
+    $scope.hitDie = function(){
     	if ($scope.isFighter()){
     		return '1d10';
     	} else if ($scope.isWizard()){
@@ -1049,38 +1049,37 @@ angular.module('5ePcApp')
     }
 
     $scope.addCharacter = function() {
-        console.log($scope.character.data)
+        console.log($scope.character.data);
         Character.save($scope.character.data, function(){
-            console.log("saved?")
-        })
+            $scope.reset();
+        });
     };
 
-      // $http.post('/api/characters', $scope.character);
-  //     $scope.character.data = {
-
-		// name: '',
-		// characterClass: [{name: '', specialization: '', choices: ['']}],
-		// race: {race: '', subrace: '', options: [String]},
-		// background: {name: '', trait: '', ideal: '', bond: '', flaw: ''},
-		// alignment: '',
-		// xp: 0,
-		// abilities: {str: 8, dex: 8, con: 8, intel: 8, wis: 8, cha: 8},
-		// gold: 0,
-		// classEquipment: {armor: ['', ''], 
-		// 			weapon: ['', '', '', '', '', '', ''],
-		// 			miscelaneous: [],
-  //                   pack: ''},
-  //       backgroundEquipment: [],
-		// skills: {athletics: false, acrobatics: false, sleightOfHand: false, stealth: false, arcana: false, history: false, investigation: false, nature: false, religion: false, animalHanlding: false, insight: false, medicine: false, perception: false, survival: false, deception: false, intimidation: false, performance: false, persuasion: false},
-		// savingThrows: {str: false, dex: false, con: false, intel: false, wis: false, cha: false},
-		// proficiencies: {armorType: Number, armorName: [String], weaponType: Number, weaponName: [String], tools: [String], instruments: [String], languages: [String]},
-		// spells: [['', '', '', '', '', ''], [], [], [], [], [], [], [], [], []],
-		// appearance: {eyes: String, hair: String, age: Number, height: String, Weight: String, Skin: String},
-		// image: String,
-		// user: '',
-
-		// };
-    //};
+    $scope.reset = function(){
+        $scope.character.data = {
+        name: '',
+        characterClass: {name: '', specialization: '', choices: ['']},
+        race: {race: '', subrace: '', options: ['']},
+        background: {name: '', trait: '', ideal: '', bond: '', flaw: ''},
+        alignment: '',
+        xp: 0,
+        abilities: {str: 8, dex: 8, con: 8, intel: 8, wis: 8, cha: 8},
+        gold: 0,
+        classEquipment: {armor: ['', ''], 
+                    weapon: ['', '', '', '', '', '', ''],
+                    miscelaneous: [],
+                    pack: ''},
+        backgroundEquipment: [],
+        skills: {athletics: false, acrobatics: false, sleightOfHand: false, stealth: false, arcana: false, history: false, investigation: false, nature: false, religion: false, animalHanlding: false, insight: false, medicine: false, perception: false, survival: false, deception: false, intimidation: false, performance: false, persuasion: false},
+        savingThrows: {str: false, dex: false, con: false, intel: false, wis: false, cha: false},
+        proficiencies: {armorType: 0, armorName: [''], weaponType: 0, weaponName: [''], tools: [''], instruments: [''], languages: ['']},
+        spells: [['', '', '', '', '', ''], [], [], [], [], [], [], [], [], []],
+        appearance: {eyes: '', hair: '', age: '', height: '', Weight: '', Skin: ''},
+        image: '',
+        share: true,
+        user: '',
+        };
+    };
 
 
     $scope.character = new Character();
@@ -1147,14 +1146,14 @@ angular.module('5ePcApp')
                 heavyCrossbow: {name: 'heavy crossbow', damage: '1d10', damageType: 'piercing', properties: ['ammunition', '', 'heavy', '', 'loading', 'range 100/400', '', '', '', 'two-handed', '']},
                 longbow: {name: 'longbow', damage: '1d8', damageType: 'piercing', properties: ['ammunition', '', 'heavy', '', '', 'range 150/600', '', '', '', '', '']},
                 net: {name: 'net', damage: '-', damageType: '-', properties: ['', '', '', '', '', 'range 5/15', '', 'special', 'thrown', '', '']}}
-    }
+    };
 
     $scope.spells = {
         cleric: [['Guidance', 'Light', 'Resistance', 'Sacred Flame', 'Spare the Dying', 'Thaumaturgy'],
                 ['Bless', 'Command', 'Cure Wounds', 'Detect Magic', 'Guiding Bolt', 'Healing Word', 'Inflict Wounds', 'Sanctuary', 'Shield of Faith']],
         wizard: [['Dancing Lights', 'Fire Bolt', 'Light', 'Mage Hand', 'Minor Illusion', 'Prestidigitation', 'Ray of Frost', 'Shocking Grasp'],
                 ['Burning Hands', 'Charm Person', 'Comprehend Languages', 'Detect Magic', 'Identify', 'Mage Armor', 'Magic Missile', 'Shield', 'Silent Image', 'Sleep', 'Thunderwave']]
-    }
+    };
 
   });
 
