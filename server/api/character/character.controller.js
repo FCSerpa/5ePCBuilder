@@ -22,7 +22,11 @@ exports.show = function(req, res) {
 
 // Creates a new character in the DB.
 exports.create = function(req, res) {
-  Character.create(req.body, function(err, character) {
+  //Character.create(req.body, function(err, character) {
+  var newCharacter = new Character(req.body);
+  console.log(newCharacter);
+  newCharacter.save(function (err, character) {
+    //console.log(character);
     if(err) { return handleError(res, err); }
     return res.status(201).json(character);
   });

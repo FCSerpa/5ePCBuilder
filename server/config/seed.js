@@ -7,6 +7,7 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var Character = require('../api/character/character.model');
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -46,4 +47,20 @@ User.find({}).remove(function() {
       console.log('finished populating users');
     }
   );
+
+  Character.find({}).remove(function(){
+    User.create(
+      {
+        name: 'guy',
+        characterClass: [{name: 'Fighter', specialization: 'Champion', options: ['Great Weapon Fighting Style']}],
+        race: {race: 'Dwarf', subrace: 'Mountain Dwarf', options: [String]},
+        background: {name: 'Soldier', trait: 'I\'m great', ideal: 'So great', bond: 'Greatest', flaw: 'Too great?'},
+        alignment: 'Lawful Good',
+        xp: 0,
+        abilities: {str: 14, dex: 14, con: 14, intel: 14, wis: 14, cha: 14}
+         }, function(){
+          console.log('character created')
+      })
+    });
+
 });
