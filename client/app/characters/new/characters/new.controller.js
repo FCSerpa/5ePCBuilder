@@ -1050,6 +1050,7 @@ angular.module('5ePcApp')
 
     $scope.addCharacter = function() {
         console.log($scope.character.data);
+        $scope.character.data.user_id = Auth.getCurrentUser()._id;
         Character.save($scope.character.data, function(){
             $scope.reset();
         });
@@ -1077,7 +1078,7 @@ angular.module('5ePcApp')
         appearance: {eyes: '', hair: '', age: '', height: '', Weight: '', Skin: ''},
         image: '',
         share: true,
-        user: '',
+        user_id: '',
         };
     };
 
@@ -1104,7 +1105,7 @@ angular.module('5ePcApp')
 		appearance: {eyes: '', hair: '', age: '', height: '', Weight: '', Skin: ''},
 		image: '',
         share: true,
-		user: '',
+		user_id: '',
 	};
 
     $scope.weapons = {

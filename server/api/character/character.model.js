@@ -24,7 +24,7 @@ var CharacterSchema = new Schema({
 	appearance: {eyes: String, hair: String, age: Number, height: String, Weight: String, Skin: String},
 	image: String,
 	share: Boolean,
-	//user: [{type: Schema.Types.ObjectId, ref: 'User'}]
+	user_id: String
 });
 
 module.exports = mongoose.model('Character', CharacterSchema);
