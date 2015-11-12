@@ -559,7 +559,7 @@
 			<p>First level spells are prepared each day.</p>
 			<p>Cleric Spells</p>
 		</div>
-		<button class="btn btn-large btn-warning" ng-click="addCharacter()">SAVE!</button>
+		<button class="btn btn-large btn-warning" ng-show="getCurrentUser().name" ng-click="addCharacter()">SAVE!</button>
 		<button class="btn btn-large btn-warning" ng-click="reset()">RESET</button>
 	</div>
 </div>
