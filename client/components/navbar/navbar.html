@@ -1,10 +1,10 @@
 <nav class="navbar navbar-inverse" id="navbar" ng-controller="NavbarCtrl">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a ng-href="/"><h3>5ePC</h3></a>
+      <a ng-href="/"><h3 class="navtext">5ePC</h3></a>
     </div>
-    <ul class="nav navbar-nav navbar-right navlist">
-      <div class="btn-group nav navbar-right navbtn" ng-controller="LoginCtrl">
+    <ul class="nav navbar-nav navbar-right navlist" id="navUL">
+      <div class="btn-group nav navbar-right navbtn" ng-hide="isLoggedIn()" ng-controller="LoginCtrl">
         <li class="dropdown" id="menuLogin" ng-hide="isLoggedIn()" ng-class="{active: isActive('/signup')}">
           <button class="dropdown-toggle btn btn-warning" href="#" data-toggle="dropdown" id="navLogin" >Login</button>
           <div class="dropdown-menu navdrop" style="padding:17px;" ng-click="$event.stopPropagation()">
@@ -49,7 +49,7 @@
           </div>
         </li>
        </div>
-       <div class="btn-group nav navbar-right navbtn" ng-controller='SignupCtrl'>
+       <div class="btn-group nav navbar-right navbtn" ng-hide="isLoggedIn()" ng-controller='SignupCtrl'>
         <li class="dropdown" id="menuSignup" ng-hide="isLoggedIn()" ng-class="{active: isActive('/signup')}">
           <button class="dropdown-toggle btn btn-warning" href="#" data-toggle="dropdown" >Signup</button>
           <div class="dropdown-menu navdrop" style="padding:17px;" ng-click="$event.stopPropagation()">
@@ -117,8 +117,8 @@
           </div>
         </li>
       </div>
-      <li ng-show="isLoggedIn()" class="navbtn"><h4 class="navbar-text">Hello, {{ getCurrentUser().name }}!</h4> </li>
-      <div class="btn-group nav navbar-right navbtn" ng-controller='SettingsCtrl'>
+      <li ng-show="isLoggedIn()" class="navtext"><h4 class="navbar-text navtext">Hello, {{ getCurrentUser().name }}!</h4> </li>
+      <div class="btn-group nav navbar-right navbtn" ng-show="isLoggedIn()" ng-controller='SettingsCtrl'>
         <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}" class="dropdown">
           <button class="dropdown-toggle btn btn-warning" href="#" data-toggle="dropdown" >Settings</button>
           <div class="dropdown-menu navdrop" style="padding:17px;" ng-click="$event.stopPropagation()">  
@@ -152,10 +152,13 @@
           </div>
         </li>
       </div>
-      <div class="btn-group nav navbar-right navbtn">
+      <div ng-show="isLoggedIn()" class="btn-group nav navbar-right navbtn">
         <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}">
           <button href="" ng-click="logout()" class="btn-warning btn">Logout</button>
         </li>
+      </div>
+      <div class="btn-group nav navbar-right navbtn" ng-show="isLoggedIn()">
+        <a href="/characters" class="btn btn-warning" ng-show="isLoggedIn()">Characters</a>
       </div>
     </ul>
   </div>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('5ePcApp')
-  .controller('CharactersNewCtrl', function ($scope, Auth, Character) {
+  .controller('CharactersNewCtrl', function ($scope, Auth, $location, Character) {
     
     $scope.getCurrentUser = Auth.getCurrentUser;
     $scope.Math = window.Math;
@@ -1056,7 +1056,7 @@ angular.module('5ePcApp')
             $scope.character.data.level = parseInt($scope.character.data.level);
         }
         Character.save($scope.character.data, function(){
-            $scope.reset();
+            $location.path('/characters');
         });
     };
 
