@@ -84,6 +84,9 @@ a:link, a:hover, a:active, button:hover, button:link, button:active {
 /*h1.landing {
 	background-color: rgba(100, 100, 100, 0.2);
 }*/
+p.landing, h1.landing, h3.landing, h4.landing {
+	text-shadow: 1px 1px 2px black; 
+}
 
 p.landing {
 	/*background-color: rgba(100, 100, 100, 0.2);*/
@@ -98,7 +101,13 @@ div.landing {
 	position: absolute;
 	left: 50%;
 	margin-left: -300px;
+	margin-bottom: 20px;
 }
+
+.bottomBtn {
+	margin-bottom: 20px;
+}
+
 
 // Component styles are injected through grunt
 // injector
