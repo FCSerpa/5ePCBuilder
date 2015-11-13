@@ -1051,6 +1051,10 @@ angular.module('5ePcApp')
     $scope.addCharacter = function() {
         console.log($scope.character.data);
         $scope.character.data.user_id = Auth.getCurrentUser()._id;
+        $scope.character.data.image = $scope.character.data.image || '../assets/images/profilegandalf.jpg';
+        if (typeof $scope.character.data.level === 'string'){
+            $scope.character.data.level = parseInt($scope.character.data.level);
+        }
         Character.save($scope.character.data, function(){
             $scope.reset();
         });
@@ -1064,6 +1068,7 @@ angular.module('5ePcApp')
         background: {name: '', trait: '', ideal: '', bond: '', flaw: ''},
         alignment: '',
         xp: 0,
+        level: 1,
         abilities: {str: 8, dex: 8, con: 8, intel: 8, wis: 8, cha: 8},
         gold: 0,
         classEquipment: {armor: ['', ''], 
@@ -1091,6 +1096,7 @@ angular.module('5ePcApp')
 		background: {name: '', trait: '', ideal: '', bond: '', flaw: ''},
 		alignment: '',
 		xp: 0,
+        level: 1,
 		abilities: {str: 8, dex: 8, con: 8, intel: 8, wis: 8, cha: 8},
 		gold: 0,
 	    classEquipment: {armor: ['', ''], 

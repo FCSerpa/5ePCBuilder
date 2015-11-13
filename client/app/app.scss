@@ -50,7 +50,7 @@ body, html {
 	margin: 3px;
 }
 
-h1, h3, h4, p, input, label {
+h1, h2, h3, h4, h5, h6, p, input, label {
 	font-family: 'IM Fell English SC', serif;
 }
 
@@ -92,7 +92,10 @@ div.landing {
 // injector
 @import 'account/login/login.scss';
 @import 'admin/admin.scss';
+@import 'characters/characters.scss';
+@import 'characters/edit/characters/edit.scss';
 @import 'characters/new/characters/new.scss';
+@import 'characters/view/characters/view.scss';
 @import 'main/main.scss';
 @import 'modal/modal.scss';
 // endinjector

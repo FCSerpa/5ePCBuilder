@@ -10,6 +10,7 @@ var CharacterSchema = new Schema({
 	background: {name: String, trait: String, ideal: String, bond: String, flaw: String},
 	alignment: String,
 	xp: Number,
+	level: Number,
 	abilities: {str: Number, dex: Number, con: Number, intel: Number, wis: Number, cha: Number},
 	gold: Number,
 	classEquipment: {armor: [String], 

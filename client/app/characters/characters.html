@@ -1,3 +1,17 @@
-<div class="col-md-12">
-This is the characters view.
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="col-md-12 landing" ng-controller="CharactersCtrl">
+	<h1>Your Characters</h1>
+	<h4 ng-hide="characters">You have no characters yet.</h4>
+	<div>
+		<div ng-repeat="character in characters">
+			<img src="{{character.image}}"></img>
+			<h3>Name: {{ character.name }}</h3>
+			<p>Race: {{ character.race.race }} </p>
+			<p>Class: {{ character.characterClass.name }} </p>
+			<p>Level: {{ character.level }} </p>
+			<a ng-href="/characters/{{ character._id }}/view" class="btn btn-warning">View Character</a>
+		</div>
+	</div>
+	<a ng-href="/characters/new" class="btn btn-warning">Create a Character!</a>
 </div>
