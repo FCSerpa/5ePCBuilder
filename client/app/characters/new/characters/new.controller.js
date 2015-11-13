@@ -2,7 +2,7 @@
 
 angular.module('5ePcApp')
   .controller('CharactersNewCtrl', function ($scope, Auth, Character) {
-    $scope.message = 'Hello';
+    
     $scope.getCurrentUser = Auth.getCurrentUser;
     $scope.Math = window.Math;
     $scope.proficiencyBonus = 2;
