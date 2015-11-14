@@ -239,8 +239,18 @@ angular.module('5ePcApp')
     };
 
     $scope.abilityBonus = function(ability){
-    	return Math.floor((ability - 10)/2);
+    	var bonus = Math.floor((ability - 10)/2);
+    	return bonus;
     };
+
+    $scope.displayAbilityBonus = function(ability){
+    	var bonus = $scope.abilityBonus(ability);
+    	if (bonus >= 0) {
+    		return "+" + bonus;
+    	}
+    	return bonus;
+    }
+
 
     $scope.getAC = function() {
         var ac = 10;
@@ -295,22 +305,32 @@ angular.module('5ePcApp')
 
     $scope.skillBonus = function(skill, ability) {
     	var proficiency;
+    	var bonus;
     	if (skill){
     		proficiency = 2;
     	} else {
     		proficiency = 0;
    		}
-    	return $scope.abilityBonus(ability) + proficiency;
+    	bonus = $scope.abilityBonus(ability) + proficiency;
+    	if (bonus >= 0) {
+    		return "+" + bonus;
+    	}
+    	return bonus;
     };
 
     $scope.saveBonus = function(save, ability) {
     	var proficiency;
+    	var bonus;
     	if(save){
     		proficiency = 2;
     	} else {
     		proficiency = 0;
     	}
-    	return $scope.abilityBonus(ability) + proficiency;
+    	bonus = $scope.abilityBonus(ability) + proficiency;
+    	if (bonus >= 0) {
+    		return "+" + bonus;
+    	}
+    	return bonus;
     };
 
     $scope.speed = function(){

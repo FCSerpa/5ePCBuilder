@@ -108,7 +108,7 @@
 							<p>Racial <br> Bonus</p>
 						</div>
 						<div class="col-md-12">
-							<h3 class="abilityBonus">{{ abilityBonus(character.data.abilities.str) }}</h3>
+							<h3 class="abilityBonus">{{ displayAbilityBonus(character.data.abilities.str) }}</h3>
 							<p>Total Strength Bonus</p>
 						</div>
 					</div>
@@ -134,7 +134,7 @@
 							<p>Racial <br> Bonus</p>
 						</div>
 						<div class="col-md-12">
-							<h3 class="abilityBonus">{{ abilityBonus(character.data.abilities.dex) }}</h3>
+							<h3 class="abilityBonus">{{ displayAbilityBonus(character.data.abilities.dex) }}</h3>
 							<p>Total Dexterity Bonus</p>
 						</div>
 					</div>
@@ -160,7 +160,7 @@
 							<p>Racial <br> Bonus</p>
 						</div>
 						<div class="col-md-12">
-							<h3 class="abilityBonus">{{ abilityBonus(character.data.abilities.con) }}</h3>
+							<h3 class="abilityBonus">{{ displayAbilityBonus(character.data.abilities.con) }}</h3>
 							<p>Total Constitution Bonus</p>
 						</div>
 					</div>
@@ -186,7 +186,7 @@
 							<p>Racial <br> Bonus</p>
 						</div>
 						<div class="col-md-12">
-							<h3 class="abilityBonus">{{ abilityBonus(character.data.abilities.intel) }}</h3>
+							<h3 class="abilityBonus">{{ displayAbilityBonus(character.data.abilities.intel) }}</h3>
 							<p>Total Inteligence Bonus</p>
 						</div>
 					</div>
@@ -212,7 +212,7 @@
 							<p>Racial <br> Bonus</p>
 						</div>
 						<div class="col-md-12">
-							<h3 class="abilityBonus">{{ abilityBonus(character.data.abilities.wis) }}</h3>
+							<h3 class="abilityBonus">{{ displayAbilityBonus(character.data.abilities.wis) }}</h3>
 							<p>Total Wisdom Bonus</p>
 						</div>
 					</div>
@@ -238,7 +238,7 @@
 							<p>Racial <br> Bonus</p>
 						</div>
 						<div class="col-md-12">
-							<h3 class="abilityBonus">{{ abilityBonus(character.data.abilities.cha) }}</h3>
+							<h3 class="abilityBonus">{{ displayAbilityBonus(character.data.abilities.cha) }}</h3>
 							<p>Total Charisma Bonus</p>
 						</div>
 					</div>
@@ -260,7 +260,7 @@
 					<p>Armor Class</p>
 				</div>
 				<div class="col-md-4 innerBox smallBox">
-					<h3>{{ + abilityBonus(character.data.abilities.dex) }}</h3>
+					<h3>{{ displayAbilityBonus(character.data.abilities.dex) }}</h3>
 					<p>Initiative</p>
 				</div>
 				<div class="col-md-4 innerBox smallBox">

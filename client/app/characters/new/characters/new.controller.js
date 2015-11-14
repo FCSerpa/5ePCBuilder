@@ -413,6 +413,15 @@ angular.module('5ePcApp')
     	return Math.floor((ability - 10)/2);
     };
 
+
+    $scope.displayAbilityBonus = function(ability){
+        var bonus = $scope.abilityBonus(ability);
+        if (bonus >= 0) {
+            return "+" + bonus;
+        }
+        return bonus;
+    }
+
     $scope.skilled = function(){
         resetBackground();
     	if ($scope.isAcolyte()){
@@ -982,13 +991,17 @@ angular.module('5ePcApp')
     };
 
     $scope.skillBonus = function(skill, ability) {
-    	var proficiency;
+        var proficiency;
     	if (skill){
     		proficiency = 2;
     	} else {
     		proficiency = 0;
    		}
-    	return $scope.abilityBonus(ability) + proficiency;
+    	var bonus = $scope.abilityBonus(ability) + proficiency;
+        if (bonus >= 0) {
+            return "+" + bonus;
+        }
+        return bonus;
     };
 
     $scope.saveBonus = function(save, ability) {
@@ -998,7 +1011,11 @@ angular.module('5ePcApp')
     	} else {
     		proficiency = 0;
     	}
-    	return $scope.abilityBonus(ability) + proficiency;
+    	var bonus = $scope.abilityBonus(ability) + proficiency;
+        if (bonus >= 0) {
+            return "+" + bonus;
+        }
+        return bonus;
     };
 
     $scope.speed = function(){
