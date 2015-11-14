@@ -4,6 +4,10 @@ div.sheetBox {
 	background: rgba(253, 245, 234, 0.6);
 }
 
+div.outerBox {
+	border: none;
+}
+
 div.innerBox {
 	border: 1px #c77d11 solid;
 	border-radius: 5px;
@@ -11,7 +15,7 @@ div.innerBox {
 }
 
 div.smallBox {
- 	min-height: 108px;
+ 	min-height: 125px;
  }
 
  .abilityInput {

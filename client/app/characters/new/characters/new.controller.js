@@ -520,7 +520,7 @@ angular.module('5ePcApp')
         } else if (line === 3 && $scope.isFolkHero()) {
             return 'When I set my mind to something, I follow through no matter what gets in my way.';
         } else if (line === 4 && $scope.isFolkHero()) {
-            return 'I have a strong sense of fair play and always try to find t(e most equitable solution to arguments.';
+            return 'I have a strong sense of fair play and always try to find the most equitable solution to arguments.';
         } else if (line === 5 && $scope.isFolkHero()) {
             return 'I’m confident in my own abilities and do what I can to instill confidence in others.';
         } else if (line === 6 && $scope.isFolkHero()) {
@@ -796,9 +796,9 @@ angular.module('5ePcApp')
     $scope.clericChoice = '';
     $scope.ifAnySimpleWeapon = false;
     $scope.clericChoiceFunc = function() {
-        if ($scope.clericChoice === 'light crossbow') {
+        if ($scope.clericChoice === 'light_crossbow') {
             $scope.ifAnySimpleWeapon = false;
-            $scope.character.data.classEquipment.weapon[1] = 'light crossbow';
+            $scope.character.data.classEquipment.weapon[1] = 'light_crossbow';
             $scope.character.data.classEquipment.weapon[5] = '20 bolts';
         } else if ($scope.clericChoice === 'any simple weapon') {
             $scope.ifAnySimpleWeapon = true;
@@ -837,7 +837,7 @@ angular.module('5ePcApp')
     $scope.fighterChoice3 = '';
     $scope.fighterChoice3Func = function() {
         if ($scope.fighterChoice3 === 'crossbow') {
-            $scope.character.data.classEquipment.weapon[3] = 'light crossbow';
+            $scope.character.data.classEquipment.weapon[3] = 'light_crossbow';
             $scope.character.data.classEquipment.weapon[6] = '20 bolts';
         } else if ($scope.fighterChoice3 === 'handaxes') {
             $scope.character.data.classEquipment.weapon[3] = 'handaxe';
@@ -1056,6 +1056,44 @@ angular.module('5ePcApp')
     	}
     };
 
+    $scope.toHit = function(weap){
+        var proficiencyBonus = 0;
+        if ($scope.weapons.simple.hasOwnProperty(weap)){
+            if (($scope.character.data.proficiencies.weaponType >= 0) || ($scope.character.data.proficiencies.weaponName.indexOf(weap) > -1)){
+                proficiencyBonus = 2;
+            }
+            if ($scope.weapons.simple[weap].properties[0]){
+                return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.dex);
+            }else if ($scope.weapons.simple[weap].properties[1]){
+                if ($scope.character.data.abilities.dex > $scope.character.data.abilities.str){
+                    return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.dex);
+                } else {
+                    return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.str);
+                }
+            }else {
+                return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.str);
+            }
+        } else if ($scope.weapons.martial.hasOwnProperty(weap)){
+            if (($scope.character.data.proficiencies.weaponType >= 1) || ($scope.character.data.proficiencies.weaponName.indexOf(weap) > -1)){
+                proficiencyBonus = 2;
+            }
+            console.log(proficiencyBonus);
+            console.log($scope.character.data.proficiencies.weaponName.indexOf(weap));
+            console.log($scope.character.data.proficiencies.weaponType);
+            if ($scope.weapons.martial[weap].properties[0]){
+                return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.dex);
+            }else if ($scope.weapons.martial[weap].properties[1]){
+                if ($scope.character.data.abilities.dex > $scope.character.data.abilities.str){
+                    return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.dex);
+                } else {
+                    return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.str);
+                }
+            }else {
+                return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.str);
+            }
+        }
+    };
+
     function resetSpells() {
         $scope.character.data.spells[0][0] = '';
         $scope.character.data.spells[0][1] = '';
@@ -1113,7 +1151,7 @@ angular.module('5ePcApp')
         backgroundEquipment: [],
         skills: {athletics: false, acrobatics: false, sleightOfHand: false, stealth: false, arcana: false, history: false, investigation: false, nature: false, religion: false, animalHanlding: false, insight: false, medicine: false, perception: false, survival: false, deception: false, intimidation: false, performance: false, persuasion: false},
         savingThrows: {str: false, dex: false, con: false, intel: false, wis: false, cha: false},
-        proficiencies: {armorType: 0, armorName: [''], weaponType: 0, weaponName: [''], tools: [''], instruments: [''], languages: ['']},
+        proficiencies: {armorType: -1, armorName: [''], weaponType: -1, weaponName: [''], tools: [''], instruments: [''], languages: ['']},
         spells: [['', '', '', '', '', ''], [], [], [], [], [], [], [], [], []],
         appearance: {eyes: '', hair: '', age: '', height: '', Weight: '', Skin: ''},
         image: '',
@@ -1142,7 +1180,7 @@ angular.module('5ePcApp')
         backgroundEquipment: [],
 		skills: {athletics: false, acrobatics: false, sleightOfHand: false, stealth: false, arcana: false, history: false, investigation: false, nature: false, religion: false, animalHanlding: false, insight: false, medicine: false, perception: false, survival: false, deception: false, intimidation: false, performance: false, persuasion: false},
 		savingThrows: {str: false, dex: false, con: false, intel: false, wis: false, cha: false},
-		proficiencies: {armorType: 0, armorName: [''], weaponType: 0, weaponName: [''], tools: [''], instruments: [''], languages: ['']},
+		proficiencies: {armorType: -1, armorName: [''], weaponType: -1, weaponName: [''], tools: [''], instruments: [''], languages: ['']},
 		spells: [['', '', '', '', '', ''], [], [], [], [], [], [], [], [], []],
 		appearance: {eyes: '', hair: '', age: '', height: '', Weight: '', Skin: ''},
 		image: '',
@@ -1158,12 +1196,12 @@ angular.module('5ePcApp')
                 greatclub: {name: 'greatclub', damage: '1d8', damageType: 'bludgeoning', properties: ['', '', '', '', '', '', '', '', '', 'two-handed', '']},
                 handaxe: {name: 'handaxe', damage: '1d6', damageType: 'slashing', properties: ['', '', '', '', '', 'range 20/60', '', '', 'thrown', '', '']},
                 javelin: {name: 'javelin', damage: '1d6', damageType: 'piercing', properties: ['', '', '', '', '', 'range 30/120', '', '', 'thrown', '', '']},
-                lightHammer: {name: 'light hammer', damage: '1d4', damageType: 'bludgeoning', properties: ['', '', '', 'light', '', 'range 20/60', '', '', 'thrown', '', '']},
+                light_hammer: {name: 'light_hammer', damage: '1d4', damageType: 'bludgeoning', properties: ['', '', '', 'light', '', 'range 20/60', '', '', 'thrown', '', '']},
                 mace: {name: 'mace', damage: '1d6', damageType: 'bludgeoning', properties: ['', '', '', '', '', '', '', '', '', '', '']},
                 quarterstaff: {name: 'quarterstaff', damage: '1d6', damageType: 'bludgeoning', properties: ['', '', '', '', '', '', '', '', '', '', 'versatile (1d8)']},
                 sickle: {name: 'sickle', damage: '1d4', damageType: 'slashing', properties: ['', '', '', 'light', '', '', '', '', '', '', '']},
                 spear: {name: 'spear', damage: '1d6', damageType: 'piercing', properties: ['', '', '', '', '', 'range 20/60', '', '', 'thrown', '', 'versatile (1d8)']},
-                lightCrossbow: {name: 'light crossbow', damage: '1d8', damageType: 'piercing', properties: ['ammunition', '', '', '', 'loading', 'range 80/320', '', '', '', 'two-handed', '']},
+                light_crossbow: {name: 'light_crossbow', damage: '1d8', damageType: 'piercing', properties: ['ammunition', '', '', '', 'loading', 'range 80/320', '', '', '', 'two-handed', '']},
                 dart: {name: 'dart', damage: '1d4', damageType: 'piercing', properties: ['', 'finesse', '', '', '', 'range 20/60', '', '', 'thrown', '', '']},
                 shortbow: {name: 'shortbow', damage: '1d6', damageType: 'piercing', properties: ['ammunition', '', '', '', '', 'range 80/320', '', '', '', 'two-handed', '']},
                 sling: {name: 'sling', damage: '1d4', damageType: 'bludgeoning', properties: ['ammunition', '', '', '', '', 'range 30/120', '', '', '', '', '']}},
@@ -1182,12 +1220,12 @@ angular.module('5ePcApp')
                 scimitar: {name: 'scimitar', damage: '1d6', damageType: 'slashing', properties: ['', 'finesse', '', 'light', '', '', '', '', '', '', '']},
                 shortsword: {name: 'shortsword', damage: '1d6', damageType: 'piercing', properties: ['', 'finesse', '', 'light', '', '', '', '', '', '', '']},
                 trident: {name: 'trident', damage: '1d6', damageType: 'piercing', properties: ['', '', '', '', '', 'range 20/60', '', '', 'thrown', '', 'versatile (1d8)']},
-                warPick: {name: 'war pick', damage: '1d8', damageType: 'piercing', properties: ['', '', '', '', '', '', '', '', '', '', '']},
+                war_pick: {name: 'war_pick', damage: '1d8', damageType: 'piercing', properties: ['', '', '', '', '', '', '', '', '', '', '']},
                 warhammer: {name: 'warhammer', damage: '1d8', damageType: 'bludgeoning', properties: ['', '', '', '', '', '', '', '', '', '', 'versatile (1d10)']},
                 whip: {name: 'whip', damage: '1d4', damageType: 'slashing', properties: ['', 'finesse', '', '', '', '', 'reach', '', '', '', '']},
                 blowgun: {name: 'blowgun', damage: '1', damageType: 'piercing', properties: ['ammunition', '', '', '', 'loading', 'range 25/100', '', '', '', '', '']},
-                handCrossbow: {name: 'hand crossbow', damage: '1d6', damageType: 'piercing', properties: ['ammunition', '', '', 'light', 'loading', 'range 30/120', '', '', '', '', '']},
-                heavyCrossbow: {name: 'heavy crossbow', damage: '1d10', damageType: 'piercing', properties: ['ammunition', '', 'heavy', '', 'loading', 'range 100/400', '', '', '', 'two-handed', '']},
+                hand_crossbow: {name: 'hand_crossbow', damage: '1d6', damageType: 'piercing', properties: ['ammunition', '', '', 'light', 'loading', 'range 30/120', '', '', '', '', '']},
+                heavy_crossbow: {name: 'heavy_crossbow', damage: '1d10', damageType: 'piercing', properties: ['ammunition', '', 'heavy', '', 'loading', 'range 100/400', '', '', '', 'two-handed', '']},
                 longbow: {name: 'longbow', damage: '1d8', damageType: 'piercing', properties: ['ammunition', '', 'heavy', '', '', 'range 150/600', '', '', '', '', '']},
                 net: {name: 'net', damage: '-', damageType: '-', properties: ['', '', '', '', '', 'range 5/15', '', 'special', 'thrown', '', '']}}
     };

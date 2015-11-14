@@ -2,9 +2,9 @@
 
 <div class="col-md-12">
 	<div class="container-fluid" id="sheet1" ng-controller='CharactersViewCtrl'>
-	<div class="row">
+	<div class="row outerBox">
 		<div class="col-md-3 smallBox sheetBox">
-			<h2>{{character.name}}</h2>
+			<h1>{{character.name}}</h1>
 			<p>Character Name</p>
 		</div>
 		<div class="col-md-3 smallBox sheetBox">
@@ -38,96 +38,81 @@
 					<p>Player Name</p>
 				</div>
 				<div class="col-md-12 innerBox">
-					<h3>{{character.xp}}</h3>
+					<h4>{{character.xp}}</h4>
 					<p>Experience Points</p>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4 sheetBox">
+		<div class="col-md-4 sheetBox outerBox">
 			<div class="row">
-				<div class="col-md-12 innerBox">
-					<h3> +2 </h3>
-					<p>Proficiency Bonus</p>
-				</div>
-				<div class="col-md-6 innerBox">
+				<div class="col-md-6 innerBox smallBox">
 					<div class="row">
 						<div class="col-md-6">
-							<h3>{{character.abilities.str}}</h3>
+							<h1>{{character.abilities.str}}</h1>
 							<p>Strength</p>
 						</div>
 						<div class="col-md-6">
-							<h3> {{displayAbilityBonus(character.abilities.str)}} </h3>
+							<h1> {{displayAbilityBonus(character.abilities.str)}} </h1>
 							<p>Bonus</p>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6 innerBox">
+				<div class="col-md-6 innerBox smallBox">
 					<div><input class="skillSave" disabled="disabled" type="checkbox" ng-model="character.savingThrows.str" ><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.str, character.abilities.str) }}</p></div>
 					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.athletics"><p class="skillSave" >Athletics: {{ skillBonus(character.skills.athletics, character.abilities.str) }}</p></div>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6 innerBox">
+				<div class="col-md-6 innerBox smallBox">
 					<div class="row">
 						<div class="col-md-6">
-							<h3>{{character.abilities.dex}}</h3>
-							<p>Strength</p>
+							<h1>{{character.abilities.dex}}</h1>
+							<p>Dexterity</p>
 						</div>
 						<div class="col-md-6">
-							<h3> {{displayAbilityBonus(character.abilities.dex)}} </h3>
+							<h1> {{displayAbilityBonus(character.abilities.dex)}} </h1>
 							<p>Bonus</p>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6 innerBox">
+				<div class="col-md-6 innerBox smallBox">
 					<div><input class="skillSave" disabled="disabled" type="checkbox" ng-model="character.savingThrows.dex"><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.dex, character.abilities.dex) }}</p></div>
 					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.acrobatics"><p class="skillSave">Acrobatics: {{skillBonus(character.skills.acrobatics, character.abilities.dex)}}</p></div>
 					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.sleightOfHand"><p class="skillSave" >Sleight of Hand: {{skillBonus(character.skills.sleightOfHand, character.abilities.dex)}}</p></div>
 					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.stealth"><p class="skillSave">Stealth: {{skillBonus(character.skills.stealth, character.abilities.dex)}}</p></div>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6 innerBox">
+				<div class="col-md-6 innerBox smallBox">
 					<div class="row">
 						<div class="col-md-6">
-							<h3>{{character.abilities.con}}</h3>
-							<p>Strength</p>
+							<h1>{{character.abilities.con}}</h1>
+							<p>Constitution</p>
 						</div>
 						<div class="col-md-6">
-							<h3> {{displayAbilityBonus(character.abilities.con)}} </h3>
+							<h1> {{displayAbilityBonus(character.abilities.con)}} </h1>
 							<p>Bonus</p>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6 innerBox">
+				<div class="col-md-6 innerBox smallBox">
 					<div><input class="skillSave" disabled="disabled" type="checkbox" ng-model="character.savingThrows.con"><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.con, character.abilities.con) }}</p></div>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-					<p>&nbsp;</p>
-				</div>
+					</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6 innerBox">
+				<div class="col-md-6 innerBox smallBox">
 					<div class="row">
 						<div class="col-md-6">
-							<h3>{{character.abilities.intel}}</h3>
-							<p>Strength</p>
+							<h1>{{character.abilities.intel}}</h1>
+							<p>Intelligence</p>
 						</div>
 						<div class="col-md-6">
-							<h3> {{abilityBonus(character.abilities.intel)}} </h3>
+							<h1> {{displayAbilityBonus(character.abilities.intel)}} </h1>
 							<p>Bonus</p>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6 innerBox">
+				<div class="col-md-6 innerBox smallBox">
 					<div><input class="skillSave" disabled="disabled" type="checkbox" ng-model="character.savingThrows.intel"><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.intel, character.abilities.intel) }}</p></div>
 					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.arcana"><p class="skillSave" >Arcana: {{skillBonus(character.skills.arcana, character.abilities.intel)}}</p></div>
 					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.history"><p class="skillSave">History: {{skillBonus(character.skills.history, character.abilities.intel)}}</p></div>
@@ -137,19 +122,19 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6 innerBox">
+				<div class="col-md-6 innerBox smallBox">
 					<div class="row">
 						<div class="col-md-6">
-							<h3>{{character.abilities.wis}}</h3>
-							<p>Strength</p>
+							<h1>{{character.abilities.wis}}</h1>
+							<p>Wisdom</p>
 						</div>
 						<div class="col-md-6">
-							<h3> {{displayAbilityBonus(character.abilities.wis)}} </h3>
+							<h1> {{displayAbilityBonus(character.abilities.wis)}} </h1>
 							<p>Bonus</p>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6 innerBox">
+				<div class="col-md-6 innerBox smallBox">
 					<div><input class="skillSave" disabled="disabled" type="checkbox"  ng-model="character.savingThrows.wis"><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.wis, character.abilities.wis) }}</p></div>
 					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.animalHandling"><p class="skillSave" >Animal Handling: {{skillBonus(character.skills.animalHandling, character.abilities.wis)}}</p></div>
 					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.insight"><p class="skillSave">Insight: {{skillBonus(character.skills.insight, character.abilities.wis)}}</p></div>
@@ -159,33 +144,32 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6 innerBox">
+				<div class="col-md-6 innerBox smallBox">
 					<div class="row">
 						<div class="col-md-6">
-							<h3>{{character.abilities.cha}}</h3>
-							<p>Strength</p>
+							<h1>{{character.abilities.cha}}</h1>
+							<p>Charisma</p>
 						</div>
 						<div class="col-md-6">
-							<h3> {{displayAbilityBonus(character.abilities.cha)}} </h3>
+							<h1> {{displayAbilityBonus(character.abilities.cha)}} </h1>
 							<p>Bonus</p>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6 innerBox">
+				<div class="col-md-6 innerBox smallBox">
 					<div><input class="skillSave" disabled="disabled" type="checkbox" ng-model="character.savingThrows.cha"><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.cha, character.abilities.cha) }}</p></div>
 					<div><input class="skillSave"type="checkbox" disabled="disabled" ng-model="character.skills.deception"><p class="skillSave">Deception: {{skillBonus(character.skills.deception, character.abilities.cha)}}</p></div>
 					<div><input class="skillSave"type="checkbox" disabled="disabled" ng-model="character.skills.intimidation"><p class="skillSave">Intimidation: {{skillBonus(character.skills.intimidation, character.abilities.cha)}}</p></div>
 					<div><input class="skillSave"type="checkbox" disabled="disabled" ng-model="character.skills.performance"><p class="skillSave">Performance: {{skillBonus(character.skills.performance, character.abilities.cha)}}</p></div>
 					<div><input class="skillSave"type="checkbox" disabled="disabled" ng-model="character.skills.persuasion"><p class="skillSave">Persuasion: {{skillBonus(character.skills.persuasion, character.abilities.cha)}}</p></div>
-					<p>&nbsp;</p>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4 sheetBox">
+		<div class="col-md-4 sheetBox outerBox">
 			<div class="row">
 				<div class="col-md-4 innerBox smallBox">
-					<h3>{{ getAC() }}</h3>
-					<p>Armor Class</p>
+					<h3> +2 </h3>
+					<p>Proficiency<br>Bonus</p>
 				</div>
 				<div class="col-md-4 innerBox smallBox">
 					<h3>{{ displayAbilityBonus(character.abilities.dex) }}</h3>
@@ -195,28 +179,37 @@
 					<h3>{{ speed() }}</h3>
 					<p>Speed</p>
 				</div>
-				<div class="col-md-12 innerBox smallBox">
+				<div class="col-md-4 innerBox smallBox">
+					<h3>{{ getAC() }}</h3>
+					<p>Armor Class</p>
+				</div>
+				<div class="col-md-4 innerBox smallBox">
 					<h3>{{ maxHP(abilityBonus(character.abilities.con))}}</h3>
 					<p>Hit Point Maximum</p>
-					<input type="number" class="abilityInput"/>
-					<p>Current Hit Points</p>
 				</div>
-				<div class="col-md-12 innerBox smallBox">
-					<input type="number" class="abilityInput"/>
-					<p>Temporary Hit Points</p>
-				</div>
-				<div class="col-md-6 innerBox smallBox">
+				<div class="col-md-4 innerBox smallBox">
 					<h3>{{ hitDie() }}</h3>
 					<p>Hit Dice</p>
 				</div>
-				<div class="col-md-6 innerBox smallBox">
-					<div class="skillSave"><input type="checkbox"/><input type="checkbox"/><input type="checkbox"/><p> Successes</p></div>
-					<div class="skillSave"><input type="checkbox"/><input type="checkbox"/><input type="checkbox"/><p>Failures</p></div>
+				<div class="col-md-4 innerBox smallBox">
+					<input type="number" class="abilityInput"/>
+					<p>Current<br> Hit Points</p>
+				</div>
+				<div class="col-md-4 innerBox smallBox">
+					<input type="number" class="abilityInput"/>
+					<p>Temporary<br> Hit Points</p>
+				</div>
+				<div class="col-md-4 innerBox smallBox">
+					<div><input class="skillSave" type="checkbox"/><input class="skillSave" type="checkbox"/><input class="skillSave" type="checkbox"/><p class="skillSave"> Successes</p></div>
+					<div><input class="skillSave" type="checkbox"/><input class="skillSave" type="checkbox"/><input class="skillSave" type="checkbox"/><p class="skillSave">Failures</p></div>
 					<p>Death Saves</p>
+				</div>
+				<div class="col-md-12 innerBox smallBox">
+					<p>Proficiencies &amp; Languages</p>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4 sheetBox">
+		<div class="col-md-4 sheetBox outerBox">
 			<div class="row">
 				<div class="col-md-12 innerBox smallBox">
 					<p>{{ character.background.trait }}</p>
@@ -236,7 +229,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4 sheetBox">
+		<div class="col-md-4 sheetBox outerBox">
 			<div class="row">
 				<div class="col-md-4 innerBox">
 					<p>Name</p>
@@ -268,7 +261,61 @@
 				<div class="col-md-12 innerBox">
 					<p>Attacks</p>
 				</div>
+				<div class="col-md-12 innerBox smallBox">
+					<p> {{ printEquipment() }} </p>
+					<p>Equipment</p>
+				</div>
 			</div>
+		</div>
+		<div class="col-md-4 sheetBox smallBox" ng-show="isWizard()">
+			<div class="row">
+				<div class="col-md-4">
+					<p>{{character.spells[0][0]}}</p>
+				</div>
+				<div class="col-md-4">
+					<p>{{character.spells[0][1]}}</p>
+				</div>
+				<div class="col-md-4">
+					<p>{{character.spells[0][2]}}</p>
+				</div>
+				<div class="col-md-12">
+					<p>Cantrips</p>
+				</div>
+				<div class="col-md-4">
+					<p>{{character.spells[1][0]}}</p>
+					<p>{{character.spells[1][1]}}</p>
+				</div>
+				<div class="col-md-4">
+					<p>{{character.spells[1][2]}}</p>
+					<p>{{character.spells[1][3]}}</p>
+				</div>
+				<div class="col-md-4">
+					<p>{{character.spells[1][4]}}</p>
+					<p>{{character.spells[1][5]}}</p>
+				</div>
+				<div class="col-md-12">
+					<div class="skillSave"><input class="skillSave" type="checkbox"/><input class="skillSave" type="checkbox"/><p class="skillSave">Level One</p></div>
+					<p>Wizard Spells</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 sheetBox smallBox" ng-show="isHighElf()">
+			<p>{{character.spells[0][5]}}</p>
+			<p>High Elf Wizard Spell</p>
+		</div>
+		<div class="col-md-4 sheetBox smallBox" ng-show="isCleric()">
+			<p>{{character.spells[0][0]}}</p>
+			<p>{{character.spells[0][1]}}</p>
+			<p>{{character.spells[0][2]}}</p>
+			<p>Cantrips</p>
+			<select name="clericFirst1">
+				<option ng-repeat="spell in spells.cleric[1]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<select name="clericFirst2">
+				<option ng-repeat="spell in spells.cleric[1]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<div class="skillSave"><input type="checkbox" class="skillSave"/><input type="checkbox" class="skillSave"/><p class="skillSave">Level One</p></div>
+			<p>Cleric Spells</p>
 		</div>
 		<div class="col-md-4 sheetBox">
 			<p ng-show="isDwarf()">Darkvision. Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray.</p>
@@ -283,6 +330,10 @@
 			<p ng-show="isHalfling()">Halfling Nimbleness. You can move through the space of any creature that is of a size larger than yours.</p>
 			<p ng-show="isLightfootHalfling()">Naturally Stealthy. You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.</p>
 			<p ng-show="isStoutHalfling()">Stout Resilience. You have advantage on saving throws against poison, and you have resistance against poison damage.</p>
+			<br>
+			<p>Racial Features</p>
+		</div>
+		<div class="col-md-4 sheetBox">
 			<p ng-show="isCleric()">Spellcasting.</p>
 			<p ng-show="isLifeDomain()">Disciple of Life. Your healing spells are more effective. Whenever you use a spell of 1st level or higher to restore hit points to a creature, the creature regains additional hit points equal to 2 + the spell’s level.</p>
 			<p ng-show="isFighter()">Second Wind. You have a limited well of stamina that you can draw on to protect yourself from harm. On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level. Once you use this feature, you must finish a short or long rest before you can use it again.</p>
@@ -295,52 +346,19 @@
 			<p ng-show="isRogue()">Thieves Cant. During your rogue training you learned thieves’ cant, a secret mix of dialect, jargon, and code that allows you to hide messages in seemingly normal conversation. Only another creature that knows thieves’ cant understands such messages. It takes four times longer to convey such a message than it does to speak the same idea plainly. In addition, you understand a set of secret signs and symbols used to convey short, simple messages, such as whether an area is dangerous or the territory of a thieves’ guild, whether loot is nearby, or whether the people in an area are easy marks or will provide a safe house for thieves on the run.</p>
 			<p ng-show="isWizard()">Spellcasting.</p>
 			<p ng-show="isWizard()">Arcane Recovery. You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a short rest, you can choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your wizard level (rounded up), and none of the slots can be 6th level or higher.</p>
+			<br>
+			<p>Class Features</p>
+		</div>
+		<div class="col-md-4 sheetBox">
 			<p ng-show="isAcolyte()">Shelter of the Faithful. As an acolyte, you command the respect of those who share your faith, and you can perform the religious ceremonies of your deity. You and your adventuring companions can expect to receive free healing and care at a temple, shrine, or other established presence of your faith, though you must provide any material components needed for spells. Those who share your religion will support you (but only you) at a modest lifestyle. You might also have ties to a specific temple dedicated to your chosen deity or pantheon, and you have a residence there. This could be the temple where you used to serve, if you remain on good terms with it, or a temple where you have found a new home. While near your temple, you can call upon the priests for assistance, provided the assistance you ask for is not hazardous and you remain in good standing with your temple.</p>
 			<p ng-show="isCriminal()">Criminal Contact. You have a reliable and trustworthy contact who acts as your liaison to a network of other criminals. You know how to get messages to and from your contact, even over great distances; specifically, you know the local messengers, corrupt caravan masters, and seedy sailors who can deliver messages for you.</p>
 			<p ng-show="isFolkHero()">Rustic Hospitality. Since you come from the ranks of the common folk, you fit in among them with ease. You can find a place to hide, rest, or recuperate among other commoners, unless you have shown yourself to be a danger to them. They will shield you from the law or anyone else searching for you, though they will not risk their lives for you.</p>
 			<p ng-show="isSage()">Researcher. When you attempt to learn or recall a piece of lore, if you do not know that information, you often know where and from whom you can obtain it. Usually, this information comes from a library, scriptorium, university, or a sage or other learned person or creature. Your DM might rule that the knowledge you seek is secreted away in an almost inaccessible place, or that it simply cannot be found. Unearthing the deepest secrets of the multiverse can require an adventure or even a whole campaign.</p>
 			<p ng-show="isSoldier()">Military Rank. You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank. You can invoke your rank to exert influence over other soldiers and requisition simple equipment or horses for temporary use. You can also usually gain access to friendly military encampments and fortresses where your rank is recognized.</p>
-			<p>Features</p>
+			<br>
+			<p>Background Features</p>
 		</div>
-		<div class="col-md-4 sheetBox">
-			<p>Proficiencies &amp; Languages</p>
-		</div>
-		<div class="col-md-4 sheetBox">
-			<p> {{ printEquipment() }} </p>
-			<p>Equipment</p>
-		</div>
-		<div class="col-md-4 sheetBox" ng-show="isWizard()">
-			<p>{{character.spells[0][0]}}</p>
-			<p>{{character.spells[0][1]}}</p>
-			<p>{{character.spells[0][2]}}</p>
-			<p>Cantrips</p>
-			<p>{{character.spells[1][0]}}</p>
-			<p>{{character.spells[1][1]}}</p>
-			<p>{{character.spells[1][2]}}</p>
-			<p>{{character.spells[1][3]}}</p>
-			<p>{{character.spells[1][4]}}</p>
-			<p>{{character.spells[1][5]}}</p>
-			<div class="skillSave"><input type="checkbox"/><input type="checkbox"/><p>Level One</p></div>
-			<p>Wizard Spells</p>
-		</div>
-		<div class="col-md-4 sheetBox" ng-show="isHighElf()">
-			<p>{{character.spells[0][5]}}</p>
-			<p>High Elf Wizard Spell</p>
-		</div>
-		<div class="col-md-4 sheetBox" ng-show="isCleric()">
-			<p>{{character.spells[0][0]}}</p>
-			<p>{{character.spells[0][1]}}</p>
-			<p>{{character.spells[0][2]}}</p>
-			<p>Cantrips</p>
-			<select name="clericFirst1">
-				<option ng-repeat="spell in spells.cleric[1]" value="{{spell}}">{{spell}}<option>
-			</select>
-			<select name="clericFirst2">
-				<option ng-repeat="spell in spells.cleric[1]" value="{{spell}}">{{spell}}<option>
-			</select>
-			<div class="skillSave"><input type="checkbox"/><input type="checkbox"/><p>Level One</p></div>
-			<p>Cleric Spells</p>
-		</div>
+		
 	</div>
 </div>
 </div>
