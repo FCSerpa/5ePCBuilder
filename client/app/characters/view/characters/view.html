@@ -310,36 +310,27 @@
 			<p>Equipment</p>
 		</div>
 		<div class="col-md-4 sheetBox" ng-show="isWizard()">
-			<select name="wizardCantrip1" ng-model="character.spells[0][0]">
-				<option ng-repeat="spell in spells.wizard[0]" value="{{spell}}">{{spell}}<option>
-			</select>
-			<select name="wizardCantrip2" ng-model="character.spells[0][1]">
-				<option ng-repeat="spell in spells.wizard[0]" value="{{spell}}">{{spell}}<option>
-			</select>
-			<select name="wizardCantrip3" ng-model="character.spells[0][2]">
-				<option ng-repeat="spell in spells.wizard[0]" value="{{spell}}">{{spell}}<option>
-			</select>
-			<p>{{character.spell[0][0]}}</p>
-			<p>{{character.spell[0][1]}}</p>
-			<p>{{character.spell[0][2]}}</p>
+			<p>{{character.spells[0][0]}}</p>
+			<p>{{character.spells[0][1]}}</p>
+			<p>{{character.spells[0][2]}}</p>
 			<p>Cantrips</p>
-			<p>{{character.spell[0][0]}}</p>
-			<p>{{character.spell[0][1]}}</p>
-			<p>{{character.spell[0][2]}}</p>
-			<p>{{character.spell[0][3]}}</p>
-			<p>{{character.spell[0][4]}}</p>
-			<p>{{character.spell[0][5]}}</p>
+			<p>{{character.spells[1][0]}}</p>
+			<p>{{character.spells[1][1]}}</p>
+			<p>{{character.spells[1][2]}}</p>
+			<p>{{character.spells[1][3]}}</p>
+			<p>{{character.spells[1][4]}}</p>
+			<p>{{character.spells[1][5]}}</p>
 			<div class="skillSave"><input type="checkbox"/><input type="checkbox"/><p>Level One</p></div>
 			<p>Wizard Spells</p>
 		</div>
 		<div class="col-md-4 sheetBox" ng-show="isHighElf()">
-			<p>{{character.spell[0][5]}}</p>
+			<p>{{character.spells[0][5]}}</p>
 			<p>High Elf Wizard Spell</p>
 		</div>
 		<div class="col-md-4 sheetBox" ng-show="isCleric()">
-			<p>{{character.spell[0][0]}}</p>
-			<p>{{character.spell[0][1]}}</p>
-			<p>{{character.spell[0][2]}}</p>
+			<p>{{character.spells[0][0]}}</p>
+			<p>{{character.spells[0][1]}}</p>
+			<p>{{character.spells[0][2]}}</p>
 			<p>Cantrips</p>
 			<select name="clericFirst1">
 				<option ng-repeat="spell in spells.cleric[1]" value="{{spell}}">{{spell}}<option>
