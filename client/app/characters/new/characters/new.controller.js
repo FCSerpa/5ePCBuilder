@@ -439,9 +439,9 @@ angular.module('5ePcApp')
             ac = ac + $scope.abilityBonus($scope.character.data.abilities.dex);
         } else if ($scope.character.data.classEquipment.armor[0] === 'leather armor') {
             ac = ac + 1 + $scope.abilityBonus($scope.character.data.abilities.dex);
-        } else if (($scope.character.data.classEquipment.armor[0] === 'scale mail') && ($scope.abilityBonus($scope.character.abilities.dex) <= 2)) {
+        } else if (($scope.character.data.classEquipment.armor[0] === 'scale mail') && ($scope.abilityBonus($scope.character.data.abilities.dex) <= 2)) {
             ac = ac + 4 + $scope.abilityBonus($scope.character.data.abilities.dex);
-        } else if (($scope.character.data.classEquipment.armor[0] === 'scale mail') && ($scope.abilityBonus($scope.character.abilities.dex) > 2)) {
+        } else if (($scope.character.data.classEquipment.armor[0] === 'scale mail') && ($scope.abilityBonus($scope.character.data.abilities.dex) > 2)) {
             ac = ac + 4 + 2;
         } else if ($scope.character.data.classEquipment.armor[0] === 'chain mail') {
             ac = ac + 6;
@@ -1049,11 +1049,29 @@ angular.module('5ePcApp')
     }
 
     $scope.addCharacter = function() {
-        console.log($scope.character.data);
         $scope.character.data.user_id = Auth.getCurrentUser()._id;
+        $scope.character.data.userName = Auth.getCurrentUser().name;
         $scope.character.data.image = $scope.character.data.image || '../assets/images/profilegandalf.jpg';
         if (typeof $scope.character.data.level === 'string'){
             $scope.character.data.level = parseInt($scope.character.data.level);
+        }
+        if (typeof $scope.character.data.abilities.str === 'string'){
+            $scope.character.data.abilities.str = parseInt($scope.character.data.abilities.str);
+        }
+        if (typeof $scope.character.data.abilities.dex === 'string'){
+            $scope.character.data.abilities.dex = parseInt($scope.character.data.abilities.dex);
+        }
+        if (typeof $scope.character.data.abilities.con === 'string'){
+            $scope.character.data.abilities.con = parseInt($scope.character.data.abilities.con);
+        }
+        if (typeof $scope.character.data.abilities.intel === 'string'){
+            $scope.character.data.abilities.intel = parseInt($scope.character.data.abilities.intel);
+        }
+        if (typeof $scope.character.data.abilities.wis === 'string'){
+            $scope.character.data.abilities.wis = parseInt($scope.character.data.abilities.wis);
+        }
+        if (typeof $scope.character.data.abilities.cha === 'string'){
+            $scope.character.data.abilities.cha = parseInt($scope.character.data.abilities.cha);
         }
         Character.save($scope.character.data, function(){
             $location.path('/characters');
@@ -1084,6 +1102,7 @@ angular.module('5ePcApp')
         image: '',
         share: true,
         user_id: '',
+        userName: ''
         };
     };
 
@@ -1112,6 +1131,7 @@ angular.module('5ePcApp')
 		image: '',
         share: true,
 		user_id: '',
+        userName: ''
 	};
 
     $scope.weapons = {

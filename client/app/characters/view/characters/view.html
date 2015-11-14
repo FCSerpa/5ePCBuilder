@@ -1,6 +1,355 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <div class="col-md-12">
-	<h1>Character View!</h1>
-	<h3>{{character.name}}</h3>
+	<div class="container-fluid" id="sheet1" ng-controller='CharactersViewCtrl'>
+	<div class="row">
+		<div class="col-md-3 smallBox sheetBox">
+			<h2>{{character.name}}</h2>
+			<p>Character Name</p>
+		</div>
+		<div class="col-md-3 smallBox sheetBox">
+			<div class="row">
+				<div class="col-md-12 innerBox">
+					<h4> {{character.characterClass.name}}- {{character.level}}, {{character.characterClass.subclass}} </h4>
+					<p>Class &amp; Level &amp; Subclass</p>
+				</div>
+				<div class="col-md-12 innerBox">
+					<h4> {{character.race.race}}, {{character.race.subrace}} </h4>
+					<p>Race &amp; Subrace</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3 sheetBox smallBox">
+			<div class="row">
+				<div class="col-md-12 innerBox">
+					<h4>{{character.background.name}}</h4>
+					<p>Background</p>
+				</div>
+				<div class="col-md-12 innerBox">
+					<h4>{{character.alignment}}</h4>
+					<p>Alignment</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3 sheetBox smallBox">
+			<div class="row">
+				<div class="col-md-12 innerBox">
+					<h4>{{ character.userName }}</h4>
+					<p>Player Name</p>
+				</div>
+				<div class="col-md-12 innerBox">
+					<h3>{{character.xp}}</h3>
+					<p>Experience Points</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<div class="row">
+				<div class="col-md-12 innerBox">
+					<h3> +2 </h3>
+					<p>Proficiency Bonus</p>
+				</div>
+				<div class="col-md-6 innerBox">
+					<div class="row">
+						<div class="col-md-6">
+							<h3>{{character.abilities.str}}</h3>
+							<p>Strength</p>
+						</div>
+						<div class="col-md-6">
+							<h3> {{abilityBonus(character.abilities.str)}} </h3>
+							<p>Bonus</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 innerBox">
+					<div><input class="skillSave" disabled="disabled" type="checkbox" ng-model="character.savingThrows.str" ><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.str, character.abilities.str) }}</p></div>
+					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.athletics"><p class="skillSave" >Athletics: {{ skillBonus(character.skills.athletics, character.abilities.str) }}</p></div>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 innerBox">
+					<div class="row">
+						<div class="col-md-6">
+							<h3>{{character.abilities.dex}}</h3>
+							<p>Strength</p>
+						</div>
+						<div class="col-md-6">
+							<h3> {{abilityBonus(character.abilities.dex)}} </h3>
+							<p>Bonus</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 innerBox">
+					<div><input class="skillSave" disabled="disabled" type="checkbox" ng-model="character.savingThrows.dex"><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.dex, character.abilities.dex) }}</p></div>
+					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.acrobatics"><p class="skillSave">Acrobatics: {{skillBonus(character.skills.acrobatics, character.abilities.dex)}}</p></div>
+					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.sleightOfHand"><p class="skillSave" >Sleight of Hand: {{skillBonus(character.skills.sleightOfHand, character.abilities.dex)}}</p></div>
+					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.stealth"><p class="skillSave">Stealth: {{skillBonus(character.skills.stealth, character.abilities.dex)}}</p></div>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 innerBox">
+					<div class="row">
+						<div class="col-md-6">
+							<h3>{{character.abilities.con}}</h3>
+							<p>Strength</p>
+						</div>
+						<div class="col-md-6">
+							<h3> {{abilityBonus(character.abilities.con)}} </h3>
+							<p>Bonus</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 innerBox">
+					<div><input class="skillSave" disabled="disabled" type="checkbox" ng-model="character.savingThrows.con"><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.con, character.abilities.con) }}</p></div>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 innerBox">
+					<div class="row">
+						<div class="col-md-6">
+							<h3>{{character.abilities.intel}}</h3>
+							<p>Strength</p>
+						</div>
+						<div class="col-md-6">
+							<h3> {{abilityBonus(character.abilities.intel)}} </h3>
+							<p>Bonus</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 innerBox">
+					<div><input class="skillSave" disabled="disabled" type="checkbox" ng-model="character.savingThrows.intel"><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.intel, character.abilities.intel) }}</p></div>
+					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.arcana"><p class="skillSave" >Arcana: {{skillBonus(character.skills.arcana, character.abilities.intel)}}</p></div>
+					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.history"><p class="skillSave">History: {{skillBonus(character.skills.history, character.abilities.intel)}}</p></div>
+					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.investigation"><p class="skillSave">Investigation: {{skillBonus(character.skills.investigation, character.abilities.intel)}}</p></div>
+					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.nature"><p class="skillSave">Nature: {{skillBonus(character.skills.nature, character.abilities.intel)}}</p></div>
+					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.religion"><p class="skillSave">Religion: {{skillBonus(character.skills.religion, character.abilities.intel)}}</p></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 innerBox">
+					<div class="row">
+						<div class="col-md-6">
+							<h3>{{character.abilities.wis}}</h3>
+							<p>Strength</p>
+						</div>
+						<div class="col-md-6">
+							<h3> {{abilityBonus(character.abilities.wis)}} </h3>
+							<p>Bonus</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 innerBox">
+					<div><input class="skillSave" disabled="disabled" type="checkbox"  ng-model="character.savingThrows.wis"><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.wis, character.abilities.wis) }}</p></div>
+					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.animalHandling"><p class="skillSave" >Animal Handling: {{skillBonus(character.skills.animalHandling, character.abilities.wis)}}</p></div>
+					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.insight"><p class="skillSave">Insight: {{skillBonus(character.skills.insight, character.abilities.wis)}}</p></div>
+					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.medicine"><p class="skillSave">Medicine: {{skillBonus(character.skills.medicine, character.abilities.wis)}}</p></div>
+					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.perception"><p class="skillSave">Perception: {{skillBonus(character.skills.perception, character.abilities.wis)}}</p></div>
+					<div><input class="skillSave" type="checkbox" disabled="disabled" ng-model="character.skills.survival"><p class="skillSave">Survival: {{skillBonus(character.skills.survival, character.abilities.wis)}}</p></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 innerBox">
+					<div class="row">
+						<div class="col-md-6">
+							<h3>{{character.abilities.cha}}</h3>
+							<p>Strength</p>
+						</div>
+						<div class="col-md-6">
+							<h3> {{abilityBonus(character.abilities.cha)}} </h3>
+							<p>Bonus</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 innerBox">
+					<div><input class="skillSave" disabled="disabled" type="checkbox" ng-model="character.savingThrows.cha"><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.cha, character.abilities.cha) }}</p></div>
+					<div><input class="skillSave"type="checkbox" disabled="disabled" ng-model="character.skills.deception"><p class="skillSave">Deception: {{skillBonus(character.skills.deception, character.abilities.cha)}}</p></div>
+					<div><input class="skillSave"type="checkbox" disabled="disabled" ng-model="character.skills.intimidation"><p class="skillSave">Intimidation: {{skillBonus(character.skills.intimidation, character.abilities.cha)}}</p></div>
+					<div><input class="skillSave"type="checkbox" disabled="disabled" ng-model="character.skills.performance"><p class="skillSave">Performance: {{skillBonus(character.skills.performance, character.abilities.cha)}}</p></div>
+					<div><input class="skillSave"type="checkbox" disabled="disabled" ng-model="character.skills.persuasion"><p class="skillSave">Persuasion: {{skillBonus(character.skills.persuasion, character.abilities.cha)}}</p></div>
+					<p>&nbsp;</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<div class="row">
+				<div class="col-md-4 innerBox smallBox">
+					<h3>{{ getAC() }}</h3>
+					<p>Armor Class</p>
+				</div>
+				<div class="col-md-4 innerBox smallBox">
+					<h3>+{{ abilityBonus(character.abilities.dex) }}</h3>
+					<p>Initiative</p>
+				</div>
+				<div class="col-md-4 innerBox smallBox">
+					<h3>{{ speed() }}</h3>
+					<p>Speed</p>
+				</div>
+				<div class="col-md-12 innerBox smallBox">
+					<h3>{{ maxHP(abilityBonus(character.abilities.con))}}</h3>
+					<p>Hit Point Maximum</p>
+					<input type="number" class="abilityInput"/>
+					<p>Current Hit Points</p>
+				</div>
+				<div class="col-md-12 innerBox smallBox">
+					<input type="number" class="abilityInput"/>
+					<p>Temporary Hit Points</p>
+				</div>
+				<div class="col-md-6 innerBox smallBox">
+					<h3>{{ hitDie() }}</h3>
+					<p>Hit Dice</p>
+				</div>
+				<div class="col-md-6 innerBox smallBox">
+					<div class="skillSave"><input type="checkbox"/><input type="checkbox"/><input type="checkbox"/><p> Successes</p></div>
+					<div class="skillSave"><input type="checkbox"/><input type="checkbox"/><input type="checkbox"/><p>Failures</p></div>
+					<p>Death Saves</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<div class="row">
+				<div class="col-md-12 innerBox smallBox">
+					<p>{{ character.background.trait }}</p>
+					<p>Personality Trait</p>
+				</div>
+				<div class="col-md-12 innerBox smallBox">
+					<p>{{ character.background.ideal }}</p>
+					<p>Ideal</p>
+				</div>
+				<div class="col-md-12 innerBox smallBox">
+					<p>{{character.background.bond}}</p>
+					<p>Bond</p>
+				</div>
+				<div class="col-md-12 innerBox smallBox">
+					<p>{{character.background.flaw}}</p>
+					<p>Flaw</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<div class="row">
+				<div class="col-md-4 innerBox">
+					<p>Name</p>
+				</div>
+				<div class="col-md-4 innerBox">
+					<p>ATK Bonus</p>
+				</div>
+				<div class="col-md-4 innerBox">
+					<p>Damage/Type</p>
+				</div>
+				<div class="col-md-4 innerBox">
+					<p>Name</p>
+				</div>
+				<div class="col-md-4 innerBox">
+					<p>ATK Bonus</p>
+				</div>
+				<div class="col-md-4 innerBox">
+					<p>Damage/Type</p>
+				</div>
+				<div class="col-md-4 innerBox">
+					<p>Name</p>
+				</div>
+				<div class="col-md-4 innerBox">
+					<p>ATK Bonus</p>
+				</div>
+				<div class="col-md-4 innerBox">
+					<p>Damage/Type</p>
+				</div>
+				<div class="col-md-12 innerBox">
+					<p>Attacks</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<p ng-show="isDwarf()">Darkvision. Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray.</p>
+			<p ng-show="isDwarf()">Dwarven Resilience. You have advantage on saving throws against poison, and you have resistance against poison damage.</p>
+			<p ng-show="isDwarf()">Stonecunning. Whenever you make an Intelligence (History) check related to the origin of stonework, you are considered proficient in the History skill and add double your proficiency bonus to the check, instead of your normal proficiency bonus.</p>
+			<p ng-show="isElf()">Darkvision. Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray.</p>
+			<p ng-show="isElf()">Fey Ancestry. You have advantage on saving throws against being charmed, and magic can’t put you to sleep.</p>
+			<p ng-show="isElf()">Trance. Elves don’t need to sleep. Instead, they meditate deeply, remaining semiconscious, for 4 hours a day. (The Common word for such meditation is “trance.”) While meditating, you can dream after a fashion; such dreams are actually mental exercises that have become reflexive through years of practice. After resting in this way, you gain the same benefit that a human does from 8 hours of sleep.</p>
+			<p ng-show="isWoodElf()">Mask of the Wild. You can attempt to hide even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena.</p>
+			<p ng-show="isHalfling()">Lucky. When you roll a 1 on an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.</p>
+			<p ng-show="isHalfling()">Brave. You have advantage on saving throws against being frightened.</p>
+			<p ng-show="isHalfling()">Halfling Nimbleness. You can move through the space of any creature that is of a size larger than yours.</p>
+			<p ng-show="isLightfootHalfling()">Naturally Stealthy. You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.</p>
+			<p ng-show="isStoutHalfling()">Stout Resilience. You have advantage on saving throws against poison, and you have resistance against poison damage.</p>
+			<p ng-show="isCleric()">Spellcasting.</p>
+			<p ng-show="isLifeDomain()">Disciple of Life. Your healing spells are more effective. Whenever you use a spell of 1st level or higher to restore hit points to a creature, the creature regains additional hit points equal to 2 + the spell’s level.</p>
+			<p ng-show="isFighter()">Second Wind. You have a limited well of stamina that you can draw on to protect yourself from harm. On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level. Once you use this feature, you must finish a short or long rest before you can use it again.</p>
+			<p ng-show="isDuelingStyle()">Dueling. When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon.</p>
+			<p ng-show="isGreatWeaponStyle()">Great Weapon Fighting. When you roll a 1 or 2 on a damage die for an attack you make with a melee weapon that you are wielding with two hands, you can reroll the die and must use the new roll, even if the new roll is a 1 or a 2. The weapon must have the two-handed or versatile property for you to gain this benefit.</p>
+			<p ng-show="isProtectionStyle()">Protection. When a creature you can see attacks a target other than you that is within 5 feet of you, you can use your reaction to impose disadvantage on the attack roll. You must be wielding a shield.</p>
+			<p ng-show="isTwoWeaponStyle()">Two-Weapon Fighting. When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack.</p>
+			<p ng-show="isRogue()">Expertise. Choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves’ tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies.</p>
+			<p ng-show="isRogue()">Sneak Attack. You know how to strike subtly and exploit a foe’s distraction. Once per turn, you can deal an extra 1d6 damage to one creature you hit with an attack if you have advantage on the attack roll. The attack must use a finesse or a ranged weapon. You don’t need advantage on the attack roll if another enemy of the target is within 5 feet of it, that enemy isn’t incapacitated, and you don’t have disadvantage on the attack roll.</p>
+			<p ng-show="isRogue()">Thieves Cant. During your rogue training you learned thieves’ cant, a secret mix of dialect, jargon, and code that allows you to hide messages in seemingly normal conversation. Only another creature that knows thieves’ cant understands such messages. It takes four times longer to convey such a message than it does to speak the same idea plainly. In addition, you understand a set of secret signs and symbols used to convey short, simple messages, such as whether an area is dangerous or the territory of a thieves’ guild, whether loot is nearby, or whether the people in an area are easy marks or will provide a safe house for thieves on the run.</p>
+			<p ng-show="isWizard()">Spellcasting.</p>
+			<p ng-show="isWizard()">Arcane Recovery. You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a short rest, you can choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your wizard level (rounded up), and none of the slots can be 6th level or higher.</p>
+			<p ng-show="isAcolyte()">Shelter of the Faithful. As an acolyte, you command the respect of those who share your faith, and you can perform the religious ceremonies of your deity. You and your adventuring companions can expect to receive free healing and care at a temple, shrine, or other established presence of your faith, though you must provide any material components needed for spells. Those who share your religion will support you (but only you) at a modest lifestyle. You might also have ties to a specific temple dedicated to your chosen deity or pantheon, and you have a residence there. This could be the temple where you used to serve, if you remain on good terms with it, or a temple where you have found a new home. While near your temple, you can call upon the priests for assistance, provided the assistance you ask for is not hazardous and you remain in good standing with your temple.</p>
+			<p ng-show="isCriminal()">Criminal Contact. You have a reliable and trustworthy contact who acts as your liaison to a network of other criminals. You know how to get messages to and from your contact, even over great distances; specifically, you know the local messengers, corrupt caravan masters, and seedy sailors who can deliver messages for you.</p>
+			<p ng-show="isFolkHero()">Rustic Hospitality. Since you come from the ranks of the common folk, you fit in among them with ease. You can find a place to hide, rest, or recuperate among other commoners, unless you have shown yourself to be a danger to them. They will shield you from the law or anyone else searching for you, though they will not risk their lives for you.</p>
+			<p ng-show="isSage()">Researcher. When you attempt to learn or recall a piece of lore, if you do not know that information, you often know where and from whom you can obtain it. Usually, this information comes from a library, scriptorium, university, or a sage or other learned person or creature. Your DM might rule that the knowledge you seek is secreted away in an almost inaccessible place, or that it simply cannot be found. Unearthing the deepest secrets of the multiverse can require an adventure or even a whole campaign.</p>
+			<p ng-show="isSoldier()">Military Rank. You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank. You can invoke your rank to exert influence over other soldiers and requisition simple equipment or horses for temporary use. You can also usually gain access to friendly military encampments and fortresses where your rank is recognized.</p>
+			<p>Features</p>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<p>Proficiencies &amp; Languages</p>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<p> {{ printEquipment() }} </p>
+			<p>Equipment</p>
+		</div>
+		<div class="col-md-4 sheetBox" ng-show="isWizard()">
+			<select name="wizardCantrip1" ng-model="character.spells[0][0]">
+				<option ng-repeat="spell in spells.wizard[0]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<select name="wizardCantrip2" ng-model="character.spells[0][1]">
+				<option ng-repeat="spell in spells.wizard[0]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<select name="wizardCantrip3" ng-model="character.spells[0][2]">
+				<option ng-repeat="spell in spells.wizard[0]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<p>{{character.spell[0][0]}}</p>
+			<p>{{character.spell[0][1]}}</p>
+			<p>{{character.spell[0][2]}}</p>
+			<p>Cantrips</p>
+			<p>{{character.spell[0][0]}}</p>
+			<p>{{character.spell[0][1]}}</p>
+			<p>{{character.spell[0][2]}}</p>
+			<p>{{character.spell[0][3]}}</p>
+			<p>{{character.spell[0][4]}}</p>
+			<p>{{character.spell[0][5]}}</p>
+			<div class="skillSave"><input type="checkbox"/><input type="checkbox"/><p>Level One</p></div>
+			<p>Wizard Spells</p>
+		</div>
+		<div class="col-md-4 sheetBox" ng-show="isHighElf()">
+			<p>{{character.spell[0][5]}}</p>
+			<p>High Elf Wizard Spell</p>
+		</div>
+		<div class="col-md-4 sheetBox" ng-show="isCleric()">
+			<p>{{character.spell[0][0]}}</p>
+			<p>{{character.spell[0][1]}}</p>
+			<p>{{character.spell[0][2]}}</p>
+			<p>Cantrips</p>
+			<select name="clericFirst1">
+				<option ng-repeat="spell in spells.cleric[1]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<select name="clericFirst2">
+				<option ng-repeat="spell in spells.cleric[1]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<div class="skillSave"><input type="checkbox"/><input type="checkbox"/><p>Level One</p></div>
+			<p>Cleric Spells</p>
+		</div>
+	</div>
+</div>
 </div>

@@ -3,7 +3,7 @@
 <div class="col-md-12 landing" id="mainIndex" ng-controller="CharactersCtrl">
 	<div>
 		<h1 class="landing">Your Characters</h1>
-		<h4 ng-hide="characters" class="landing">You have no characters yet.</h4>
+		<!-- <h4 ng-hide="ifCharacters()" class="landing">You have no characters yet.</h4> -->
 		<div ng-repeat="character in characters" class="row" id="indexDiv">
 			<div class="col-md-6">
 				<img class="" src="{{character.image}}"></img>
