@@ -343,6 +343,7 @@ angular.module('5ePcApp')
 
     $scope.getRacialBonus = function(){
         $scope.character.data.race.subrace = '';
+        weaponProficiencies();
         $scope.elfSight();
         if ($scope.isElf()) {
             $scope.racialBonusDex = 2;
@@ -987,6 +988,7 @@ angular.module('5ePcApp')
     		$scope.character.data.savingThrows.dex = false;
     	} 
         getClassEquipment();
+        weaponProficiencies();
         resetSpells();
     };
 
@@ -1056,6 +1058,46 @@ angular.module('5ePcApp')
     	}
     };
 
+    function weaponProficiencies(){
+        if ($scope.isCleric()){
+            $scope.character.data.proficiencies.weaponType = 0;
+        } else if ($scope.isFighter()){
+            $scope.character.data.proficiencies.weaponType = 1;
+        } else if ($scope.isRogue()){
+            $scope.character.data.proficiencies.weaponType = 0;
+        } else if ($scope.isWizard()){
+            $scope.character.data.proficiencies.weaponType = -1;
+        }
+        if ($scope.isWizard() && $scope.isElf()){
+            $scope.character.data.proficiencies.weaponName =['light_crossbow', 'dagger', 'dart', 'sling', 'quarterstaff', 'longsword', 'shortsword', 'longbow', 'shortbow'];
+        } else if ($scope.isWizard() && $scope.isDwarf()){
+            $scope.character.data.proficiencies.weaponName =['light_crossbow', 'dagger', 'dart', 'sling', 'quarterstaff', 'battleaxe', 'handaxe', 'light_hammer', 'warhammer'];
+        } else if ($scope.isWizard() && (!$scope.isDwarf() || !$scope.isElf())){
+            $scope.character.data.proficiencies.weaponName =['light_crossbow', 'dagger', 'dart', 'sling', 'quarterstaff'];
+        } else if ($scope.isRogue() && $scope.isElf()){
+            $scope.character.data.proficiencies.weaponName = ['hand_crossbow', 'shortsword', 'longsword', 'rapier', 'longbow'];
+        } else if ($scope.isRogue() && $scope.isDwarf()){
+            $scope.character.data.proficiencies.weaponName = ['hand_crossbow', 'shortsword', 'longsword', 'rapier', 'battleaxe', 'handaxe', 'light_hammer', 'warhammer'];
+        } else if ($scope.isRogue() && (!$scope.isDwarf() || !$scope.isElf())){
+            $scope.character.data.proficiencies.weaponName = ['hand_crossbow', 'shortsword', 'longsword', 'rapier'];
+        } else if ($scope.isDwarf() && $scope.isCleric()){
+            $scope.character.data.proficiencies.weaponName = ['battleaxe', 'handaxe', 'light_hammer', 'warhammer'];
+        } else if ($scope.isElf() && $scope.isCleric()){
+            $scope.character.data.proficiencies.weaponName = ['longsword', 'shortsword', 'longbow', 'shortbow'];
+        } else $scope.character.data.proficiencies.weaponName = [];
+    };
+
+    $scope.displayWeaponProficiencies = function(){
+        var profs;
+        if ($scope.character.data.proficiencies.weaponType === 0){
+            return 'simple weapons, ' + $scope.character.data.proficiencies.weaponName.join(', ');
+        }else if ($scope.character.data.proficiencies.weaponType === 1){
+            return 'simple weapons and martial weapons';
+        } else {
+            return $scope.character.data.proficiencies.weaponName.join(', ');
+        }
+    }
+
     $scope.toHit = function(weap){
         var proficiencyBonus = 0;
         if ($scope.weapons.simple.hasOwnProperty(weap)){
@@ -1077,9 +1119,6 @@ angular.module('5ePcApp')
             if (($scope.character.data.proficiencies.weaponType >= 1) || ($scope.character.data.proficiencies.weaponName.indexOf(weap) > -1)){
                 proficiencyBonus = 2;
             }
-            console.log(proficiencyBonus);
-            console.log($scope.character.data.proficiencies.weaponName.indexOf(weap));
-            console.log($scope.character.data.proficiencies.weaponType);
             if ($scope.weapons.martial[weap].properties[0]){
                 return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.dex);
             }else if ($scope.weapons.martial[weap].properties[1]){
@@ -1151,7 +1190,7 @@ angular.module('5ePcApp')
         backgroundEquipment: [],
         skills: {athletics: false, acrobatics: false, sleightOfHand: false, stealth: false, arcana: false, history: false, investigation: false, nature: false, religion: false, animalHanlding: false, insight: false, medicine: false, perception: false, survival: false, deception: false, intimidation: false, performance: false, persuasion: false},
         savingThrows: {str: false, dex: false, con: false, intel: false, wis: false, cha: false},
-        proficiencies: {armorType: -1, armorName: [''], weaponType: -1, weaponName: [''], tools: [''], instruments: [''], languages: ['']},
+        proficiencies: {armorType: -1, armorName: [''], weaponType: -1, weaponName: [], tools: [''], instruments: [''], languages: ['']},
         spells: [['', '', '', '', '', ''], [], [], [], [], [], [], [], [], []],
         appearance: {eyes: '', hair: '', age: '', height: '', Weight: '', Skin: ''},
         image: '',
@@ -1180,7 +1219,7 @@ angular.module('5ePcApp')
         backgroundEquipment: [],
 		skills: {athletics: false, acrobatics: false, sleightOfHand: false, stealth: false, arcana: false, history: false, investigation: false, nature: false, religion: false, animalHanlding: false, insight: false, medicine: false, perception: false, survival: false, deception: false, intimidation: false, performance: false, persuasion: false},
 		savingThrows: {str: false, dex: false, con: false, intel: false, wis: false, cha: false},
-		proficiencies: {armorType: -1, armorName: [''], weaponType: -1, weaponName: [''], tools: [''], instruments: [''], languages: ['']},
+		proficiencies: {armorType: -1, armorName: [''], weaponType: -1, weaponName: [], tools: [''], instruments: [''], languages: ['']},
 		spells: [['', '', '', '', '', ''], [], [], [], [], [], [], [], [], []],
 		appearance: {eyes: '', hair: '', age: '', height: '', Weight: '', Skin: ''},
 		image: '',
