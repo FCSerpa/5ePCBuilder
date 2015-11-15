@@ -1120,7 +1120,11 @@ angular.module('5ePcApp')
                 proficiencyBonus = 2;
             }
             if ($scope.weapons.martial[weap].properties[0]){
+                if (isArcheryStyle()) {
+                    return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.dex) + 2;
+                } else {
                 return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.dex);
+            }
             }else if ($scope.weapons.martial[weap].properties[1]){
                 if ($scope.character.data.abilities.dex > $scope.character.data.abilities.str){
                     return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.dex);
@@ -1129,6 +1133,66 @@ angular.module('5ePcApp')
                 }
             }else {
                 return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.str);
+            }
+        }
+    };
+
+    $scope.toDamage = function(weap){
+        if ($scope.weapons.simple.hasOwnProperty(weap)){
+            if ($scope.weapons.simple[weap].properties[0]){
+                if ($scope.abilityBonus($scope.character.data.abilities.dex) < 0) {
+                    return $scope.weapons.simple[weap].damage + $scope.abilityBonus($scope.character.data.abilities.dex) + ' ' + $scope.weapons.simple[weap].damageType;
+                } else {
+                    return $scope.weapons.simple[weap].damage + '+' + $scope.abilityBonus($scope.character.data.abilities.dex) + ' ' + $scope.weapons.simple[weap].damageType;
+                }
+            }else if ($scope.weapons.simple[weap].properties[1]){
+                if ($scope.character.data.abilities.dex > $scope.character.data.abilities.str){
+                    if ($scope.abilityBonus($scope.character.data.abilities.dex) < 0) {
+                        return $scope.weapons.simple[weap].damage + $scope.abilityBonus($scope.character.data.abilities.dex) + ' ' + $scope.weapons.simple[weap].damageType;
+                    } else {
+                        return $scope.weapons.simple[weap].damage + '+' + $scope.abilityBonus($scope.character.data.abilities.dex) + ' ' + $scope.weapons.simple[weap].damageType;
+                    }
+                } else {
+                    if ($scope.abilityBonus($scope.character.data.abilities.str) < 0) {
+                        return $scope.weapons.simple[weap].damage + $scope.abilityBonus($scope.character.data.abilities.str) + ' ' + $scope.weapons.simple[weap].damageType;
+                    } else {
+                        return $scope.weapons.simple[weap].damage + '+' + $scope.abilityBonus($scope.character.data.abilities.str) + ' ' + $scope.weapons.simple[weap].damageType;
+                    }
+                }
+            }else {
+                if ($scope.abilityBonus($scope.character.data.abilities.str) < 0) {
+                    return $scope.weapons.simple[weap].damage + $scope.abilityBonus($scope.character.data.abilities.str) + ' ' + $scope.weapons.simple[weap].damageType;
+                } else {
+                    return $scope.weapons.simple[weap].damage + '+' + $scope.abilityBonus($scope.character.data.abilities.str) + ' ' + $scope.weapons.simple[weap].damageType;
+                }
+            }
+        } else if ($scope.weapons.martial.hasOwnProperty(weap)){
+            if ($scope.weapons.martial[weap].properties[0]){
+                if ($scope.abilityBonus($scope.character.data.abilities.dex) < 0) {
+                    return $scope.weapons.martial[weap].damage + $scope.abilityBonus($scope.character.data.abilities.dex) + ' ' + $scope.weapons.martial[weap].damageType;
+                } else {
+                    return $scope.weapons.martial[weap].damage + '+' + $scope.abilityBonus($scope.character.data.abilities.dex) + ' ' + $scope.weapons.martial[weap].damageType;
+                }
+            }else if ($scope.weapons.martial[weap].properties[1]){
+                if ($scope.character.data.abilities.dex > $scope.character.data.abilities.str){
+                    if ($scope.abilityBonus($scope.character.data.abilities.dex) < 0) {
+                        return $scope.weapons.martial[weap].damage + $scope.abilityBonus($scope.character.data.abilities.dex) + ' ' + $scope.weapons.martial[weap].damageType;
+                    } else {
+                        return $scope.weapons.martial[weap].damage + '+' + $scope.abilityBonus($scope.character.data.abilities.dex) + ' ' + $scope.weapons.martial[weap].damageType;
+                    }
+                } else {
+                    if ($scope.abilityBonus($scope.character.data.abilities.str) < 0) {
+                        return $scope.weapons.martial[weap].damage + $scope.abilityBonus($scope.character.data.abilities.str) + ' ' + $scope.weapons.martial[weap].damageType;
+                    } else {
+                        return $scope.weapons.martial[weap].damage + '+' + $scope.abilityBonus($scope.character.data.abilities.str) + ' ' + $scope.weapons.martial[weap].damageType;
+                    }
+                }
+            }else {
+                if ($scope.abilityBonus($scope.character.data.abilities.str) < 0) {
+                    return $scope.weapons.martial[weap].damage + $scope.abilityBonus($scope.character.data.abilities.str) + ' ' + $scope.weapons.martial[weap].damageType;
+                } else {
+                    return $scope.weapons.martial[weap].damage + '+' + $scope.abilityBonus($scope.character.data.abilities.str) + ' ' + $scope.weapons.martial[weap].damageType;
+                }
             }
         }
     };

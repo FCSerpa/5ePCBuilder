@@ -349,13 +349,15 @@
 		<div class="col-md-4 sheetBox">
 			<div class="row">
 				<div class="col-md-4 innerBox">
+					<p>{{ character.data.classEquipment.weapon[0] }}</p>
 					<p>Name</p>
 				</div>
 				<div class="col-md-4 innerBox">
-					<p>{{ toHit('greataxe') }}</p>
+					<p>{{ toHit(character.data.classEquipment.weapon[0]) }}</p>
 					<p>ATK Bonus</p>
 				</div>
 				<div class="col-md-4 innerBox">
+					<p>{{ toDamage(character.data.classEquipment.weapon[0]) }}</p>
 					<p>Damage/Type</p>
 				</div>
 				<div class="col-md-4 innerBox">
