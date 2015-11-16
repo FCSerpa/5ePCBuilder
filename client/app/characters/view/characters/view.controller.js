@@ -371,6 +371,161 @@ angular.module('5ePcApp')
     	}
     };
 
+$scope.displayWeaponProficiencies = function(){
+        var profs;
+        if ($scope.character.proficiencies.weaponType === 0){
+            return 'simple weapons, ' + $scope.character.proficiencies.weaponName.join(', ');
+        }else if ($scope.character.proficiencies.weaponType === 1){
+            return 'simple weapons and martial weapons';
+        } else {
+            return $scope.character.proficiencies.weaponName.join(', ');
+        }
+    }
+
+    $scope.toHit = function(weap){
+        var proficiencyBonus = 0;
+        if ($scope.weapons.simple.hasOwnProperty(weap)){
+            if (($scope.character.proficiencies.weaponType >= 0) || ($scope.character.proficiencies.weaponName.indexOf(weap) > -1)){
+                proficiencyBonus = 2;
+            }
+            if ($scope.weapons.simple[weap].properties[0]){
+                if ( $scope.isArcheryStyle() ) {
+                    return proficiencyBonus + $scope.abilityBonus($scope.character.abilities.dex) + 2;
+                    } else {
+                    return proficiencyBonus + $scope.abilityBonus($scope.character.abilities.dex);
+                    }
+            }else if ($scope.weapons.simple[weap].properties[1]){
+                if ($scope.character.abilities.dex > $scope.character.abilities.str){
+                    return proficiencyBonus + $scope.abilityBonus($scope.character.abilities.dex);
+                } else {
+                    return proficiencyBonus + $scope.abilityBonus($scope.character.abilities.str);
+                }
+            }else {
+                return proficiencyBonus + $scope.abilityBonus($scope.character.abilities.str);
+            }
+        } else if ($scope.weapons.martial.hasOwnProperty(weap)){
+            if (($scope.character.proficiencies.weaponType >= 1) || ($scope.character.proficiencies.weaponName.indexOf(weap) > -1)){
+                proficiencyBonus = 2;
+            }
+            if ($scope.weapons.martial[weap].properties[0]){
+                if ( $scope.isArcheryStyle() ) {
+                    return proficiencyBonus + $scope.abilityBonus($scope.character.abilities.dex) + 2;
+                    } else {
+                    return proficiencyBonus + $scope.abilityBonus($scope.character.abilities.dex);
+                    }
+            }else if ($scope.weapons.martial[weap].properties[1]){
+                if ($scope.character.abilities.dex > $scope.character.abilities.str){
+                    return proficiencyBonus + $scope.abilityBonus($scope.character.abilities.dex);
+                } else {
+                    return proficiencyBonus + $scope.abilityBonus($scope.character.abilities.str);
+                }
+            }else {
+                return proficiencyBonus + $scope.abilityBonus($scope.character.abilities.str);
+            }
+        }
+    };
+
+    $scope.toDamage = function(weap){
+        if ($scope.weapons.simple.hasOwnProperty(weap)){
+            if ($scope.weapons.simple[weap].properties[0]){
+                if ($scope.abilityBonus($scope.character.abilities.dex) < 0) {
+                    return $scope.weapons.simple[weap].damage + $scope.abilityBonus($scope.character.abilities.dex) + ' ' + $scope.weapons.simple[weap].damageType;
+                } else {
+                    return $scope.weapons.simple[weap].damage + '+' + $scope.abilityBonus($scope.character.abilities.dex) + ' ' + $scope.weapons.simple[weap].damageType;
+                }
+            }else if ($scope.weapons.simple[weap].properties[1]){
+                if ($scope.character.abilities.dex > $scope.character.abilities.str){
+                    if ($scope.abilityBonus($scope.character.abilities.dex) < 0) {
+                        return $scope.weapons.simple[weap].damage + $scope.abilityBonus($scope.character.abilities.dex) + ' ' + $scope.weapons.simple[weap].damageType;
+                    } else {
+                        return $scope.weapons.simple[weap].damage + '+' + $scope.abilityBonus($scope.character.abilities.dex) + ' ' + $scope.weapons.simple[weap].damageType;
+                    }
+                } else {
+                    if ($scope.abilityBonus($scope.character.abilities.str) < 0) {
+                        return $scope.weapons.simple[weap].damage + $scope.abilityBonus($scope.character.abilities.str) + ' ' + $scope.weapons.simple[weap].damageType;
+                    } else {
+                        return $scope.weapons.simple[weap].damage + '+' + $scope.abilityBonus($scope.character.abilities.str) + ' ' + $scope.weapons.simple[weap].damageType;
+                    }
+                }
+            }else {
+                if ($scope.abilityBonus($scope.character.abilities.str) < 0) {
+                    return $scope.weapons.simple[weap].damage + $scope.abilityBonus($scope.character.abilities.str) + ' ' + $scope.weapons.simple[weap].damageType;
+                } else {
+                    return $scope.weapons.simple[weap].damage + '+' + $scope.abilityBonus($scope.character.abilities.str) + ' ' + $scope.weapons.simple[weap].damageType;
+                }
+            }
+        } else if ($scope.weapons.martial.hasOwnProperty(weap)){
+            if ($scope.weapons.martial[weap].properties[0]){
+                if ($scope.abilityBonus($scope.character.abilities.dex) < 0) {
+                    return $scope.weapons.martial[weap].damage + $scope.abilityBonus($scope.character.abilities.dex) + ' ' + $scope.weapons.martial[weap].damageType;
+                } else {
+                    return $scope.weapons.martial[weap].damage + '+' + $scope.abilityBonus($scope.character.abilities.dex) + ' ' + $scope.weapons.martial[weap].damageType;
+                }
+            }else if ($scope.weapons.martial[weap].properties[1]){
+                if ($scope.character.abilities.dex > $scope.character.abilities.str){
+                    if ($scope.abilityBonus($scope.character.abilities.dex) < 0) {
+                        return $scope.weapons.martial[weap].damage + $scope.abilityBonus($scope.character.abilities.dex) + ' ' + $scope.weapons.martial[weap].damageType;
+                    } else {
+                        return $scope.weapons.martial[weap].damage + '+' + $scope.abilityBonus($scope.character.abilities.dex) + ' ' + $scope.weapons.martial[weap].damageType;
+                    }
+                } else {
+                    if ($scope.abilityBonus($scope.character.abilities.str) < 0) {
+                        return $scope.weapons.martial[weap].damage + $scope.abilityBonus($scope.character.abilities.str) + ' ' + $scope.weapons.martial[weap].damageType;
+                    } else {
+                        return $scope.weapons.martial[weap].damage + '+' + $scope.abilityBonus($scope.character.abilities.str) + ' ' + $scope.weapons.martial[weap].damageType;
+                    }
+                }
+            }else {
+                if ($scope.abilityBonus($scope.character.abilities.str) < 0) {
+                    return $scope.weapons.martial[weap].damage + $scope.abilityBonus($scope.character.abilities.str) + ' ' + $scope.weapons.martial[weap].damageType;
+                } else {
+                    return $scope.weapons.martial[weap].damage + '+' + $scope.abilityBonus($scope.character.abilities.str) + ' ' + $scope.weapons.martial[weap].damageType;
+                }
+            }
+        }
+    };
+
+    $scope.weapons = {
+        //properties key- [ammunition, finesse, heavy, light, loading, range, reach, special, thrown, two-handed, versatile]
+        simple: {club: {name: 'club', damage: 'id4', damageType: 'bludgeoning', properties: ['', '', '', 'light', '', '', '', '', '', '', '']},
+                dagger: {name: 'dagger', damage: '1d4', damageType: 'piercing', properties: ['', 'finesse', '', 'light', '', 'range 20/60', '', '', 'thrown', '', '']},
+                greatclub: {name: 'greatclub', damage: '1d8', damageType: 'bludgeoning', properties: ['', '', '', '', '', '', '', '', '', 'two-handed', '']},
+                handaxe: {name: 'handaxe', damage: '1d6', damageType: 'slashing', properties: ['', '', '', '', '', 'range 20/60', '', '', 'thrown', '', '']},
+                javelin: {name: 'javelin', damage: '1d6', damageType: 'piercing', properties: ['', '', '', '', '', 'range 30/120', '', '', 'thrown', '', '']},
+                light_hammer: {name: 'light_hammer', damage: '1d4', damageType: 'bludgeoning', properties: ['', '', '', 'light', '', 'range 20/60', '', '', 'thrown', '', '']},
+                mace: {name: 'mace', damage: '1d6', damageType: 'bludgeoning', properties: ['', '', '', '', '', '', '', '', '', '', '']},
+                quarterstaff: {name: 'quarterstaff', damage: '1d6', damageType: 'bludgeoning', properties: ['', '', '', '', '', '', '', '', '', '', 'versatile (1d8)']},
+                sickle: {name: 'sickle', damage: '1d4', damageType: 'slashing', properties: ['', '', '', 'light', '', '', '', '', '', '', '']},
+                spear: {name: 'spear', damage: '1d6', damageType: 'piercing', properties: ['', '', '', '', '', 'range 20/60', '', '', 'thrown', '', 'versatile (1d8)']},
+                light_crossbow: {name: 'light_crossbow', damage: '1d8', damageType: 'piercing', properties: ['ammunition', '', '', '', 'loading', 'range 80/320', '', '', '', 'two-handed', '']},
+                dart: {name: 'dart', damage: '1d4', damageType: 'piercing', properties: ['', 'finesse', '', '', '', 'range 20/60', '', '', 'thrown', '', '']},
+                shortbow: {name: 'shortbow', damage: '1d6', damageType: 'piercing', properties: ['ammunition', '', '', '', '', 'range 80/320', '', '', '', 'two-handed', '']},
+                sling: {name: 'sling', damage: '1d4', damageType: 'bludgeoning', properties: ['ammunition', '', '', '', '', 'range 30/120', '', '', '', '', '']}},
+        martial: {battleaxe: {name: 'battleaxe', damage: '1d8', damageType: 'slashing', properties: ['', '', '', '', '', '', '', '', '', '', 'versatile (1d10)']},
+                flail: {name: 'flail', damage: '1d8', damageType: 'bludgeoning', properties: ['', '', '', '', '', '', '', '', '', '', '']},
+                glaive: {name: 'glaive', damage: '1d10', damageType: 'slashing', properties: ['', '', 'heavy', '', '', '', 'reach', '', '', 'two-handed', '']},
+                greataxe: {name: 'greataxe', damage: '1d12', damageType: 'slashing', properties: ['', '', 'heavy', '', '', '', '', '', '', 'two-handed', '']},
+                greatsword: {name: 'greatsword', damage: '2d6', damageType: 'slashing', properties: ['', '', 'heavy', '', '', '', '', '', '', 'two-handed', '']},
+                halberd: {name: 'halberd', damage: '1d10', damageType: 'slashing', properties: ['', '', 'heavy', '', '', '', 'reach', '', '', 'two-handed', '']},
+                lance: {name: 'lance', damage: '1d12', damageType: 'piercing', properties: ['', '', '', '', '', '', 'reach', 'special', '', '', '']},
+                longsword: {name: 'longsword', damage: '1d8', damageType: 'slashing', properties: ['', '', '', '', '', '', '', '', '', '', 'versatile (1d10']},
+                maul: {name: 'maul', damage: '2d6', damageType: 'bludgeoning', properties: ['', '', 'heavy', '', '', '', '', '', '', 'two-handed', '']},
+                morningstar: {name: 'morningstar', damage: '1d8', damageType: 'piercing', properties: ['', '', '', '', '', '', '', '', '', '', '']},
+                pike: {name: 'pike', damage: '1d10', damageType: 'piercing', properties: ['', '', 'heavy', '', '', '', 'reach', '', '', 'two-handed', '']},
+                rapier: {name: 'rapier', damage: '1d8', damageType: 'piercing', properties: ['', 'finesse', '', '', '', '', '', '', '', '', '']},
+                scimitar: {name: 'scimitar', damage: '1d6', damageType: 'slashing', properties: ['', 'finesse', '', 'light', '', '', '', '', '', '', '']},
+                shortsword: {name: 'shortsword', damage: '1d6', damageType: 'piercing', properties: ['', 'finesse', '', 'light', '', '', '', '', '', '', '']},
+                trident: {name: 'trident', damage: '1d6', damageType: 'piercing', properties: ['', '', '', '', '', 'range 20/60', '', '', 'thrown', '', 'versatile (1d8)']},
+                war_pick: {name: 'war_pick', damage: '1d8', damageType: 'piercing', properties: ['', '', '', '', '', '', '', '', '', '', '']},
+                warhammer: {name: 'warhammer', damage: '1d8', damageType: 'bludgeoning', properties: ['', '', '', '', '', '', '', '', '', '', 'versatile (1d10)']},
+                whip: {name: 'whip', damage: '1d4', damageType: 'slashing', properties: ['', 'finesse', '', '', '', '', 'reach', '', '', '', '']},
+                blowgun: {name: 'blowgun', damage: '1', damageType: 'piercing', properties: ['ammunition', '', '', '', 'loading', 'range 25/100', '', '', '', '', '']},
+                hand_crossbow: {name: 'hand_crossbow', damage: '1d6', damageType: 'piercing', properties: ['ammunition', '', '', 'light', 'loading', 'range 30/120', '', '', '', '', '']},
+                heavy_crossbow: {name: 'heavy_crossbow', damage: '1d10', damageType: 'piercing', properties: ['ammunition', '', 'heavy', '', 'loading', 'range 100/400', '', '', '', 'two-handed', '']},
+                longbow: {name: 'longbow', damage: '1d8', damageType: 'piercing', properties: ['ammunition', '', 'heavy', '', '', 'range 150/600', '', '', '', '', '']},
+                net: {name: 'net', damage: '-', damageType: '-', properties: ['', '', '', '', '', 'range 5/15', '', 'special', 'thrown', '', '']}}
+    };
+
     $scope.spells = {
         cleric: [['Guidance', 'Light', 'Resistance', 'Sacred Flame', 'Spare the Dying', 'Thaumaturgy'],
                 ['Bless', 'Command', 'Cure Wounds', 'Detect Magic', 'Guiding Bolt', 'Healing Word', 'Inflict Wounds', 'Sanctuary', 'Shield of Faith']],

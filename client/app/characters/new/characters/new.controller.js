@@ -810,11 +810,11 @@ angular.module('5ePcApp')
     $scope.fighterChoice1Func = function() {
         if ($scope.fighterChoice1 === 'chain mail') {
             $scope.character.data.classEquipment.armor[0] = 'chain mail';
-            $scope.character.data.classEquipment.weapon[0] = '';
+            $scope.character.data.classEquipment.weapon[3] = '';
             $scope.character.data.classEquipment.weapon[5] = '';
         } else if ($scope.fighterChoice1 === 'leather, longbow, and 20 arrows') {
             $scope.character.data.classEquipment.armor[0] = 'leather armor';
-            $scope.character.data.classEquipment.weapon[0] = 'longbow';
+            $scope.character.data.classEquipment.weapon[3] = 'longbow';
             $scope.character.data.classEquipment.weapon[5] = '20 arrows';
         }
     };
@@ -825,11 +825,11 @@ angular.module('5ePcApp')
     $scope.fighterChoice2Func = function() {
         if ($scope.fighterChoice2 === 'shield') {
             $scope.character.data.classEquipment.armor[1] = 'shield';
-            $scope.character.data.classEquipment.weapon[2] = '';
+            $scope.character.data.classEquipment.weapon[1] = '';
             $scope.isOneWeapon = true;
             $scope.isTwoWeapons = false;
         } else if ($scope.fighterChoice2 === '2 weapons') {
-            $scope.character.data.classEquipment.armor[1] = '';
+            $scope.character.data.classEquipment.armor[2] = '';
             $scope.isOneWeapon = true;
             $scope.isTwoWeapons = true;
         } 
@@ -838,10 +838,10 @@ angular.module('5ePcApp')
     $scope.fighterChoice3 = '';
     $scope.fighterChoice3Func = function() {
         if ($scope.fighterChoice3 === 'crossbow') {
-            $scope.character.data.classEquipment.weapon[3] = 'light_crossbow';
+            $scope.character.data.classEquipment.weapon[2] = 'light_crossbow';
             $scope.character.data.classEquipment.weapon[6] = '20 bolts';
         } else if ($scope.fighterChoice3 === 'handaxes') {
-            $scope.character.data.classEquipment.weapon[3] = 'handaxe';
+            $scope.character.data.classEquipment.weapon[2] = 'handaxe';
             $scope.character.data.classEquipment.weapon[4] = 'handaxe';
             $scope.character.data.classEquipment.weapon[6] = '';
         }
@@ -1105,7 +1105,11 @@ angular.module('5ePcApp')
                 proficiencyBonus = 2;
             }
             if ($scope.weapons.simple[weap].properties[0]){
-                return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.dex);
+                if ( $scope.isArcheryStyle() ) {
+                    return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.dex) + 2;
+                    } else {
+                    return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.dex);
+                    }
             }else if ($scope.weapons.simple[weap].properties[1]){
                 if ($scope.character.data.abilities.dex > $scope.character.data.abilities.str){
                     return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.dex);
@@ -1120,11 +1124,11 @@ angular.module('5ePcApp')
                 proficiencyBonus = 2;
             }
             if ($scope.weapons.martial[weap].properties[0]){
-                if (isArcheryStyle()) {
+                if ( $scope.isArcheryStyle() ) {
                     return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.dex) + 2;
-                } else {
-                return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.dex);
-            }
+                    } else {
+                    return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.dex);
+                    }
             }else if ($scope.weapons.martial[weap].properties[1]){
                 if ($scope.character.data.abilities.dex > $scope.character.data.abilities.str){
                     return proficiencyBonus + $scope.abilityBonus($scope.character.data.abilities.dex);
