@@ -10,7 +10,7 @@
 		<div class="col-md-3 smallBox sheetBox">
 			<div class="row">
 				<div class="col-md-12 innerBox">
-					<select name="characterClass select" ng-model="character.data.characterClass.name" ng-change="saved()">
+					<select name="characterClass select" ng-model="character.data.characterClass.name" ng-change="getClassStuff()">
 						<option value="Cleric">Cleric</option>
 						<option value="Fighter">Fighter</option>
 						<option value="Rogue">Rogue</option>
@@ -19,7 +19,7 @@
 					<select name="level select" ng-model="character.data.level">
 						<option value="1">1</option>
 					</select>
-					<select name="specialization select" ng-model="character.data.characterClass.specialization">
+					<select name="specialization select" ng-model="character.data.characterClass.specialization" ng-change="getArmorProficiencies()">
 						<option value="{{selectSpecialization(1)}}">{{selectSpecialization(1)}}</option>
 					</select>
 					<p>Class &amp; Level &amp; Subclass</p>
@@ -443,8 +443,8 @@
 			<p>Features</p>
 		</div>
 		<div class="col-md-4 sheetBox">
-			<p>{{ displayWeaponProficiencies() }}</p>
-			<p>Weapon Proficiencies</p>
+			<p>Weapon Proficiencies- {{ displayWeaponProficiencies() }}</p>
+			<p>Armor Proficiencies- {{ displayArmorProficiencies() }}</p>
 			<select name="HumanSelect1" ng-show="isHuman()" ng-change="getLanguages()" ng-model="character.data.proficiencies.languages[1]">
 					<option ng-repeat="language in languages" value="{{language}}">{{language}}</option>
 			</select>
@@ -463,8 +463,7 @@
 			<select name="SageSelect2" ng-show="isSage()" ng-change="getLanguages()" ng-model="character.data.proficiencies.languages[4]">
 					<option ng-repeat="language in languages" value="{{language}}">{{language}}</option>
 			</select>
-			<p>{{ displayLanguages() }}</p>
-			<p>Languages</p>
+			<p>Languages- {{ displayLanguages() }}</p>
 			<p>Proficiencies &amp; Languages</p>
 		</div>
 		<div class="col-md-4 sheetBox">

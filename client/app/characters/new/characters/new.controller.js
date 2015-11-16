@@ -409,6 +409,7 @@ angular.module('5ePcApp')
         $scope.totalIntel($scope.baseIntel, $scope.racialBonusIntel);
         $scope.totalWis($scope.baseWis, $scope.racialBonusWis);
         $scope.totalCha($scope.baseCha, $scope.racialBonusCha);
+        $scope.getArmorProficiencies();
     };
 
     $scope.abilityBonus = function(ability){
@@ -958,7 +959,7 @@ angular.module('5ePcApp')
     	}
     };
 
-    $scope.saved = function(){
+    $scope.getClassStuff = function(){
         resetClassEquipment();
     	if ($scope.isCleric()){
     		$scope.character.data.savingThrows.wis = true;
@@ -990,6 +991,7 @@ angular.module('5ePcApp')
     		$scope.character.data.savingThrows.dex = false;
     	} 
         getClassEquipment();
+        $scope.getArmorProficiencies();
         weaponProficiencies();
         resetSpells();
     };
@@ -1097,6 +1099,38 @@ angular.module('5ePcApp')
         });
         return langs.join(', ');
     };
+
+    $scope.getArmorProficiencies = function() {
+        if ($scope.isLifeDomain() || $scope.isFighter()){
+            $scope.character.data.proficiencies.armorType = 2;
+        }else if (($scope.isCleric() && !$scope.isLifeDomain()) || ($scope.isMountainDwarf() && $scope.isWizard()) || ($scope.isMountainDwarf() && $scope.isRogue()))  {
+            $scope.character.data.proficiencies.armorType = 1;
+        } else if ($scope.isWizard()) {
+            $scope.character.data.proficiencies.armorType = -1;
+        } else if ($scope.isRogue()) {
+            $scope.character.data.proficiencies.armorType = 0;
+        } 
+        if ($scope.isCleric() || $scope.isFighter()) {
+            $scope.character.data.proficiencies.armorName = 'shields';
+        } else {
+            $scope.character.data.proficiencies.armorName = '';
+        }
+    };
+
+    $scope.displayArmorProficiencies = function() {
+        var arm;
+        if ($scope.character.data.proficiencies.armorType === 0) {
+            arm = 'light armor';
+        } else if ($scope.character.data.proficiencies.armorType === 1) {
+            arm = 'light and medium armor';
+        } else if ($scope.character.data.proficiencies.armorType === 2) {
+            arm = 'light, medium, and heavy armor';
+        }
+        if ($scope.character.data.proficiencies.armorName === 'shields') {
+            arm += ' and shields';
+        }
+        return arm;
+    }
 
     function weaponProficiencies(){
         if ($scope.isCleric()){

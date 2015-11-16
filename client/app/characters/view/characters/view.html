@@ -205,10 +205,9 @@
 					<p>Death Saves</p>
 				</div>
 				<div class="col-md-12 innerBox smallBox">
-					<p>{{ displayWeaponProficiencies() }}</p>
-					<p>Weapon Proficiencies</p>
-					<p>{{ displayLanguages() }}</p>
-					<p>Languages</p>
+					<p>Weapon Proficiencies- {{ displayWeaponProficiencies() }}</p>
+					<p>Armor Proficiencies- {{ displayArmorProficiencies() }}</p>
+					<p>Languages-  {{ displayLanguages() }}</p>
 					<p>Proficiencies &amp; Languages</p>
 				</div>
 			</div>
@@ -293,53 +292,34 @@
 			</div>
 		</div>
 		<div class="col-md-4 sheetBox smallBox" ng-show="isWizard()">
-			<div class="row">
-				<div class="col-md-4">
-					<p>{{character.spells[0][0]}}</p>
-				</div>
-				<div class="col-md-4">
-					<p>{{character.spells[0][1]}}</p>
-				</div>
-				<div class="col-md-4">
-					<p>{{character.spells[0][2]}}</p>
-				</div>
-				<div class="col-md-12">
-					<p>Cantrips</p>
-				</div>
-				<div class="col-md-4">
-					<p>{{character.spells[1][0]}}</p>
-					<p>{{character.spells[1][1]}}</p>
-				</div>
-				<div class="col-md-4">
-					<p>{{character.spells[1][2]}}</p>
-					<p>{{character.spells[1][3]}}</p>
-				</div>
-				<div class="col-md-4">
-					<p>{{character.spells[1][4]}}</p>
-					<p>{{character.spells[1][5]}}</p>
-				</div>
-				<div class="col-md-12">
-					<div class="skillSave"><input class="skillSave" type="checkbox"/><input class="skillSave" type="checkbox"/><p class="skillSave">Level One</p></div>
-					<p>Wizard Spells</p>
-				</div>
-			</div>
+			<p>Cantrips- {{character.spells[0][0]}}, {{character.spells[0][1]}}, {{character.spells[0][2]}}</p>
+			<div class="skillSave"><input class="skillSave" type="checkbox"/><input class="skillSave" type="checkbox"/><p class="skillSave">Level One- {{character.spells[1][0]}}, {{character.spells[1][1]}}, {{character.spells[1][2]}}, {{character.spells[1][3]}}, {{character.spells[1][4]}}, {{character.spells[1][5]}}</p></div>
+			<p>Wizard Spells</p>
 		</div>
 		<div class="col-md-4 sheetBox smallBox" ng-show="isHighElf()">
-			<p>{{character.spells[0][5]}}</p>
-			<p>High Elf Wizard Spell</p>
+			<p>High Elf Wizard Spell- {{character.spells[0][5]}}</p>
 		</div>
 		<div class="col-md-4 sheetBox smallBox" ng-show="isCleric()">
-			<p>{{character.spells[0][0]}}</p>
-			<p>{{character.spells[0][1]}}</p>
-			<p>{{character.spells[0][2]}}</p>
-			<p>Cantrips</p>
+			<p>Cantrips- {{character.spells[0][0]}}, {{character.spells[0][1]}}, {{character.spells[0][2]</p>
+			<div class="skillSave"><input type="checkbox" class="skillSave"/><input type="checkbox" class="skillSave"/><p class="skillSave">Level One-</p></div>
 			<select name="clericFirst1">
 				<option ng-repeat="spell in spells.cleric[1]" value="{{spell}}">{{spell}}<option>
 			</select>
-			<select name="clericFirst2">
+			<select name="clericFirst2" ng-show"$scope.abilityBonus($scope.character.abilities.dex) >= 1">
 				<option ng-repeat="spell in spells.cleric[1]" value="{{spell}}">{{spell}}<option>
 			</select>
-			<div class="skillSave"><input type="checkbox" class="skillSave"/><input type="checkbox" class="skillSave"/><p class="skillSave">Level One</p></div>
+			<select name="clericFirst2" ng-show"$scope.abilityBonus($scope.character.abilities.dex) >= 2">
+				<option ng-repeat="spell in spells.cleric[1]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<select name="clericFirst2" ng-show"$scope.abilityBonus($scope.character.abilities.dex) >= 3">
+				<option ng-repeat="spell in spells.cleric[1]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<select name="clericFirst2" ng-show"$scope.abilityBonus($scope.character.abilities.dex) >= 4">
+				<option ng-repeat="spell in spells.cleric[1]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<select name="clericFirst2" ng-show"$scope.abilityBonus($scope.character.abilities.dex) >= 5">
+				<option ng-repeat="spell in spells.cleric[1]" value="{{spell}}">{{spell}}<option>
+			</select>
 			<p>Cleric Spells</p>
 		</div>
 		<div class="col-md-4 sheetBox">

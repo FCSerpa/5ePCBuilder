@@ -392,6 +392,21 @@ angular.module('5ePcApp')
         }
     }
 
+     $scope.displayArmorProficiencies = function() {
+        var arm;
+        if ($scope.character.proficiencies.armorType === 0) {
+            arm = 'light armor';
+        } else if ($scope.character.proficiencies.armorType === 1) {
+            arm = 'light and medium armor';
+        } else if ($scope.character.proficiencies.armorType === 2) {
+            arm = 'light, medium, and heavy armor';
+        }
+        if ($scope.character.proficiencies.armorName === 'shields') {
+            arm += ' and shields';
+        }
+        return arm;
+    }
+
     $scope.toHit = function(weap){
         var proficiencyBonus = 0;
         if ($scope.weapons.simple.hasOwnProperty(weap)){
