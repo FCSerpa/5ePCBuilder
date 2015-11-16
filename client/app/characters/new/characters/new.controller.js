@@ -346,6 +346,7 @@ angular.module('5ePcApp')
         weaponProficiencies();
         $scope.elfSight();
         $scope.getLanguages();
+        $scope.resetToolProficiencies();
         if ($scope.isElf()) {
             $scope.racialBonusDex = 2;
             $scope.racialBonusStr = 0;
@@ -428,6 +429,7 @@ angular.module('5ePcApp')
     $scope.getBackgroundSkills = function(){
         resetBackground();
         $scope.getLanguages();
+        $scope.resetToolProficiencies();
     	if ($scope.isAcolyte()){
     		$scope.character.data.skills.religion = true;
     		$scope.character.data.skills.insight = true;
@@ -961,6 +963,7 @@ angular.module('5ePcApp')
 
     $scope.getClassStuff = function(){
         resetClassEquipment();
+        $scope.resetToolProficiencies();
     	if ($scope.isCleric()){
     		$scope.character.data.savingThrows.wis = true;
     		$scope.character.data.savingThrows.cha = true;
@@ -1098,6 +1101,40 @@ angular.module('5ePcApp')
             }
         });
         return langs.join(', ');
+    };
+
+    $scope.resetToolProficiencies = function() {
+        if (!$scope.isDwarf()){
+            // dwarf - 'smith’s tools', 'brewer’s supplies', 'mason’s tools'.
+            $scope.character.data.proficiencies.tools[0] = '';
+        }
+        if ($scope.isRogue()) {
+            //'thieves’ tools'
+            $scope.character.data.proficiencies.tools[1] = 'thieves’ tools';
+        } else {
+            $scope.character.data.proficiencies.tools[1] = '';
+        }
+        if ($scope.isCriminal()) {
+            $scope.character.data.proficiencies.tools[2] = 'thieves’ tools';
+        } else if ($scope.isFolkHero() || $scope.isSoldier()) {
+            $scope.character.data.proficiencies.tools[2] = 'vehicles (land)';
+        } else {
+            //($scope.isCriminal()) 'gaming set', 'thieves’ tools'
+            //($scope.isFolkHero()) 'artisan’s tools', 'vehicles (land)'
+            //($scope.isSoldier()) 'gaming set', 'vehicles (land)'
+            $scope.character.data.proficiencies.tools[2] = '';
+            $scope.character.data.proficiencies.tools[3] = '';
+        }
+    };
+
+    $scope.displayTools = function() {
+        var tool = [];
+        $scope.character.data.proficiencies.tools.forEach(function(thing){
+            if (thing) {
+                tool.push(thing);
+            }
+        })
+        return tool.join(', ');
     };
 
     $scope.getArmorProficiencies = function() {
@@ -1419,6 +1456,10 @@ angular.module('5ePcApp')
     };
 
     $scope.languages = ['Common', 'Dwarvish', 'Elvish', 'Giant', 'Gnomish', 'Goblin', 'Halfling', 'Orc', 'Abyssal', 'Celestial', 'Draconic', 'Deep Speech', 'Infernal', 'Primordial', 'Sylvan', 'Undercommon']; 
+
+    $scope.artisanTools = ['alchemist’s supplies', 'brewer’s supplies', 'calligrapher\'s supplies', 'carpenter’s tools', 'cartographer’s tools', 'cobbler’s tools', 'cook’s utensils', 'glassblower’s tools', 'jeweler’s tools', 'leatherworker’s tools', 'mason’s tools', 'painter’s supplies', 'potter’s tools', 'smith’s tools', 'tinker’s tools', 'weaver’s tools', 'woodcarver’s tools'];
+    $scope.instruments = ['bagpipes', 'drum', 'dulcimer', 'flute', 'lute', 'lyre', 'horn', 'pan flute', 'shawm', 'viol'];
+    $scope.gamingSets = ['dice set', 'Dragonchess set', 'playing card set', 'Three-Dragon Ante set']
 
   });
 

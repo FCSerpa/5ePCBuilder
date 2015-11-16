@@ -390,7 +390,7 @@ angular.module('5ePcApp')
         } else {
             return $scope.character.proficiencies.weaponName.join(', ');
         }
-    }
+    };
 
      $scope.displayArmorProficiencies = function() {
         var arm;
@@ -405,7 +405,17 @@ angular.module('5ePcApp')
             arm += ' and shields';
         }
         return arm;
-    }
+    };
+
+    $scope.displayTools = function() {
+        var tool = [];
+        $scope.character.proficiencies.tools.forEach(function(thing){
+            if (thing) {
+                tool.push(thing);
+            }
+        })
+        return tool.join(', ');
+    };
 
     $scope.toHit = function(weap){
         var proficiencyBonus = 0;

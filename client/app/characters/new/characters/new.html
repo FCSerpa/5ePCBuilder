@@ -445,6 +445,21 @@
 		<div class="col-md-4 sheetBox">
 			<p>Weapon Proficiencies- {{ displayWeaponProficiencies() }}</p>
 			<p>Armor Proficiencies- {{ displayArmorProficiencies() }}</p>
+			<select name="DwarfToolSelect" ng-show="isDwarf()" ng-model="character.data.proficiencies.tools[0]">
+					<option value="smith’s tools">smith’s tools</option>
+					<option value="brewer’s supplies">brewer’s supplies</option>
+					<option value="mason’s tools">mason’s tools</option>
+			</select>
+			<select name="CriminalToolSelect" ng-show="isCriminal()" ng-model="character.data.proficiencies.tools[2]">
+					<option ng-repeat="game in gamingSets" value="{{game}}">{{game}}</option>
+			</select>
+			<select name="SoldierToolSelect" ng-show="isSoldier()" ng-model="character.data.proficiencies.tools[2]">
+					<option ng-repeat="game in gamingSets" value="{{game}}">{{game}}</option>
+			</select>
+			<select name="FolkHeroToolSelect" ng-show="isFolkHero()" ng-model="character.data.proficiencies.tools[2]">
+					<option ng-repeat="tool in artisanTools" value="{{tool}}">{{tool}}</option>
+			</select>
+			<p>Tools- {{ displayTools() }}</p>
 			<select name="HumanSelect1" ng-show="isHuman()" ng-change="getLanguages()" ng-model="character.data.proficiencies.languages[1]">
 					<option ng-repeat="language in languages" value="{{language}}">{{language}}</option>
 			</select>
