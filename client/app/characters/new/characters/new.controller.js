@@ -345,6 +345,7 @@ angular.module('5ePcApp')
         $scope.character.data.race.subrace = '';
         weaponProficiencies();
         $scope.elfSight();
+        $scope.getLanguages();
         if ($scope.isElf()) {
             $scope.racialBonusDex = 2;
             $scope.racialBonusStr = 0;
@@ -423,8 +424,9 @@ angular.module('5ePcApp')
         return bonus;
     }
 
-    $scope.skilled = function(){
+    $scope.getBackgroundSkills = function(){
         resetBackground();
+        $scope.getLanguages();
     	if ($scope.isAcolyte()){
     		$scope.character.data.skills.religion = true;
     		$scope.character.data.skills.insight = true;
@@ -1058,6 +1060,44 @@ angular.module('5ePcApp')
     	}
     };
 
+    $scope.getLanguages = function(){
+        if ($scope.isDwarf()) {
+            //Common, Dwarvish
+            $scope.character.data.proficiencies.languages[0] = 'Common';
+            $scope.character.data.proficiencies.languages[1] = 'Dwarvish';
+        } else if ($scope.isElf()) {
+            //Common, Elvish
+            $scope.character.data.proficiencies.languages[0] = 'Common';
+            $scope.character.data.proficiencies.languages[1] = 'Elvish';
+        } else if ($scope.isHalfling()) {
+            //Common, Halfling
+            $scope.character.data.proficiencies.languages[0] = 'Common';
+            $scope.character.data.proficiencies.languages[1] = 'Halfling';
+        } else if ($scope.isHuman()) {
+            //Common, choose one
+            $scope.character.data.proficiencies.languages[0] = 'Common';
+        }
+
+        if (!$scope.isHighElf()) {
+            $scope.character.data.proficiencies.languages[2] = '';
+        }
+
+        if (!$scope.isAcolyte() && !$scope.isSage()) {
+            $scope.character.data.proficiencies.languages[3] = '';
+            $scope.character.data.proficiencies.languages[4] = '';
+        }
+    }
+
+    $scope.displayLanguages = function(){
+        var langs = [];
+        $scope.character.data.proficiencies.languages.forEach(function(stuff) {
+            if (stuff) {
+            langs.push(stuff);
+            }
+        });
+        return langs.join(', ');
+    };
+
     function weaponProficiencies(){
         if ($scope.isCleric()){
             $scope.character.data.proficiencies.weaponType = 0;
@@ -1343,6 +1383,8 @@ angular.module('5ePcApp')
         wizard: [['Dancing Lights', 'Fire Bolt', 'Light', 'Mage Hand', 'Minor Illusion', 'Prestidigitation', 'Ray of Frost', 'Shocking Grasp'],
                 ['Burning Hands', 'Charm Person', 'Comprehend Languages', 'Detect Magic', 'Identify', 'Mage Armor', 'Magic Missile', 'Shield', 'Silent Image', 'Sleep', 'Thunderwave']]
     };
+
+    $scope.languages = ['Common', 'Dwarvish', 'Elvish', 'Giant', 'Gnomish', 'Goblin', 'Halfling', 'Orc', 'Abyssal', 'Celestial', 'Draconic', 'Deep Speech', 'Infernal', 'Primordial', 'Sylvan', 'Undercommon']; 
 
   });
 

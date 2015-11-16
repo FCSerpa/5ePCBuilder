@@ -42,7 +42,7 @@
 		<div class="col-md-3 sheetBox smallBox">
 			<div class="row">
 				<div class="col-md-12 innerBox">
-					<select name="background select" ng-model="character.data.background.name" ng-change="skilled()">
+					<select name="background select" ng-model="character.data.background.name" ng-change="getBackgroundSkills()">
 						<option value="Acolyte">Acolyte</option>
 						<option value="Criminal">Criminal</option>
 						<option value="Folk Hero">Folk Hero</option>
@@ -445,6 +445,26 @@
 		<div class="col-md-4 sheetBox">
 			<p>{{ displayWeaponProficiencies() }}</p>
 			<p>Weapon Proficiencies</p>
+			<select name="HumanSelect1" ng-show="isHuman()" ng-change="getLanguages()" ng-model="character.data.proficiencies.languages[1]">
+					<option ng-repeat="language in languages" value="{{language}}">{{language}}</option>
+			</select>
+			<select name="HighElfSelect1" ng-show="isHighElf()" ng-change="getLanguages()" ng-model="character.data.proficiencies.languages[2]">
+					<option ng-repeat="language in languages" value="{{language}}">{{language}}</option>
+			</select>
+			<select name="AcolyteSelect1" ng-show="isAcolyte()" ng-change="getLanguages()" ng-model="character.data.proficiencies.languages[3]">
+					<option ng-repeat="language in languages" value="{{language}}">{{language}}</option>
+			</select>
+			<select name="AcolyteSelect2" ng-show="isAcolyte()" ng-change="getLanguages()" ng-model="character.data.proficiencies.languages[4]">
+					<option ng-repeat="language in languages" value="{{language}}">{{language}}</option>
+			</select>
+			<select name="SageSelect1" ng-show="isSage()" ng-change="getLanguages()" ng-model="character.data.proficiencies.languages[3]">
+					<option ng-repeat="language in languages" value="{{language}}">{{language}}</option>
+			</select>
+			<select name="SageSelect2" ng-show="isSage()" ng-change="getLanguages()" ng-model="character.data.proficiencies.languages[4]">
+					<option ng-repeat="language in languages" value="{{language}}">{{language}}</option>
+			</select>
+			<p>{{ displayLanguages() }}</p>
+			<p>Languages</p>
 			<p>Proficiencies &amp; Languages</p>
 		</div>
 		<div class="col-md-4 sheetBox">

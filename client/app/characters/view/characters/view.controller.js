@@ -371,7 +371,17 @@ angular.module('5ePcApp')
     	}
     };
 
-$scope.displayWeaponProficiencies = function(){
+    $scope.displayLanguages = function(){
+        var langs = [];
+        $scope.character.proficiencies.languages.forEach(function(stuff) {
+            if (stuff) {
+            langs.push(stuff);
+            }
+        });
+        return langs.join(', ');
+    };
+
+	$scope.displayWeaponProficiencies = function(){
         var profs;
         if ($scope.character.proficiencies.weaponType === 0){
             return 'simple weapons, ' + $scope.character.proficiencies.weaponName.join(', ');
