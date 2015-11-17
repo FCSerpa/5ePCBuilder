@@ -421,10 +421,10 @@ angular.module('5ePcApp')
     $scope.displayAbilityBonus = function(ability){
         var bonus = $scope.abilityBonus(ability);
         if (bonus >= 0) {
-            return "+" + bonus;
+            return '+' + bonus;
         }
         return bonus;
-    }
+    };
 
     $scope.getBackgroundSkills = function(){
         resetBackground();
@@ -1008,7 +1008,7 @@ angular.module('5ePcApp')
    		}
     	var bonus = $scope.abilityBonus(ability) + proficiency;
         if (bonus >= 0) {
-            return "+" + bonus;
+            return '+' + bonus;
         }
         return bonus;
     };
@@ -1022,7 +1022,7 @@ angular.module('5ePcApp')
     	}
     	var bonus = $scope.abilityBonus(ability) + proficiency;
         if (bonus >= 0) {
-            return "+" + bonus;
+            return '+' + bonus;
         }
         return bonus;
     };
@@ -1091,7 +1091,7 @@ angular.module('5ePcApp')
             $scope.character.data.proficiencies.languages[3] = '';
             $scope.character.data.proficiencies.languages[4] = '';
         }
-    }
+    };
 
     $scope.displayLanguages = function(){
         var langs = [];
@@ -1133,7 +1133,7 @@ angular.module('5ePcApp')
             if (thing) {
                 tool.push(thing);
             }
-        })
+        });
         return tool.join(', ');
     };
 
@@ -1167,7 +1167,7 @@ angular.module('5ePcApp')
             arm += ' and shields';
         }
         return arm;
-    }
+    };
 
     function weaponProficiencies(){
         if ($scope.isCleric()){
@@ -1195,11 +1195,12 @@ angular.module('5ePcApp')
             $scope.character.data.proficiencies.weaponName = ['battleaxe', 'handaxe', 'light_hammer', 'warhammer'];
         } else if ($scope.isElf() && $scope.isCleric()){
             $scope.character.data.proficiencies.weaponName = ['longsword', 'shortsword', 'longbow', 'shortbow'];
-        } else $scope.character.data.proficiencies.weaponName = [];
-    };
+        } else {
+             $scope.character.data.proficiencies.weaponName = [];
+        }
+    }
 
     $scope.displayWeaponProficiencies = function(){
-        var profs;
         if ($scope.character.data.proficiencies.weaponType === 0){
             return 'simple weapons, ' + $scope.character.data.proficiencies.weaponName.join(', ');
         }else if ($scope.character.data.proficiencies.weaponType === 1){
@@ -1207,7 +1208,7 @@ angular.module('5ePcApp')
         } else {
             return $scope.character.data.proficiencies.weaponName.join(', ');
         }
-    }
+    };
 
     $scope.toHit = function(weap){
         var proficiencyBonus = 0;
@@ -1459,7 +1460,7 @@ angular.module('5ePcApp')
 
     $scope.artisanTools = ['alchemist’s supplies', 'brewer’s supplies', 'calligrapher\'s supplies', 'carpenter’s tools', 'cartographer’s tools', 'cobbler’s tools', 'cook’s utensils', 'glassblower’s tools', 'jeweler’s tools', 'leatherworker’s tools', 'mason’s tools', 'painter’s supplies', 'potter’s tools', 'smith’s tools', 'tinker’s tools', 'weaver’s tools', 'woodcarver’s tools'];
     $scope.instruments = ['bagpipes', 'drum', 'dulcimer', 'flute', 'lute', 'lyre', 'horn', 'pan flute', 'shawm', 'viol'];
-    $scope.gamingSets = ['dice set', 'Dragonchess set', 'playing card set', 'Three-Dragon Ante set']
+    $scope.gamingSets = ['dice set', 'Dragonchess set', 'playing card set', 'Three-Dragon Ante set'];
 
   });
 

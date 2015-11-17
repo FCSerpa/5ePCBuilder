@@ -246,10 +246,10 @@ angular.module('5ePcApp')
     $scope.displayAbilityBonus = function(ability){
     	var bonus = $scope.abilityBonus(ability);
     	if (bonus >= 0) {
-    		return "+" + bonus;
+    		return '+' + bonus;
     	}
     	return bonus;
-    }
+    };
 
 
     $scope.getAC = function() {
@@ -313,7 +313,7 @@ angular.module('5ePcApp')
    		}
     	bonus = $scope.abilityBonus(ability) + proficiency;
     	if (bonus >= 0) {
-    		return "+" + bonus;
+    		return '+' + bonus;
     	}
     	return bonus;
     };
@@ -328,7 +328,7 @@ angular.module('5ePcApp')
     	}
     	bonus = $scope.abilityBonus(ability) + proficiency;
     	if (bonus >= 0) {
-    		return "+" + bonus;
+    		return '+' + bonus;
     	}
     	return bonus;
     };
@@ -382,7 +382,6 @@ angular.module('5ePcApp')
     };
 
 	$scope.displayWeaponProficiencies = function(){
-        var profs;
         if ($scope.character.proficiencies.weaponType === 0){
             return 'simple weapons, ' + $scope.character.proficiencies.weaponName.join(', ');
         }else if ($scope.character.proficiencies.weaponType === 1){
@@ -413,7 +412,7 @@ angular.module('5ePcApp')
             if (thing) {
                 tool.push(thing);
             }
-        })
+        });
         return tool.join(', ');
     };
 
