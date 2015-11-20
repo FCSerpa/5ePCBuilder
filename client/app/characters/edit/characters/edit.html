@@ -1,4 +1,622 @@
-<div class="col-md-12">
-This is the characters/edit view.
-<h1>HEY I'M WORKING NOW!</h1>
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container-fluid" ng-controller="CharactersEditCtrl">
+	<div class="row">
+		<div class="col-md-3 smallBox sheetBox">
+			<input type="text" name="characterName" ng-model="character.name" class="nameInput"/>
+			<p>Character Name</p>
+		</div>
+		<div class="col-md-3 smallBox sheetBox">
+			<div class="row">
+				<div class="col-md-12 innerBox">
+					<select name="characterClass select" ng-model="character.characterClass.name" ng-change="getClassStuff()">
+						<option value="Cleric">Cleric</option>
+						<option value="Fighter">Fighter</option>
+						<option value="Rogue">Rogue</option>
+						<option value="Wizard">Wizard</option>
+					</select>
+					<select name="level select" ng-model="character.level">
+						<option value="1">1</option>
+					</select>
+					<select name="specialization select" ng-model="character.characterClass.specialization" ng-change="getArmorProficiencies()">
+						<option value="{{selectSpecialization(1)}}">{{selectSpecialization(1)}}</option>
+					</select>
+					<p>Class &amp; Level &amp; Subclass</p>
+				</div>
+				<div class="col-md-12 innerBox">
+					<select name="race select" ng-model="character.race.race" ng-change="getRacialBonus()">
+						<option value="Elf">Elf</option>
+						<option value="Dwarf">Dwarf</option>
+						<option value="Halfling">Halfling</option>
+						<option value="Human">Human</option>
+					</select>
+					<select name="subrace select" ng-model="character.race.subrace" ng-change="getSubracialBonus()">
+						<option value="{{selectSubrace(1)}}">{{selectSubrace(1)}}</option>
+						<option value="{{selectSubrace(2)}}">{{selectSubrace(2)}}</option>
+					</select>
+					<p>Race &amp; Subrace</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3 sheetBox smallBox">
+			<div class="row">
+				<div class="col-md-12 innerBox">
+					<select name="background select" ng-model="character.background.name" ng-change="getBackgroundSkills()">
+						<option value="Acolyte">Acolyte</option>
+						<option value="Criminal">Criminal</option>
+						<option value="Folk Hero">Folk Hero</option>
+						<option value="Sage">Sage</option>
+						<option value="Soldier">Soldier</option>
+					</select>
+					<p>Background</p>
+				</div>
+				<div class="col-md-12 innerBox">
+					<select name="alignment select" ng-model="character.alignment">
+						<option value="Lawful Good">Lawful Good</option>
+						<option value="Neutral Good">Neutral Good</option>
+						<option value="Chaotic Good">Chaotic Good</option>
+						<option value="Lawful Neutral">Lawful Neutral</option>
+						<option value="True Neutral">True Neutral</option>
+						<option value="Chaotic Neutral">Chaotic Neutral</option>
+						<option value="Lawful Evil">Lawful Evil</option>
+						<option value="Neutral Evil">Neutral Evil</option>
+						<option value="Chaotic Evil">Chaotic Evil</option>
+					</select>
+					<p>Alignment</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3 sheetBox smallBox">
+			<div class="row">
+				<div class="col-md-12 innerBox">
+					<p>{{ getCurrentUser().name }}</p>
+					<p>Player Name</p>
+				</div>
+				<div class="col-md-12 innerBox">
+					<p>{{character.xp}}</p>
+					<p>Experience Points</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<div class="row">
+				<div class="col-md-12 innerBox">
+					<h3> +2 </h3>
+					<p>Proficiency Bonus</p>
+				</div>
+				<div class="col-md-12 innerBox">
+					<div class="row">
+						<div class="col-md-4">
+							<h3>{{ points(baseStr, baseDex, baseCon, baseIntel, baseWis, baseCha) }}</h3>
+							<p>Point Buy</p>
+						</div>
+						<div class="col-md-8">
+							<h3> {{ skillNumber() }} </h3>
+							<p>Number of Class Skills</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 innerBox">
+					<div class="row">
+						<div class="col-md-6">
+							<input type="number" name="character str" ng-model="baseStr" value="{{baseStr}}" class="abilityInput" min="8" max="15" ng-change="totalStr(baseStr, racialBonusStr)"/>
+							<p>Base <br> Strength</p>
+						</div>
+						<div class="col-md-6">
+							<h3> {{racialBonusStr}} </h3>
+							<p>Racial <br> Bonus</p>
+						</div>
+						<div class="col-md-12">
+							<h3 class="abilityBonus">{{ displayAbilityBonus(character.abilities.str) }}</h3>
+							<p>Total Strength Bonus</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 innerBox">
+					<div><input class="skillSave" disabled="disabled" type="checkbox" ng-model="character.savingThrows.str" ><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.str, character.abilities.str) }}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Athletics')" ng-model="character.skills.athletics"><p class="skillSave" >Athletics: {{ skillBonus(character.skills.athletics, character.abilities.str) }}</p></div>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 innerBox">
+					<div class="row">
+						<div class="col-md-6">
+							<input type="number" name="character dex" ng-model="baseDex" value="{{baseDex}}" class="abilityInput" min="8" max="15" ng-change="totalDex(baseDex, racialBonusDex)"/>
+							<p>Base <br> Dexterity</p>
+						</div>
+						<div class="col-md-6">
+							<h3> {{racialBonusDex}} </h3>
+							<p>Racial <br> Bonus</p>
+						</div>
+						<div class="col-md-12">
+							<h3 class="abilityBonus">{{ displayAbilityBonus(character.abilities.dex) }}</h3>
+							<p>Total Dexterity Bonus</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 innerBox">
+					<div><input class="skillSave" disabled="disabled" type="checkbox" ng-model="character.savingThrows.dex"><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.dex, character.abilities.dex) }}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Acrobatics')" ng-model="character.skills.acrobatics"><p class="skillSave">Acrobatics: {{skillBonus(character.skills.acrobatics, character.abilities.dex)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Sleight of Hand')" ng-model="character.skills.sleightOfHand"><p class="skillSave" >Sleight of Hand: {{skillBonus(character.skills.sleightOfHand, character.abilities.dex)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Stealth')" ng-model="character.skills.stealth"><p class="skillSave">Stealth: {{skillBonus(character.skills.stealth, character.abilities.dex)}}</p></div>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 innerBox">
+					<div class="row">
+						<div class="col-md-6">
+							<input type="number" name="character con" ng-model="baseCon" value="{{baseCon}}" class="abilityInput" min="8" max="15" ng-change="totalCon(baseCon, racialBonusCon)"/>
+							<p>Base <br> Constitution</p>
+						</div>
+						<div class="col-md-6">
+							<h3> {{racialBonusCon}} </h3>
+							<p>Racial <br> Bonus</p>
+						</div>
+						<div class="col-md-12">
+							<h3 class="abilityBonus">{{ displayAbilityBonus(character.abilities.con) }}</h3>
+							<p>Total Constitution Bonus</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 innerBox">
+					<div><input class="skillSave" disabled="disabled" type="checkbox" ng-model="character.savingThrows.con"><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.con, character.abilities.con) }}</p></div>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+					<p>&nbsp;</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 innerBox">
+					<div class="row">
+						<div class="col-md-6">
+							<input type="number" name="character intel" ng-model="baseIntel" value="{{baseIntel}}" class="abilityInput" min="8" max="15" ng-change="totalIntel(baseIntel, racialBonusIntel)"/>
+							<p>Base <br> Inteligence</p>
+						</div>
+						<div class="col-md-6">
+							<h3> {{racialBonusIntel}} </h3>
+							<p>Racial <br> Bonus</p>
+						</div>
+						<div class="col-md-12">
+							<h3 class="abilityBonus">{{ displayAbilityBonus(character.abilities.intel) }}</h3>
+							<p>Total Inteligence Bonus</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 innerBox">
+					<div><input class="skillSave" disabled="disabled" type="checkbox" ng-model="character.savingThrows.intel"><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.intel, character.abilities.intel) }}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Arcana')" ng-model="character.skills.arcana"><p class="skillSave" >Arcana: {{skillBonus(character.skills.arcana, character.abilities.intel)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('History')" ng-model="character.skills.history"><p class="skillSave">History: {{skillBonus(character.skills.history, character.abilities.intel)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Investigation')" ng-model="character.skills.investigation"><p class="skillSave">Investigation: {{skillBonus(character.skills.investigation, character.abilities.intel)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Nature')" ng-model="character.skills.nature"><p class="skillSave">Nature: {{skillBonus(character.skills.nature, character.abilities.intel)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Religion')" ng-model="character.skills.religion"><p class="skillSave">Religion: {{skillBonus(character.skills.religion, character.abilities.intel)}}</p></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 innerBox">
+					<div class="row">
+						<div class="col-md-6">
+							<input type="number" name="character wis" ng-model="baseWis" value="{{baseWis}}" class="abilityInput" min="8" max="15" ng-change="totalWis(baseWis, racialBonusWis)"/>
+							<p>Base <br> Wisdom</p>
+						</div>
+						<div class="col-md-6">
+							<h3> {{racialBonusWis}} </h3>
+							<p>Racial <br> Bonus</p>
+						</div>
+						<div class="col-md-12">
+							<h3 class="abilityBonus">{{ displayAbilityBonus(character.abilities.wis) }}</h3>
+							<p>Total Wisdom Bonus</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 innerBox">
+					<div><input class="skillSave" disabled="disabled" type="checkbox"  ng-model="character.savingThrows.wis"><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.wis, character.abilities.wis) }}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Animal Handling')" ng-model="character.skills.animalHandling"><p class="skillSave" >Animal Handling: {{skillBonus(character.skills.animalHandling, character.abilities.wis)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Insight')" ng-model="character.skills.insight"><p class="skillSave">Insight: {{skillBonus(character.skills.insight, character.abilities.wis)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Medicine')" ng-model="character.skills.medicine"><p class="skillSave">Medicine: {{skillBonus(character.skills.medicine, character.abilities.wis)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Perception')" ng-model="character.skills.perception"><p class="skillSave">Perception: {{skillBonus(character.skills.perception, character.abilities.wis)}}</p></div>
+					<div><input class="skillSave" type="checkbox" ng-disabled="classSkill('Survival')" ng-model="character.skills.survival"><p class="skillSave">Survival: {{skillBonus(character.skills.survival, character.abilities.wis)}}</p></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 innerBox">
+					<div class="row">
+						<div class="col-md-6">
+							<input type="number" name="character cha" ng-model="baseCha" value="{{baseCha}}" class="abilityInput" min="8" max="15" ng-change="totalCha(baseCha, racialBonusCha)"/>
+							<p>Base Charisma</p>
+						</div>
+						<div class="col-md-6">
+							<h3> {{racialBonusCha}} </h3>
+							<p>Racial <br> Bonus</p>
+						</div>
+						<div class="col-md-12">
+							<h3 class="abilityBonus">{{ displayAbilityBonus(character.abilities.cha) }}</h3>
+							<p>Total Charisma Bonus</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 innerBox">
+					<div><input class="skillSave" disabled="disabled" type="checkbox" ng-model="character.savingThrows.cha"><p class="skillSave">Saving Throws: {{ saveBonus(character.savingThrows.cha, character.abilities.cha) }}</p></div>
+					<div><input class="skillSave"type="checkbox" ng-disabled="classSkill('Deception')" ng-model="character.skills.deception"><p class="skillSave">Deception: {{skillBonus(character.skills.deception, character.abilities.cha)}}</p></div>
+					<div><input class="skillSave"type="checkbox" ng-disabled="classSkill('Intimidation')" ng-model="character.skills.intimidation"><p class="skillSave">Intimidation: {{skillBonus(character.skills.intimidation, character.abilities.cha)}}</p></div>
+					<div><input class="skillSave"type="checkbox" ng-disabled="classSkill('Performance')" ng-model="character.skills.performance"><p class="skillSave">Performance: {{skillBonus(character.skills.performance, character.abilities.cha)}}</p></div>
+					<div><input class="skillSave"type="checkbox" ng-disabled="classSkill('Persuasion')" ng-model="character.skills.persuasion"><p class="skillSave">Persuasion: {{skillBonus(character.skills.persuasion, character.abilities.cha)}}</p></div>
+					<p>&nbsp;</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<div class="row">
+				<div class="col-md-4 innerBox smallBox">
+					<h3>{{ getAC() }}</h3>
+					<p>Armor Class</p>
+				</div>
+				<div class="col-md-4 innerBox smallBox">
+					<h3>{{ displayAbilityBonus(character.abilities.dex) }}</h3>
+					<p>Initiative</p>
+				</div>
+				<div class="col-md-4 innerBox smallBox">
+					<h3>{{ speed() }}</h3>
+					<p>Speed</p>
+				</div>
+				<div class="col-md-12 innerBox smallBox">
+					<h3>{{ maxHP(abilityBonus(character.abilities.con))}}</h3>
+					<p>Hit Point Maximum</p>
+					<h3>&nbsp;</h3>
+					<p>Current Hit Points</p>
+				</div>
+				<div class="col-md-12 innerBox smallBox">
+					<h2>&nbsp;</h2>
+					<p>Temporary Hit Points</p>
+				</div>
+				<div class="col-md-6 innerBox smallBox">
+					<h3>{{ hitDie() }}</h3>
+					<p>Hit Dice</p>
+				</div>
+				<div class="col-md-6 innerBox smallBox">
+					<p>○ ○ ○ Successes</p>
+					<p>○ ○ ○ Failures</p>
+					<p>Death Saves</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<div class="row">
+				<div class="col-md-12 innerBox smallBox">
+					<select name="trait select" ng-model="character.background.trait">
+						<option value="{{ selectTrait(1) }}"> {{ selectTrait(1)}} </option>
+						<option value="{{ selectTrait(2) }}"> {{ selectTrait(2)}} </option>
+						<option value="{{ selectTrait(3) }}"> {{ selectTrait(3)}} </option>
+						<option value="{{ selectTrait(4) }}"> {{ selectTrait(4)}} </option>
+						<option value="{{ selectTrait(5) }}"> {{ selectTrait(5)}} </option>
+						<option value="{{ selectTrait(6) }}"> {{ selectTrait(6)}} </option>
+						<option value="{{ selectTrait(7) }}"> {{ selectTrait(7)}} </option>
+						<option value="{{ selectTrait(8) }}"> {{ selectTrait(8)}} </option>
+					</select>
+					<br>
+					<p>{{ character.background.trait }}</p>
+					<p>Personality Trait</p>
+				</div>
+				<div class="col-md-12 innerBox smallBox">
+					<select name="ideal select" ng-model="character.background.ideal">
+						<option value="{{ selectIdeal(1) }}"> {{ selectIdeal(1)}} </option>
+						<option value="{{ selectIdeal(2) }}"> {{ selectIdeal(2)}} </option>
+						<option value="{{ selectIdeal(3) }}"> {{ selectIdeal(3)}} </option>
+						<option value="{{ selectIdeal(4) }}"> {{ selectIdeal(4)}} </option>
+						<option value="{{ selectIdeal(5) }}"> {{ selectIdeal(5)}} </option>
+						<option value="{{ selectIdeal(6) }}"> {{ selectIdeal(6)}} </option>
+					</select>
+					<br>
+					<p>{{ character.background.ideal }}</p>
+					<p>Ideal</p>
+				</div>
+				<div class="col-md-12 innerBox smallBox">
+					<select name="bond select" ng-model="character.background.bond">
+						<option value="{{ selectBond(1) }}"> {{ selectBond(1)}} </option>
+						<option value="{{ selectBond(2) }}"> {{ selectBond(2)}} </option>
+						<option value="{{ selectBond(3) }}"> {{ selectBond(3)}} </option>
+						<option value="{{ selectBond(4) }}"> {{ selectBond(4)}} </option>
+						<option value="{{ selectBond(5) }}"> {{ selectBond(5)}} </option>
+						<option value="{{ selectBond(6) }}"> {{ selectBond(6)}} </option>
+					</select>
+					<br>
+					<p>{{character.background.bond}}</p>
+					<p>Bond</p>
+				</div>
+				<div class="col-md-12 innerBox smallBox">
+					<select name="flaw select" ng-model="character.background.flaw">
+						<option value="{{ selectFlaw(1) }}"> {{ selectFlaw(1)}} </option>
+						<option value="{{ selectFlaw(2) }}"> {{ selectFlaw(2)}} </option>
+						<option value="{{ selectFlaw(3) }}"> {{ selectFlaw(3)}} </option>
+						<option value="{{ selectFlaw(4) }}"> {{ selectFlaw(4)}} </option>
+						<option value="{{ selectFlaw(5) }}"> {{ selectFlaw(5)}} </option>
+						<option value="{{ selectFlaw(6) }}"> {{ selectFlaw(6)}} </option>
+					</select>
+					<br>
+					<p>{{character.background.flaw}}</p>
+					<p>Flaw</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<div class="row">
+				<div class="col-md-4 innerBox">
+					<p>{{ character.classEquipment.weapon[0] }}</p>
+					<p>Name</p>
+				</div>
+				<div class="col-md-4 innerBox">
+					<p>{{ toHit(character.classEquipment.weapon[0]) }}</p>
+					<p>ATK Bonus</p>
+				</div>
+				<div class="col-md-4 innerBox">
+					<p>{{ toDamage(character.classEquipment.weapon[0]) }}</p>
+					<p>Damage/Type</p>
+				</div>
+				<div class="col-md-4 innerBox">
+					<p>{{ character.classEquipment.weapon[1] }}</p>
+					<p>Name</p>
+				</div>
+				<div class="col-md-4 innerBox">
+					<p>{{ toHit(character.classEquipment.weapon[1]) }}</p>
+					<p>ATK Bonus</p>
+				</div>
+				<div class="col-md-4 innerBox">
+					<p>{{ toDamage(character.classEquipment.weapon[1]) }}</p>
+					<p>Damage/Type</p>
+				</div>
+				<div class="col-md-4 innerBox">
+					<p>{{ character.classEquipment.weapon[2] }}</p>
+					<p>Name</p>
+				</div>
+				<div class="col-md-4 innerBox">
+					<p>{{ toHit(character.classEquipment.weapon[2]) }}</p>
+					<p>ATK Bonus</p>
+				</div>
+				<div class="col-md-4 innerBox">
+					<p>{{ toDamage(character.classEquipment.weapon[2]) }}</p>
+					<p>Damage/Type</p>
+				</div>
+				<div class="col-md-4 innerBox">
+					<p>{{ character.classEquipment.weapon[3] }}</p>
+					<p>Name</p>
+				</div>
+				<div class="col-md-4 innerBox">
+					<p>{{ toHit(character.classEquipment.weapon[3]) }}</p>
+					<p>ATK Bonus</p>
+				</div>
+				<div class="col-md-4 innerBox">
+					<p>{{ toDamage(character.classEquipment.weapon[3]) }}</p>
+					<p>Damage/Type</p>
+				</div>
+				
+				<div class="col-md-12 innerBox">
+					<p>Attacks</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<p ng-show="isDwarf()">Darkvision. Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray.</p>
+			<p ng-show="isDwarf()">Dwarven Resilience. You have advantage on saving throws against poison, and you have resistance against poison damage.</p>
+			<p ng-show="isDwarf()">Stonecunning. Whenever you make an Intelligence (History) check related to the origin of stonework, you are considered proficient in the History skill and add double your proficiency bonus to the check, instead of your normal proficiency bonus.</p>
+			<p ng-show="isElf()">Darkvision. Accustomed to life underground, you have superior vision in dark and dim conditions. You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray.</p>
+			<p ng-show="isElf()">Fey Ancestry. You have advantage on saving throws against being charmed, and magic can’t put you to sleep.</p>
+			<p ng-show="isElf()">Trance. Elves don’t need to sleep. Instead, they meditate deeply, remaining semiconscious, for 4 hours a day. (The Common word for such meditation is “trance.”) While meditating, you can dream after a fashion; such dreams are actually mental exercises that have become reflexive through years of practice. After resting in this way, you gain the same benefit that a human does from 8 hours of sleep.</p>
+			<p ng-show="isWoodElf()">Mask of the Wild. You can attempt to hide even when you are only lightly obscured by foliage, heavy rain, falling snow, mist, and other natural phenomena.</p>
+			<p ng-show="isHalfling()">Lucky. When you roll a 1 on an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll.</p>
+			<p ng-show="isHalfling()">Brave. You have advantage on saving throws against being frightened.</p>
+			<p ng-show="isHalfling()">Halfling Nimbleness. You can move through the space of any creature that is of a size larger than yours.</p>
+			<p ng-show="isLightfootHalfling()">Naturally Stealthy. You can attempt to hide even when you are obscured only by a creature that is at least one size larger than you.</p>
+			<p ng-show="isStoutHalfling()">Stout Resilience. You have advantage on saving throws against poison, and you have resistance against poison damage.</p>
+			<p ng-show="isCleric()">Spellcasting.</p>
+			<p ng-show="isLifeDomain()">Disciple of Life. Your healing spells are more effective. Whenever you use a spell of 1st level or higher to restore hit points to a creature, the creature regains additional hit points equal to 2 + the spell’s level.</p>
+			<p ng-show="isFighter()">Second Wind. You have a limited well of stamina that you can draw on to protect yourself from harm. On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level. Once you use this feature, you must finish a short or long rest before you can use it again.</p>
+			<select name="fighting style" ng-show="isFighter()" ng-model="character.characterClass.choices">
+				<option value="Archery Fighting Style">Archery Fighting Style</option>
+				<option value="Defense Fighting Style">Defense Fighting Style</option>
+				<option value="Dueling Fighting Style">Dueling Fighting Style</option>
+				<option value="Great Weapon Fighting Style">Great Weapon Fighting Style</option>
+				<option value="Protection Fighting Style">Protection Fighting Style</option>
+				<option value="Two-Weapon Fighting Style">Two-Weapon Fighting Style</option>
+			</select>
+			<p ng-show="isDuelingStyle()">Dueling. When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon.</p>
+			<p ng-show="isGreatWeaponStyle()">Great Weapon Fighting. When you roll a 1 or 2 on a damage die for an attack you make with a melee weapon that you are wielding with two hands, you can reroll the die and must use the new roll, even if the new roll is a 1 or a 2. The weapon must have the two-handed or versatile property for you to gain this benefit.</p>
+			<p ng-show="isProtectionStyle()">Protection. When a creature you can see attacks a target other than you that is within 5 feet of you, you can use your reaction to impose disadvantage on the attack roll. You must be wielding a shield.</p>
+			<p ng-show="isTwoWeaponStyle()">Two-Weapon Fighting. When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack.</p>
+			<p ng-show="isRogue()">Expertise. Choose two of your skill proficiencies, or one of your skill proficiencies and your proficiency with thieves’ tools. Your proficiency bonus is doubled for any ability check you make that uses either of the chosen proficiencies.</p>
+			<p ng-show="isRogue()">Sneak Attack. You know how to strike subtly and exploit a foe’s distraction. Once per turn, you can deal an extra 1d6 damage to one creature you hit with an attack if you have advantage on the attack roll. The attack must use a finesse or a ranged weapon. You don’t need advantage on the attack roll if another enemy of the target is within 5 feet of it, that enemy isn’t incapacitated, and you don’t have disadvantage on the attack roll.</p>
+			<p ng-show="isRogue()">Thieves Cant. During your rogue training you learned thieves’ cant, a secret mix of dialect, jargon, and code that allows you to hide messages in seemingly normal conversation. Only another creature that knows thieves’ cant understands such messages. It takes four times longer to convey such a message than it does to speak the same idea plainly. In addition, you understand a set of secret signs and symbols used to convey short, simple messages, such as whether an area is dangerous or the territory of a thieves’ guild, whether loot is nearby, or whether the people in an area are easy marks or will provide a safe house for thieves on the run.</p>
+			<p ng-show="isWizard()">Spellcasting.</p>
+			<p ng-show="isWizard()">Arcane Recovery. You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a short rest, you can choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your wizard level (rounded up), and none of the slots can be 6th level or higher.</p>
+			<p ng-show="isAcolyte()">Shelter of the Faithful. As an acolyte, you command the respect of those who share your faith, and you can perform the religious ceremonies of your deity. You and your adventuring companions can expect to receive free healing and care at a temple, shrine, or other established presence of your faith, though you must provide any material components needed for spells. Those who share your religion will support you (but only you) at a modest lifestyle. You might also have ties to a specific temple dedicated to your chosen deity or pantheon, and you have a residence there. This could be the temple where you used to serve, if you remain on good terms with it, or a temple where you have found a new home. While near your temple, you can call upon the priests for assistance, provided the assistance you ask for is not hazardous and you remain in good standing with your temple.</p>
+			<p ng-show="isCriminal()">Criminal Contact. You have a reliable and trustworthy contact who acts as your liaison to a network of other criminals. You know how to get messages to and from your contact, even over great distances; specifically, you know the local messengers, corrupt caravan masters, and seedy sailors who can deliver messages for you.</p>
+			<p ng-show="isFolkHero()">Rustic Hospitality. Since you come from the ranks of the common folk, you fit in among them with ease. You can find a place to hide, rest, or recuperate among other commoners, unless you have shown yourself to be a danger to them. They will shield you from the law or anyone else searching for you, though they will not risk their lives for you.</p>
+			<p ng-show="isSage()">Researcher. When you attempt to learn or recall a piece of lore, if you do not know that information, you often know where and from whom you can obtain it. Usually, this information comes from a library, scriptorium, university, or a sage or other learned person or creature. Your DM might rule that the knowledge you seek is secreted away in an almost inaccessible place, or that it simply cannot be found. Unearthing the deepest secrets of the multiverse can require an adventure or even a whole campaign.</p>
+			<p ng-show="isSoldier()">Military Rank. You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence, and they defer to you if they are of a lower rank. You can invoke your rank to exert influence over other soldiers and requisition simple equipment or horses for temporary use. You can also usually gain access to friendly military encampments and fortresses where your rank is recognized.</p>
+			<p>Features</p>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<p>Weapon Proficiencies- {{ displayWeaponProficiencies() }}</p>
+			<p>Armor Proficiencies- {{ displayArmorProficiencies() }}</p>
+			<select name="DwarfToolSelect" ng-show="isDwarf()" ng-model="character.proficiencies.tools[0]">
+					<option value="smith’s tools">smith’s tools</option>
+					<option value="brewer’s supplies">brewer’s supplies</option>
+					<option value="mason’s tools">mason’s tools</option>
+			</select>
+			<select name="CriminalToolSelect" ng-show="isCriminal()" ng-model="character.proficiencies.tools[2]">
+					<option ng-repeat="game in gamingSets" value="{{game}}">{{game}}</option>
+			</select>
+			<select name="SoldierToolSelect" ng-show="isSoldier()" ng-model="character.proficiencies.tools[2]">
+					<option ng-repeat="game in gamingSets" value="{{game}}">{{game}}</option>
+			</select>
+			<select name="FolkHeroToolSelect" ng-show="isFolkHero()" ng-model="character.proficiencies.tools[2]">
+					<option ng-repeat="tool in artisanTools" value="{{tool}}">{{tool}}</option>
+			</select>
+			<p>Tools- {{ displayTools() }}</p>
+			<select name="HumanSelect1" ng-show="isHuman()" ng-change="getLanguages()" ng-model="character.proficiencies.languages[1]">
+					<option ng-repeat="language in languages" value="{{language}}">{{language}}</option>
+			</select>
+			<select name="HighElfSelect1" ng-show="isHighElf()" ng-change="getLanguages()" ng-model="character.proficiencies.languages[2]">
+					<option ng-repeat="language in languages" value="{{language}}">{{language}}</option>
+			</select>
+			<select name="AcolyteSelect1" ng-show="isAcolyte()" ng-change="getLanguages()" ng-model="character.proficiencies.languages[3]">
+					<option ng-repeat="language in languages" value="{{language}}">{{language}}</option>
+			</select>
+			<select name="AcolyteSelect2" ng-show="isAcolyte()" ng-change="getLanguages()" ng-model="character.proficiencies.languages[4]">
+					<option ng-repeat="language in languages" value="{{language}}">{{language}}</option>
+			</select>
+			<select name="SageSelect1" ng-show="isSage()" ng-change="getLanguages()" ng-model="character.proficiencies.languages[3]">
+					<option ng-repeat="language in languages" value="{{language}}">{{language}}</option>
+			</select>
+			<select name="SageSelect2" ng-show="isSage()" ng-change="getLanguages()" ng-model="character.proficiencies.languages[4]">
+					<option ng-repeat="language in languages" value="{{language}}">{{language}}</option>
+			</select>
+			<p>Languages- {{ displayLanguages() }}</p>
+			<p>Proficiencies &amp; Languages</p>
+		</div>
+		<div class="col-md-4 sheetBox">
+			<div ng-show="isCleric()">
+				<select name="clericWeaponSelect1" ng-model="character.classEquipment.weapon[0]">
+					<option value="mace">mace</option>
+					<option value="warhammer">warhammer (if proficient)</option>
+				</select>
+				<select name="clericArmorSelect" ng-model="character.classEquipment.armor[0]">
+					<option value="scale mail">scale mail</option>
+					<option value="leather armor">leather armor</option>
+					<option value="chain mail">chain mail (if proficient)</option>
+				</select>
+				<select name="clericWeaponSelect2" ng-model="clericChoice" ng-change="clericChoiceFunc()">
+					<option value="light crossbow">a light crossbow and 20 bolts</option>
+					<option value="any simple weapon">any simple weapon</option>
+				</select>
+				<select ng-show="ifAnySimpleWeapon" ng-model="character.classEquipment.weapon[1]">
+					<option value="{{ weapon.name }}" ng-repeat="weapon in weapons.simple">{{ weapon.name }}</option>
+				</select>
+				<select name="clericPackSelect" ng-model="character.classEquipment.pack">
+					<option value="priest's pack">priest's pack</option>
+					<option value="explorer's pack">explorer's pack</option>
+				</select>
+			</div>
+			<div ng-show="isFighter()">
+				<select name="fighterWeaponSelect1" ng-model="fighterChoice1" ng-change="fighterChoice1Func()">
+					<option value="chain mail">chain mail</option>
+					<option value="leather, longbow, and 20 arrows">leather armor, longbow, and 20 arrows</option>
+				</select>
+				<select name="fighterWeaponSelect2" ng-model="fighterChoice2" ng-change="fighterChoice2Func()">
+					<option value="shield">a martial weapon and a shield</option>
+					<option value="2 weapons">two martial weapons</option>
+				</select>
+				<select ng-show="isOneWeapon" ng-model="character.classEquipment.weapon[0]">
+					<option value="{{weapon.name}}" ng-repeat="weapon in weapons.martial">{{ weapon.name }}</option>
+				</select>
+				<select ng-show="isTwoWeapons" ng-model="character.classEquipment.weapon[1]">
+					<option value="{{weapon.name}}" ng-repeat="weapon in weapons.martial">{{ weapon.name }}</option>
+				</select>
+				<select name="fighterWeaponSelect3" ng-model="fighterChoice3" ng-change="fighterChoice3Func()">
+					<option value="crossbow">a light crossbow and 20 bolts</option>
+					<option value="handaxes">two handaxes</option>
+				</select>
+				<select name="fighterPackSelect" ng-model="character.classEquipment.pack">
+					<option value="dungeoneer's pack">dungeoneer's pack</option>
+					<option value="explorer's pack">explorer's pack</option>
+				</select>
+			</div>
+			<div ng-show="isRogue()">
+				<select name="rogueWeaponSelect1" ng-model="character.classEquipment.weapon[0]">
+					<option value="rapier">rapier</option>
+					<option value="shortsword">shortsword</option>
+				</select>
+				<select name="rogueWeaponSelect2" ng-model="rogueChoice1" ng-change="rogueChoice1Func()">
+					<option value="shortbow">a shortbow and quiver of 20 arrows</option>
+					<option value="shortsword">shortsword</option>
+				</select>
+				<select name="roguePackSelect" ng-model="character.classEquipment.pack">
+					<option value="burglar's pack">burglar's pack</option>
+					<option value="dungeoneer's pack">dungeoneer's pack</option>
+					<option value="explorer's pack">explorer's pack</option>
+				</select>
+			</div>
+			<div ng-show="isWizard()">
+				<select name="wizardWeaponSelect1" ng-model="character.classEquipment.weapon[0]">
+					<option value="quarterstaff">quarterstaff</option>
+					<option value="dagger">dagger</option>
+				</select>
+				<select name="wizardWeaponSelect2" ng-model="character.classEquipment.weapon[5]">
+					<option value="component pouch">component pouch</option>
+					<option value="crystal">crystal</option>
+					<option value="orb">orb</option>
+					<option value="rod">rod</option>
+					<option value="staff">staff</option>
+					<option value="wand">wand</option>
+				</select>
+				<select name="wizardPackSelect" ng-model="character.classEquipment.pack">
+					<option value="scholar's pack">scholar's pack</option>
+					<option value="explorer's pack">explorer's pack</option>
+				</select>
+			</div>
+			<p> {{ printEquipment() }} </p>
+			<p>Equipment</p>
+		</div>
+		<div class="col-md-4 sheetBox" ng-show="isWizard()">
+			<select name="wizardCantrip1" ng-model="character.spells[0][0]">
+				<option ng-repeat="spell in spells.wizard[0]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<select name="wizardCantrip2" ng-model="character.spells[0][1]">
+				<option ng-repeat="spell in spells.wizard[0]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<select name="wizardCantrip3" ng-model="character.spells[0][2]">
+				<option ng-repeat="spell in spells.wizard[0]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<p>Cantrips</p>
+			<select name="wizardSpell1-1" ng-model="character.spells[1][0]">
+				<option ng-repeat="spell in spells.wizard[1]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<select name="wizardSpell1-2" ng-model="character.spells[1][1]">
+				<option ng-repeat="spell in spells.wizard[1]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<select name="wizardSpell1-3" ng-model="character.spells[1][2]">
+				<option ng-repeat="spell in spells.wizard[1]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<select name="wizardSpell1-4" ng-model="character.spells[1][3]">
+				<option ng-repeat="spell in spells.wizard[1]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<select name="wizardSpell1-5" ng-model="character.spells[1][4]">
+				<option ng-repeat="spell in spells.wizard[1]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<select name="wizardSpell1-6" ng-model="character.spells[1][5]">
+				<option ng-repeat="spell in spells.wizard[1]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<p>Level One</p>
+			<p>Wizard Spells</p>
+		</div>
+		<div class="col-md-4 sheetBox" ng-show="isHighElf()">
+			<select name="highElfCantrip1" ng-model="character.spells[0][5]">
+				<option ng-repeat="spell in spells.wizard[0]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<p>High Elf Wizard Spell</p>
+		</div>
+		<div class="col-md-4 sheetBox" ng-show="isCleric()">
+			<select name="clericCantrip1" ng-model="character.spells[0][0]">
+				<option ng-repeat="spell in spells.cleric[0]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<select name="clericCantrip2" ng-model="character.spells[0][1]">
+				<option ng-repeat="spell in spells.cleric[0]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<select name="clericCantrip3" ng-model="character.spells[0][2]">
+				<option ng-repeat="spell in spells.cleric[0]" value="{{spell}}">{{spell}}<option>
+			</select>
+			<p>Cantrips</p>
+
+			<p>First level spells are prepared each day.</p>
+			<p>Cleric Spells</p>
+		</div>
+		<button class="btn btn-lg btn-warning" ng-show="isPlayer()" ng-click="updateCharacter()">SAVE!</button>
+		<button class="btn btn-lg btn-warning" ng-show="isPlayer()" ng-click="deleteCharacter()">Delete</button>
+	</div>
 </div>

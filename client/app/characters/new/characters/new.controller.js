@@ -1465,7 +1465,11 @@ angular.module('5ePcApp')
   });
 
 angular.module('5ePcApp').factory('Character', function($resource) {
-    return $resource('/api/characters/:id');
+    return $resource('/api/characters/:id', {id: '@_id'}, {
+        update: {
+            method: 'PUT'
+        }
+    });
 
 });
 
